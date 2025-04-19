@@ -85,7 +85,7 @@ def load_resources():
 
 @app.post("/search")
 def search(request: SearchRequest):
-    question_embedding = get_embeddings([request.query]).cpu().detach().numpy()
+    question_embedding = get_embeddings(request.query, tokenizer, model).cpu().detach().numpy()
     
     scores, samples = all_dataset.get_nearest_examples(
     "embeddings", question_embedding, k=request.top_k
