@@ -43,11 +43,12 @@ class SearchRequest(BaseModel):
 all_dataset = None
 model = None
 tokenizer = None
+all_index_faiss = None
 
 @app.on_event("startup")
 def load_resources():
     # global model, index, data, claims
-    global device, all_dataset, model, tokenizer
+    global device, all_dataset, model, tokenizer, all_index_faiss
 
     #====
     #  Load data
@@ -73,7 +74,11 @@ def load_resources():
     #====
     #  Add FAISS index
     #====
-    all_dataset.add_faiss_index(column="embeddings")
+    # get the stored embeddings 
+    all_emds = np.array(all_dataset['embeddings'])
+    # add faiss index
+    all_index_faiss = faiss.IndexFlatL2(all_emds.shape[1]) 
+    all_index_faiss.add(all_emds)
     
     #====
     #  Load model
@@ -86,22 +91,16 @@ def load_resources():
 @app.post("/search")
 def search(request: SearchRequest):
     question_embedding = get_embeddings(request.query, tokenizer, model).cpu().detach().numpy()
-    
-    scores, samples = all_dataset.get_nearest_examples(
-    "embeddings", question_embedding, k=request.top_k
-    )
 
-    samples_df = pd.DataFrame.from_dict(samples)
-    samples_df["scores"] = scores
-    samples_df.sort_values("scores", ascending=False, inplace=True)
+    [distance_res], [index_res] = all_index_faiss.search(question_embedding, request.top_k)
 
     results = []
-    for _, row in samples_df.iterrows():
+    for i, d in zip(index_res, distance_res):
         results.append(
             {
-                "TITLE": row.title,
-                "SCORE": row.scores,
-                "CLAIMS": row.claims
+                "TITLE": all_dataset['title'][i],
+                "DISTANCE": d,
+                "CLAIMS": all_dataset['claims'][i]
             }
         )
 
