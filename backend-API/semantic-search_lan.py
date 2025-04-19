@@ -26,11 +26,15 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
     model_output = imp_model(**encoded_input)
     return cls_pooling(model_output)
 
+#===
 # Environemnt setup
+#===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 device = torch.device("cpu")
 
-# FASTAPI app
+#===
+# # FASTAPI object, input type, etc.
+#===
 app = FastAPI()
 
 # Define input model for search
@@ -50,6 +54,7 @@ def load_resources():
     # global model, index, data, claims
     global device, all_dataset, model, tokenizer, all_index_faiss
 
+    device = "cpu"
     #====
     #  Load data
     #====
@@ -62,7 +67,6 @@ def load_resources():
                 dir_names.append(dirname)
 
     # load the data into program
-    num_dat = len(dir_names)
     load_all_dataset = []
     for idx, names in enumerate(dir_names):
         dataset_name = PATH + '/'+ names
@@ -89,22 +93,26 @@ def load_resources():
     model = AutoModel.from_pretrained(model_ckpt)
 
 @app.post("/search")
-def search(request: SearchRequest):
-    question_embedding = get_embeddings(request.query, tokenizer, model).cpu().detach().numpy()
+async def search(request: SearchRequest):
+    question_embedding = get_embeddings([request.query], tokenizer, model).cpu().detach().numpy()
 
     [distance_res], [index_res] = all_index_faiss.search(question_embedding, request.top_k)
 
     results = []
     for i, d in zip(index_res, distance_res):
+        # results.append(i)
         results.append(
             {
                 "TITLE": all_dataset['title'][i],
-                "DISTANCE": d,
+                "DISTANCE": float(d),
                 "CLAIMS": all_dataset['claims'][i]
             }
         )
 
-    return {"query": request.query, "results": results}
+    # NOTE:
+    # JSON encoder for returned object: https://fastapi.tiangolo.com/advanced/response-directly/
+    # All of the returned objects MUST be converted to known python standard objects.
+    return {"query": request.query, "relevant_docs": results} 
 
 if __name__ == "__main__":
     import uvicorn
