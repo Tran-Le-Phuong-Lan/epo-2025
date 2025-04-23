@@ -100,10 +100,11 @@ def load_resources():
     # Load model for gen ai
     #===
     model_pre_downloaded_path = "C:/Users/20245580/.cache/huggingface/hub/models--MaziyarPanahi--Mistral-7B-Instruct-v0.3-GGUF/snapshots/ce89f595755a4bf2e2e05d155cc43cb847c78978/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf"
-    gen_model = Llama(model_path=model_pre_downloaded_path, n_ctx= 2048*4)
+    gen_model = Llama(model_path=model_pre_downloaded_path, n_ctx= 2048*8)
 
 @app.post("/search")
 async def search(request: SearchRequest):
+    global input_gen_ai
     question_embedding = get_embeddings([request.query], tokenizer, model).cpu().detach().numpy()
 
     [distance_res], [index_res] = all_index_faiss.search(question_embedding, request.top_k)
@@ -131,6 +132,7 @@ async def answer(request: SearchRequest):
 
     context = ""
     for idx in range(len(input_gen_ai["relevant_docs"])):
+        print(idx)
         temp = f"""
         Title: {input_gen_ai["relevant_docs"][idx]["TITLE"]}
         Context: {input_gen_ai["relevant_docs"][idx]["CLAIMS"]}
@@ -138,12 +140,10 @@ async def answer(request: SearchRequest):
         context = context + temp
         
 
-    retrieved_chunk = context
-
     rag_prompt = f"""
     Context information is below.
     ---------------------
-    {retrieved_chunk}
+    {context}
     ---------------------
     Given the context information and not prior knowledge, answer the query.
     Query: {request.query}
@@ -162,14 +162,12 @@ async def answer(request: SearchRequest):
     reply_prompt = f"""
     Context information is below.
     ---------------------
-    {retrieved_chunk}
+    {context}
     ---------------------
     Given the context information and not prior knowledge, answer the query.
     Query: {request.query}
     Answer: {output["choices"][0]["text"].strip()}
     """
-    # output_text = output["choices"][0]["text"].strip()
-
 
     return {"reply": reply_prompt}
 
