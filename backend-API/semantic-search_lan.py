@@ -9,6 +9,8 @@ from datasets import load_from_disk
 from datasets import concatenate_datasets
 
 from transformers import AutoTokenizer, AutoModel
+from llama_cpp import Llama
+
 import torch
 import os
 
@@ -48,6 +50,8 @@ all_dataset = None
 model = None
 tokenizer = None
 all_index_faiss = None
+input_gen_ai = None
+gen_model = None
 
 @app.on_event("startup")
 def load_resources():
@@ -85,12 +89,18 @@ def load_resources():
     all_index_faiss.add(all_emds)
     
     #====
-    #  Load model
+    #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
     model_ckpt = "../current_batch" 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
+
+    #===
+    # Load model for gen ai
+    #===
+    model_pre_downloaded_path = "C:/Users/20245580/.cache/huggingface/hub/models--MaziyarPanahi--Mistral-7B-Instruct-v0.3-GGUF/snapshots/ce89f595755a4bf2e2e05d155cc43cb847c78978/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf"
+    gen_model = Llama(model_path=model_pre_downloaded_path, n_ctx= 2048*4)
 
 @app.post("/search")
 async def search(request: SearchRequest):
@@ -109,10 +119,59 @@ async def search(request: SearchRequest):
             }
         )
 
+    input_gen_ai = {"query": request.query, "relevant_docs": results} 
     # NOTE:
     # JSON encoder for returned object: https://fastapi.tiangolo.com/advanced/response-directly/
     # All of the returned objects MUST be converted to known python standard objects.
-    return {"query": request.query, "relevant_docs": results} 
+    return input_gen_ai 
+
+@app.get("/answer")
+async def answer(request: SearchRequest):
+    global input_gen_ai, llm
+
+    context = ""
+    for idx in range(len(input_gen_ai["relevant_docs"])):
+        temp = f"""
+        Title: {input_gen_ai["relevant_docs"][idx]["TITLE"]}
+        Context: {input_gen_ai["relevant_docs"][idx]["CLAIMS"]}
+        """
+        context = context + temp
+        
+
+    retrieved_chunk = context
+
+    rag_prompt = f"""
+    Context information is below.
+    ---------------------
+    {retrieved_chunk}
+    ---------------------
+    Given the context information and not prior knowledge, answer the query.
+    Query: {request.query}
+    Answer:
+    """
+    
+    output = gen_model(
+        rag_prompt,
+        max_tokens=512,
+        temperature=1,
+        top_p=0.95,
+        echo=False,
+        stop=["#"],
+    )
+    
+    reply_prompt = f"""
+    Context information is below.
+    ---------------------
+    {retrieved_chunk}
+    ---------------------
+    Given the context information and not prior knowledge, answer the query.
+    Query: {request.query}
+    Answer: {output["choices"][0]["text"].strip()}
+    """
+    output_text = output["choices"][0]["text"].strip()
+
+
+    return {"reply": reply_prompt}
 
 if __name__ == "__main__":
     import uvicorn
