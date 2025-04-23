@@ -56,7 +56,7 @@ gen_model = None
 @app.on_event("startup")
 def load_resources():
     # global model, index, data, claims
-    global device, all_dataset, model, tokenizer, all_index_faiss
+    global device, all_dataset, model, tokenizer, all_index_faiss, gen_model
 
     device = "cpu"
     #====
@@ -125,9 +125,9 @@ async def search(request: SearchRequest):
     # All of the returned objects MUST be converted to known python standard objects.
     return input_gen_ai 
 
-@app.get("/answer")
+@app.post("/answer")
 async def answer(request: SearchRequest):
-    global input_gen_ai, llm
+    global input_gen_ai, gen_model
 
     context = ""
     for idx in range(len(input_gen_ai["relevant_docs"])):
@@ -168,7 +168,7 @@ async def answer(request: SearchRequest):
     Query: {request.query}
     Answer: {output["choices"][0]["text"].strip()}
     """
-    output_text = output["choices"][0]["text"].strip()
+    # output_text = output["choices"][0]["text"].strip()
 
 
     return {"reply": reply_prompt}
