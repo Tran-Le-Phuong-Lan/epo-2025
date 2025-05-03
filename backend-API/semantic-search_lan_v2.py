@@ -46,18 +46,16 @@ class SearchRequest(BaseModel):
 
 
 # Global variables
-all_dataset = None
 model = None
 tokenizer = None
-all_index_faiss = None
 input_gen_ai = None
 gen_model = None
-db_name = 'G:/PhD/EPO2025/SQLite_Tutorial/epo.db'
+db_name = './database/epo.db'
 
 @app.on_event("startup")
 def load_resources():
     # global model, index, data, claims
-    global device, all_dataset, model, tokenizer, all_index_faiss, gen_model
+    global device, model, tokenizer, gen_model
 
     device = "cpu"
     
