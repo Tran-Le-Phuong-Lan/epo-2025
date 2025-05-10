@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 import pandas as pd
@@ -13,6 +13,8 @@ from llama_cpp import Llama
 
 import torch
 import os
+
+import requests
 
 #===
 # Supporting Functions
@@ -63,14 +65,14 @@ def load_resources():
     #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
-    model_ckpt = "G:/PhD/EPO2025/Shared/current_batch" 
+    model_ckpt = "./current_batch" 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
 
     #===
     # Load model for gen ai
     #===
-    model_pre_downloaded_path = "G:/PhD/EPO2025/Shared/models--MaziyarPanahi--Mistral-7B-Instruct-v0.3-GGUF/snapshots/ce89f595755a4bf2e2e05d155cc43cb847c78978/Mistral-7B-Instruct-v0.3.Q4_K_M-002.gguf"
+    model_pre_downloaded_path = "Mistral-7B-Instruct-v0.3.Q4_K_M-002.gguf"
     gen_model = Llama(model_path=model_pre_downloaded_path, n_ctx= 2048*8)
 
 @app.post("/search")
@@ -182,6 +184,322 @@ async def answer(request: SearchRequest):
     """
 
     return {"reply": reply_prompt}
+
+##### New requests
+
+MISTRAL_API_KEY = "mockkey1234"
+
+# Required for Dashboard - SDG Patent Distribution
+fake_sdg_dg = {
+            1 : {
+            "sdg_name": "No Poverty",
+             "count" : 245 },
+            2 : {
+            "sdg_name": "Climate Action",
+             "count" : 384 
+            },
+            3 : {
+            "sdg_description": "Quality Education",
+             "count" : 178 
+            }
+}
+
+# Required for Dashboard - Patent by country map
+mock_sdg_by_country_db ={
+    1 : {
+        "countryCode": "USA",
+        "total": 3245,
+        "growth": 12.5,
+        "sdgs": { "1": 187, "2": 224, "3": 398, "6": 256, "7": 587, "9": 476, "11": 298, "12": 267, "13": 552 },
+    },
+    2 : {
+        "countryCode": "CHN",
+        "total": 2876,
+        "growth": 18.7,
+        "sdgs": { "1": 154, "2": 187, "3": 343, "6": 198, "7": 498, "9": 432, "11": 276, "12": 245, "13": 543 },
+    },
+    3 : {
+        "countryCode": "JPN",
+        "total": 1923,
+        "growth": 8.3,
+        "sdgs": { "1": 167, "2": 198, "3": 356, "6": 187, "7": 376, "9": 343, "11": 187, "12": 156, "13": 253 },
+    }
+}
+
+mock_sdg_rag_insights_db = {
+    1 : {
+    "type": "key",
+    "title": "Key Insight",
+    "content":
+      "Cross-analysis of patent data reveals that technologies addressing multiple SDGs simultaneously show 2.7x higher adoption rates. Energy storage technologies in particular appear in 4 different SDG categories, indicating their foundational role in sustainable development.",
+  },
+  2 : {
+    "type": "trend",
+    "title": "Emerging Trend",
+    "content":
+      "Patent data indicates a significant shift toward biomimetic approaches across multiple technology categories. These nature-inspired designs show a 43% annual growth rate and appear particularly prominent in water filtration and materials science patents.",
+  },
+  3 : {
+    "type": "gap",
+    "title": "Gap Analysis",
+    "content":
+      "Despite strong growth in clean energy patents, there is a notable gap in technologies addressing the integration of these solutions in developing regions. Only 12% of patents explicitly address deployment challenges in resource-constrained environments.",
+  }
+}
+
+mock_sdg_rag_insights_by_sdg_id_db = {
+    1: [
+    {
+      "id": "1",
+      "type": "key",
+      "title": "Key Insight",
+      "content":
+        "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
+      "sdgId": "1",
+      "icon": "Zap",
+    },
+  ],
+  6: [
+    {
+      "id": "1",
+      "type": "key",
+      "title": "Key Insight",
+      "content":
+        "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
+      "sdgId": "6",
+      "icon": "Zap",
+    },
+  ],
+  7: [
+    {
+      "id": "1",
+      "type": "key",
+      "title": "Key Insight",
+      "content":
+        "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
+      "sdgId": "7",
+      "icon": "Zap",
+    },
+  ],
+  13: [
+    {
+      "id": "1",
+      "type": "key",
+      "title": "Key Insight",
+      "content":
+        "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
+      "sdgId": "13",
+      "icon": "Zap",
+    },
+  ],
+}
+
+mock_sdg_by_id_with_technologies = {
+    7: {
+  "Solar Photovoltaics": [
+    {
+      "id": "US20250123456",
+      "title": "Perovskite-Silicon Tandem Solar Cell with Enhanced Stability",
+      "abstract":
+        "A novel perovskite-silicon tandem solar cell architecture with improved stability and efficiency exceeding 30%. The invention includes a modified interfacial layer that prevents ion migration and enhances long-term performance under real-world conditions.",
+      "date": "2025-03-15",
+      "organization": "SunTech Innovations",
+      "relevance": 92,
+      "ragSummary":
+        "This patent directly addresses SDG 7.2 by significantly improving solar cell efficiency and stability, which are key barriers to widespread adoption. The technology could reduce solar energy costs by approximately 35% when manufactured at scale.",
+      "url": "#",
+    },
+    {
+      "id": "US20250123789",
+      "title": "Self-Healing Photovoltaic Module with Integrated Diagnostics",
+      "abstract":
+        "A self-healing photovoltaic module that can detect and repair microcracks and connection failures autonomously. The system includes integrated diagnostic sensors and a novel polymer-based healing mechanism that extends module lifetime by up to 50%.",
+      "date": "2025-02-28",
+      "organization": "RenewCorp",
+      "relevance": 87,
+      "ragSummary":
+        "By extending solar panel lifetime and reducing maintenance costs, this innovation addresses SDG 7.3 (energy efficiency) and 12.5 (waste reduction). The self-healing capability could prevent up to 30% of premature panel replacements.",
+      "url": "#",
+    },
+    {
+      "id": "EP20250056789",
+      "title": "Transparent Solar Cells for Building-Integrated Photovoltaics",
+      "abstract":
+        "A transparent solar cell technology with selective harvesting of ultraviolet and infrared light while maintaining visible transparency. The invention enables windows and building facades to generate electricity without compromising aesthetics or natural lighting.",
+      "date": "2025-01-10",
+      "organization": "GlassPower Systems",
+      "relevance": 85,
+      "ragSummary":
+        "This technology enables integration of solar power generation into urban environments (SDG 11.6) while supporting renewable energy adoption (SDG 7.2). The dual-use nature of the technology improves land-use efficiency in densely populated areas.",
+      "url": "#",
+    },
+  ],
+  "Wind Energy": [
+    {
+      "id": "US20250187654",
+      "title": "Floating Offshore Wind Turbine with Dynamic Stabilization",
+      "abstract":
+        "A floating offshore wind turbine platform with an active stabilization system that adapts to changing wave and wind conditions. The design enables deployment in deep water locations with extreme weather conditions while maintaining optimal energy production.",
+      "date": "2025-04-02",
+      "organization": "OceanWind Technologies",
+      "relevance": 94,
+      "ragSummary":
+        "This patent directly supports SDG 7.2 by expanding viable locations for offshore wind deployment. The technology could unlock an estimated 1,700 GW of additional offshore wind potential in regions previously considered unsuitable.",
+      "url": "#",
+    },
+    {
+      "id": "EP20250078912",
+      "title": "Bird-Safe Wind Turbine with Acoustic Deterrent System",
+      "abstract":
+        "A wind turbine design incorporating an advanced acoustic deterrent system that reduces bird and bat collisions by over 90%. The system uses targeted sound frequencies and machine learning to identify and deter approaching wildlife without affecting energy production.",
+      "date": "2025-03-18",
+      "organization": "EcoTurbine Ltd",
+      "relevance": 88,
+      "ragSummary":
+        "This innovation addresses a key environmental concern with wind energy (SDG 15.5 - biodiversity) while supporting renewable energy expansion (SDG 7.2). The technology could significantly reduce opposition to wind farm development in sensitive ecological areas.",
+      "url": "#",
+    },
+  ],
+  "Water Filtration": [
+    {
+      "id": "US20250134567",
+      "title": "Biomimetic Membrane for Low-Energy Water Purification",
+      "abstract":
+        "A biomimetic membrane inspired by natural water channels in cell membranes, enabling highly efficient water purification with minimal energy input. The technology removes contaminants including microplastics, heavy metals, and organic pollutants while consuming 80% less energy than conventional reverse osmosis.",
+      "date": "2025-02-12",
+      "organization": "AquaPure Solutions",
+      "relevance": 96,
+      "ragSummary":
+        "This patent directly addresses SDG 6.1 (safe drinking water) and 6.4 (water-use efficiency) by dramatically reducing the energy required for water treatment. The technology is particularly relevant for water-stressed regions with limited energy resources.",
+      "url": "#",
+    },
+  ],
+  "Carbon Capture": [
+    {
+      "id": "US20250156789",
+      "title": "Direct Air Capture System with Enhanced Sorbent Regeneration",
+      "abstract":
+        "A direct air capture system utilizing a novel sorbent material and regeneration process that reduces energy requirements by 65% compared to conventional approaches. The system can be powered entirely by renewable energy and produces concentrated CO2 suitable for utilization or storage.",
+      "date": "2025-01-25",
+      "organization": "CarbonTech Solutions",
+      "relevance": 95,
+      "ragSummary":
+        "This technology directly supports SDG 13 (Climate Action) by enabling cost-effective negative emissions. The reduced energy requirement addresses a key barrier to DAC deployment at scale, making it viable for meeting climate targets in hard-to-abate sectors.",
+      "url": "#",
+    },
+  ],
+  "Energy Storage": [
+    {
+      "id": "US20250112345",
+      "title": "Solid-State Battery with Silicon-Carbon Composite Anode",
+      "abstract":
+        "A solid-state battery design incorporating a silicon-carbon composite anode and a novel solid electrolyte interface that enables fast charging, high energy density, and enhanced safety. The battery maintains 90% capacity after 2000 cycles and eliminates the risk of thermal runaway.",
+      "date": "2025-03-30",
+      "organization": "EnerStore Inc",
+      "relevance": 93,
+      "ragSummary":
+        "This innovation addresses key barriers to renewable energy integration (SDG 7.2) by providing safe, high-density energy storage. The extended cycle life also supports SDG 12 (responsible consumption) by reducing battery replacement frequency and associated resource use.",
+      "url": "#",
+    },
+  ],
+}
+}
+########## DASHBOARD ##########
+
+# For SDG Patent Distribution - Dashboard
+@app.get("/sdg-patents-distribution")
+async def get_all_sdg_patents_distribution():
+
+    return fake_sdg_dg
+
+# For SDG Patent Distribution by SDG Number - Dashboard
+@app.get("/sdg-patents-distribution/{sdg_id}")
+async def get_sdg_patent_distribution_by_id(sdg_id : int | None = None):
+
+    return fake_sdg_dg.get(sdg_id)
+
+# For SDG Distribution by country Map - Dashboard
+@app.get("/sdg-by-country/")
+async def get_patents_distribution_by_country():
+
+    return mock_sdg_by_country_db
+
+# For RAG Insights accross all SDGs - Dashboard
+# Here we can set up a function to run RAG insights on all Patents/SDGs once per day/week, since it's a compute heavy process
+@app.get("/sdg-rag-insights/")
+async def get_all_sdg_rag_insights():
+
+    return mock_sdg_rag_insights_db
+
+# For RAG Insights for specific SDG by ID - Dashboard
+# Setup function to pre-compute RAG once per day on a single SDG category
+@app.get("/sdg-rag-insights-by-sdg-id/{sdg_id}")
+async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
+
+    return mock_sdg_rag_insights_by_sdg_id_db.get(sdg_id)
+
+
+##########    SDG    ##########
+
+# For SDG by ID and technologies 
+# Get all technologies for a selected SDG
+# In this request sdg_id is required
+# tech parameter is optional, and will return the technologies associated with a specific SDG_id by name...
+# ... e.g. Get all associated technologies for sdg_id = 7 and tech ="Solar Photovoltaics"
+@app.get("/sdg-by-id-and-technologies/{sdg_id}/")
+async def get_sdg_related_tech_by_sdg_id(sdg_id : int | None = None, tech : str | None = None):
+
+    results = []
+    
+    if sdg_id not in mock_sdg_by_id_with_technologies:
+        raise HTTPException(status_code=404, detail="SDG Not Found")
+    
+    sdg_data = mock_sdg_by_id_with_technologies.get(sdg_id)
+    results = sdg_data
+
+    if tech:
+        tech_data = sdg_data.get(tech)
+        if not tech_data:
+            raise HTTPException(status_code=404, detail="Technology not found under this SDG")
+        results = tech_data
+
+    return results
+    
+
+
+
+##########    Chatbot    ##########
+@app.post("/send-message-bot/")
+async def send_message_bot(request : str):
+    
+    # Format payload for Mistral API
+    mistral_url = "https://api.mistral.ai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {MISTRAL_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": "mistral-tiny",  # Or mistral-small, mistral-medium
+        "messages": [
+            {"role": "user", "content": request.user_message}
+        ],
+        "temperature": 0.7,
+        "max_tokens": 200
+    }
+
+    response = requests.post(mistral_url, headers=headers, json=payload)
+
+    if response.status_code == 200:
+        result = response.json()
+        return {"reply": result["choices"][0]["message"]["content"]}
+    else:
+        return {
+            "error": f"Mistral API failed",
+            "status_code": response.status_code,
+            "details": response.text
+        }
+
+#####
 
 if __name__ == "__main__":
     import uvicorn
