@@ -58,3 +58,68 @@ Before running, must modify the path variabls in `semantic-search_lan_v2.py`:
         `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
 
         `model_pre_downloaded_path` modified to point to file **Mistral-7B-Instruct-v0.3.Q4_K_M.gguf** downloaded from **mistral_7b_instruct_v0.3_gguf** link
+
+# How to run the file `semantic-search_lan_v3.py`?
+
+## File description
+
+1. Compared to version 2, version 1, this version uses the online/remote Mistral model through mistralai API.
+
+## Install the followings
+
+1. ! pip install transformers torch "fastapi[standard]" sqlite-vec
+
+## SQLite database
+
+2. the `sqlite` database is `./database/epo.db`
+
+## Download models for local usage
+
+3. Download model for generating embeddings [arnab_model](https://drive.google.com/drive/folders/1YvhT3xINPBepMGUsw5ydrvzM4D6KgIMA?usp=drive_link) 
+
+
+## Run `semantic-search_lan_v3.py`
+
+5. **ATTENTION**
+
+Before running, must modify the path variabls in `semantic-search_lan_v3.py`:
+        - 1. **Must Delete** the line `os.environ["SSL_CERT_FILE"] ...` (at the beginning of the file)
+
+        - 2. `db_name` points to the `sqlite` database `./database/epo.db`
+        
+        - 3. `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
+
+# How to run the file `semantic-search_lan_v4.py`?
+
+## File description
+
+1. Remote gen ai as version 3
+
+2. implementing real function for the front-end api
+
+3. Using a semi final `SQLite` database specified in the section `SQLite database` below
+
+## Install the followings
+
+1. ! pip install transformers torch "fastapi[standard]" sqlite-vec
+
+## SQLite database
+
+2. the `sqlite` database is [semi_final_epo_database_link](https://drive.google.com/file/d/14ZN8XBcyK8DaiwXS-fMcZeHdypEnmL7t/view?usp=drive_link)
+
+## Download models for local usage
+
+3. Download model for generating embeddings [arnab_model](https://drive.google.com/drive/folders/1YvhT3xINPBepMGUsw5ydrvzM4D6KgIMA?usp=drive_link) 
+
+
+## Run `semantic-search_lan_v4.py`
+
+5. **ATTENTION**
+
+Before running, must modify the path variabls in `semantic-search_lan_v4.py`:
+
+        - 1. **Must Delete** the line `os.environ["SSL_CERT_FILE"] ...` (at the beginning of the file)
+
+        - 2. `db_name` points to the `sqlite` database [semi_final_epo_database_link](https://drive.google.com/file/d/14ZN8XBcyK8DaiwXS-fMcZeHdypEnmL7t/view?usp=drive_link) (downloaded from the above section `SQLite database`)
+        
+        - 3. `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
