@@ -231,26 +231,26 @@ mock_sdg_by_country_db ={
     }
 }
 
-mock_sdg_rag_insights_db = {
-    1 : {
-    "type": "key",
-    "title": "Key Insight",
-    "content":
-      "Cross-analysis of patent data reveals that technologies addressing multiple SDGs simultaneously show 2.7x higher adoption rates. Energy storage technologies in particular appear in 4 different SDG categories, indicating their foundational role in sustainable development.",
-  },
-  2 : {
-    "type": "trend",
-    "title": "Emerging Trend",
-    "content":
-      "Patent data indicates a significant shift toward biomimetic approaches across multiple technology categories. These nature-inspired designs show a 43% annual growth rate and appear particularly prominent in water filtration and materials science patents.",
-  },
-  3 : {
-    "type": "gap",
-    "title": "Gap Analysis",
-    "content":
-      "Despite strong growth in clean energy patents, there is a notable gap in technologies addressing the integration of these solutions in developing regions. Only 12% of patents explicitly address deployment challenges in resource-constrained environments.",
-  }
-}
+# mock_sdg_rag_insights_db = {
+#     1 : {
+#     "type": "key",
+#     "title": "Key Insight",
+#     "content":
+#       "Cross-analysis of patent data reveals that technologies addressing multiple SDGs simultaneously show 2.7x higher adoption rates. Energy storage technologies in particular appear in 4 different SDG categories, indicating their foundational role in sustainable development.",
+#   },
+#   2 : {
+#     "type": "trend",
+#     "title": "Emerging Trend",
+#     "content":
+#       "Patent data indicates a significant shift toward biomimetic approaches across multiple technology categories. These nature-inspired designs show a 43% annual growth rate and appear particularly prominent in water filtration and materials science patents.",
+#   },
+#   3 : {
+#     "type": "gap",
+#     "title": "Gap Analysis",
+#     "content":
+#       "Despite strong growth in clean energy patents, there is a notable gap in technologies addressing the integration of these solutions in developing regions. Only 12% of patents explicitly address deployment challenges in resource-constrained environments.",
+#   }
+# }
 
 mock_sdg_rag_insights_by_sdg_id_db = {
     1: [
@@ -427,7 +427,8 @@ def find_tech(x, y):
         y = y.split(';')
         # print(y)
         for idx, elem in enumerate(y):
-                # print(elem, x)
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
                 # print(type(x), type(elem))
                 if x == elem:
                         # print("find")
@@ -438,18 +439,23 @@ def find_tech(x, y):
 
 # Global variables
 sdg_label_name_mapping ={
-    '1' : 'sdg name for label 1',
-    '2' : 'sdg name for label 2',
-    '3' : 'sdg name for label 3',
-    '4' : 'sdg name for label 4',
-    '5' : 'sdg name for label 5',
-    '6' : 'sdg name for label 6',
-    '7' : 'sdg name for label 7',
-    '8' : 'sdg name for label 8',
-    '9' : 'sdg name for label 8',
-    '10' : 'sdg name for label 10',
-    '11' : 'sdg name for label 11',
-    '12' : 'sdg name for label 12'
+    '1' : 'No Poverty',
+    '2' : 'Zero Hunger',
+    '3' : 'Good Health and Well-being',
+    '4' : 'Quality Education',
+    '5' : 'Gender Equality',
+    '6' : 'Clean Water and Sanitation',
+    '7' : 'Affordable and Clean Energy',
+    '8' : 'Decent Work and Economic Growth',
+    '9' : 'Industry, Innovation, and Infrastructure',
+    '10' : 'Reduced Inequalities',
+    '11' : 'Sustainable Cities and Communities',
+    '12' : 'Responsible Consumption and Production',
+    '13' : 'Climate Action',
+    '14' : 'Life Below Water',
+    '15' : 'Life on Land',
+    '16' : 'Peace, Justice, and Strong Institutions',
+    '17' : 'Partnerships for the Goals'
 }
 
 # For SDG Patent Distribution - Dashboard
@@ -458,7 +464,7 @@ fake_sdg_dg = None
 async def get_all_sdg_patents_distribution():
     global sdg_label_name_mapping, db_name, fake_sdg_dg
 
-    total_num_sdg = 12
+    total_num_sdg = 17
     fake_sdg_dg = {}
     try:
         with sqlite3.connect(db_name) as conn:
@@ -472,13 +478,13 @@ async def get_all_sdg_patents_distribution():
             conn.enable_load_extension(True) # end loading extensions
 
             conn.create_function('find_smth', 2, find_sdg)
-
+            
+            cur = conn.cursor()
             for sdg_num in range(1, total_num_sdg+1):
               sql_cn_meta = f"""
                   SELECT COUNT(*) FROM meta_data_embeddings
                   WHERE find_smth('{str(int(sdg_num))}', sdg_labels)
               """
-              cur = conn.cursor()
               res = cur.execute(sql_cn_meta)
               len_sdg = res.fetchall()[0][0]
               print(f"{sdg_num} has {len_sdg} rows in meta table")
@@ -504,15 +510,128 @@ async def get_patents_distribution_by_country():
 
 # For RAG Insights accross all SDGs - Dashboard
 # Here we can set up a function to run RAG insights on all Patents/SDGs once per day/week, since it's a compute heavy process
+# mock_sdg_rag_insights_db = {
+#     1 : {
+#     "type": "key",
+#     "title": "Key Insight",
+#     "content":
+#       "Cross-analysis of patent data reveals that technologies addressing multiple SDGs simultaneously show 2.7x higher adoption rates. Energy storage technologies in particular appear in 4 different SDG categories, indicating their foundational role in sustainable development.",
+#   },
+#   2 : {
+#     "type": "trend",
+#     "title": "Emerging Trend",
+#     "content":
+#       "Patent data indicates a significant shift toward biomimetic approaches across multiple technology categories. These nature-inspired designs show a 43% annual growth rate and appear particularly prominent in water filtration and materials science patents.",
+#   },
+#   3 : {
+#     "type": "gap",
+#     "title": "Gap Analysis",
+#     "content":
+#       "Despite strong growth in clean energy patents, there is a notable gap in technologies addressing the integration of these solutions in developing regions. Only 12% of patents explicitly address deployment challenges in resource-constrained environments.",
+#   }
+# }
 @app.get("/sdg-rag-insights/")
 async def get_all_sdg_rag_insights():
+    global fake_sdg_dg, client, mistral_model
 
+    statistic_context = ""
+    for sdg_num, val in fake_sdg_dg.items():
+        # print(sdg_num, val)
+        temp = f"""
+          There are {val['count']} patents in the database related to Sustainable Development Goal: {val['sdg_name']}
+          """
+        statistic_context = statistic_context + temp
+
+    # KEY INSIGHT
+    rag_prompt = f"""
+    The statistics of patent database is given as followings:
+    ---------------------
+    {statistic_context}
+    ---------------------
+    Given the statistic distribution of the database categorized by 17 Sustainable Development Goals, 
+    please, give the essential insight of how the patent database related to the Sustainable Development Goal defined by the United Nations:
+    """
+
+    chat_response = client.chat.complete(
+    model= mistral_model,
+    messages = [
+            {
+                "role": "user",
+                "content": rag_prompt,
+            },
+        ]
+    )
+    key_insight = chat_response.choices[0].message.content
+    # print(f"Key insight: {key_insight}\n{'='*10}\n")
+
+    # EMERGING TREND
+    rag_prompt_trend = f"""
+    The statistics of patent database is given as followings:
+    ---------------------
+    {statistic_context}
+    ---------------------
+    Given the statistic distribution of the database categorized by 17 Sustainable Development Goals, 
+    please, give the emerging trend of 17 Sustainable Development Goals defined by the United Nations within the patent database :
+    """
+
+    chat_response = client.chat.complete(
+    model= mistral_model,
+    messages = [
+            {
+                "role": "user",
+                "content": rag_prompt_trend,
+            },
+        ]
+    )
+    emerge_trend = chat_response.choices[0].message.content
+    # print(f"Key insight: {emerge_trend}\n{'='*10}\n")
+
+    # GAP ANALYSIS
+    rag_prompt_gap = f"""
+    The statistics of patent database is given as followings:
+    ---------------------
+    {statistic_context}
+    ---------------------
+    Given the statistic distribution of the database categorized by 17 Sustainable Development Goals, 
+    please, answer the question: what is the most underated Sustainable Development Goal where not such research has been conducted?
+    """
+
+    chat_response = client.chat.complete(
+    model= mistral_model,
+    messages = [
+            {
+                "role": "user",
+                "content": rag_prompt_gap,
+            },
+        ]
+    )
+    gap_analysis = chat_response.choices[0].message.content
+    # print(f"Key insight: {gap_analysis}\n{'='*10}\n")
+
+    mock_sdg_rag_insights_db = {
+      1 : {
+      "type": "key",
+      "title": "Key Insight",
+      "content":{key_insight},
+      },
+      2 : {
+        "type": "trend",
+        "title": "Emerging Trend",
+        "content":{emerge_trend},
+      },
+      3 : {
+        "type": "gap",
+        "title": "Gap Analysis",
+        "content":{gap_analysis},
+      }
+    }
     return mock_sdg_rag_insights_db
 
 # For RAG Insights for specific SDG by ID - Dashboard
 # Setup function to pre-compute RAG once per day on a single SDG category
 @app.get("/sdg-rag-insights-by-sdg-id/{sdg_id}")
 async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
+    
 
     return mock_sdg_rag_insights_by_sdg_id_db.get(sdg_id)
 
@@ -524,24 +643,121 @@ async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
 # In this request sdg_id is required
 # tech parameter is optional, and will return the technologies associated with a specific SDG_id by name...
 # ... e.g. Get all associated technologies for sdg_id = 7 and tech ="Solar Photovoltaics"
-@app.get("/sdg-by-id-and-technologies/{sdg_id}/")
-async def get_sdg_related_tech_by_sdg_id(sdg_id : int | None = None, tech : str | None = None):
+@app.get("/sdg-by-id-and-technologies/{sdg_id}")
+async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None):
+    global db_name
+    # get (by brute force) all distance related to the sdg label
+    # tech = 'Chemical Processes'
+    print(f"input sdg_id: {sdg_id}")
+    print(f"input tech: {tech}")
+    # print(f"limit search: {limit_search}")
+    defined_question = f"what are the patents related to {sdg_label_name_mapping[str(int(sdg_id))]} and {tech}?" 
+    question_embedding = get_embeddings([defined_question], tokenizer, model).cpu().detach().numpy()
+    try:
+        with sqlite3.connect(db_name) as conn:
 
-    results = []
-    
-    if sdg_id not in mock_sdg_by_id_with_technologies:
-        raise HTTPException(status_code=404, detail="SDG Not Found")
-    
-    sdg_data = mock_sdg_by_id_with_technologies.get(sdg_id)
-    results = sdg_data
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
 
-    if tech:
-        tech_data = sdg_data.get(tech)
-        if not tech_data:
-            raise HTTPException(status_code=404, detail="Technology not found under this SDG")
-        results = tech_data
+            conn.create_function('find_related_sdg', 2, find_sdg)
+            conn.create_function('find_related_tech', 2, find_tech)
 
-    return results
+            cur = conn.cursor()
+
+            # Get total number of data (rows) in the database
+            sql_cn_meta = f"""
+                SELECT COUNT(*) FROM meta_data_embeddings
+            """
+            res = cur.execute(sql_cn_meta)
+            len_embed_table = res.fetchall()[0][0]
+            
+            query = question_embedding.tolist()
+            q_query_distance = conn.execute(
+              f"""
+              SELECT rowid, vec_distance_cosine(embedding, ?) AS score
+              FROM vec_items
+              ORDER BY score ASC
+              LIMIT {str(len_embed_table)}
+              """,
+            [serialize_float32(query[0])],
+            ).fetchall()
+
+            # Get all patent related to the queried sdg_id and tech label
+            meta_query = f"""
+                SELECT
+                        rowid,
+                        pub_num,
+                        sdg_labels
+                FROM meta_data_embeddings
+                WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels)
+                      AND find_related_tech('{tech}', tech_labels);
+            """
+            meta_data_sdg = cur.execute(meta_query).fetchall()
+            # print(len(meta_data_sdg),
+            #       meta_data_sdg[0:20])
+            
+            # Find the sdg_id related patent in the distance query
+            np_q_query_distance = np.array(q_query_distance)
+            np_meta_data_sdg = np.array(meta_data_sdg)
+            # print(np_meta_data_sdg)
+            # print(np.shape(np_meta_data_sdg))
+            np_meta_data_sdg_float = np_meta_data_sdg[:,0].astype(float)
+
+            indices = np.where(np.isin(np_q_query_distance[:,0], np_meta_data_sdg_float))[0]
+
+            limit_search = 5
+            # print(np.shape(np_q_query_distance))
+            q_dis_sdg = np_q_query_distance[indices[0:limit_search], :]
+            # print(q_dis_sdg,
+            #       np.shape(q_dis_sdg))
+            res = {}
+            for idx, elem in enumerate(q_dis_sdg):
+                # print(f"from q_dis_sdg: {str(q_dis_sdg[idx,0])}")
+                # print(f"elem: {str(elem)}")
+                # print(f"elem first: {int(elem[0])}")
+                # print(f"elem second: {float(elem[1])}")
+                meta_query = f"""
+                    SELECT
+                            rowid,
+                            pub_num,
+                            sdg_labels,
+                            title,
+                            claims,
+                            tech_labels
+                    FROM meta_data_embeddings
+                    WHERE rowid == {int(elem[0])}
+                """
+
+                meta_data_sdg_dis = cur.execute(meta_query).fetchall()
+                # print(meta_data_sdg_dis)
+                # print(f"\
+                #       rowid: {meta_data_sdg_dis[0][0]}\n\
+                #       pub_num: {meta_data_sdg_dis[0][1]}\n\
+                #       sdg: {meta_data_sdg_dis[0][2]}\n\
+                #       tech_labels: {meta_data_sdg_dis[0][5]}\n\
+                #       dist: {float(elem[1])}\n\
+                #       title: {meta_data_sdg_dis[0][3]}\n\
+                #       claim: {meta_data_sdg_dis[0][4]}\n\
+                #       ")
+                res.update({
+                     int(idx):{
+                          "pub_num": int(meta_data_sdg_dis[0][1]),
+                          "sdg_id": str(meta_data_sdg_dis[0][2]),
+                          "tech_labels": meta_data_sdg_dis[0][5],
+                          "dist": float(elem[1]),
+                          "title": meta_data_sdg_dis[0][3],
+                          "claim": meta_data_sdg_dis[0][4]
+                     }
+                })
+    except sqlite3.OperationalError as e:
+        print(e)
+
+    return res
     
 
 
