@@ -83,11 +83,12 @@ Before running, must modify the path variabls in `semantic-search_lan_v2.py`:
 5. **ATTENTION**
 
 Before running, must modify the path variabls in `semantic-search_lan_v3.py`:
-        - 1. **Must Delete** the line `os.environ["SSL_CERT_FILE"] ...` (at the beginning of the file)
-
-        - 2. `db_name` points to the `sqlite` database `./database/epo.db`
         
-        - 3. `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
+- 1. **Must Delete** the line `os.environ["SSL_CERT_FILE"] ...` (at the beginning of the file)
+
+- 2. `db_name` points to the `sqlite` database `./database/epo.db`
+        
+- 3. `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
 
 # How to run the file `semantic-search_lan_v4.py`?
 
@@ -118,8 +119,8 @@ Before running, must modify the path variabls in `semantic-search_lan_v3.py`:
 
 Before running, must modify the path variabls in `semantic-search_lan_v4.py`:
 
-        - 1. **Must Delete** the line `os.environ["SSL_CERT_FILE"] ...` (at the beginning of the file)
+- 1. **Must Delete** the line `os.environ["SSL_CERT_FILE"] ...` (at the beginning of the file)
 
-        - 2. `db_name` points to the `sqlite` database [semi_final_epo_database_link](https://drive.google.com/file/d/14ZN8XBcyK8DaiwXS-fMcZeHdypEnmL7t/view?usp=drive_link) (downloaded from the above section `SQLite database`)
+- 2. `db_name` points to the `sqlite` database [semi_final_epo_database_link](https://drive.google.com/file/d/14ZN8XBcyK8DaiwXS-fMcZeHdypEnmL7t/view?usp=drive_link) (downloaded from the above section `SQLite database`)
         
-        - 3. `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
+- 3. `model_ckpt` modified to point to the folder downloaded from **arnab_model** link
