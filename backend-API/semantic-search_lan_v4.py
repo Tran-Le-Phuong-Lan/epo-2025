@@ -33,6 +33,7 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 # Environemnt setup
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cacert.pem"
 device = torch.device("cpu")
 
 #===
@@ -51,7 +52,7 @@ model = None
 tokenizer = None
 input_gen_ai = None
 
-db_name = '/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/backend-API/database/epo.db'
+db_name = 'C:/Users/20245580/Documents/Others/EPO2025/epo_data/embed_trial.db'
 
 client = None
 api_key = "T0sAC36z31CWIsTmUjU8dFN03XXf7OiI" # (Lan) free api key for free MISTRAL AI Model
@@ -68,7 +69,7 @@ def load_resources():
     #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
-    model_ckpt = "/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/current_batch" 
+    model_ckpt = "C:/Users/20245580/Documents/Others/EPO2025/EPO-CodeFest-2025/current_batch" 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
 
@@ -194,19 +195,19 @@ async def answer(request: SearchRequest):
 MISTRAL_API_KEY = "mockkey1234"
 
 # Required for Dashboard - SDG Patent Distribution
-fake_sdg_dg = {
-            1 : {
-            "sdg_name": "No Poverty",
-             "count" : 245 },
-            2 : {
-            "sdg_name": "Climate Action",
-             "count" : 384 
-            },
-            3 : {
-            "sdg_description": "Quality Education",
-             "count" : 178 
-            }
-}
+# fake_sdg_dg = {
+#             1 : {
+#             "sdg_name": "No Poverty",
+#              "count" : 245 },
+#             2 : {
+#             "sdg_name": "Climate Action",
+#              "count" : 384 
+#             },
+#             3 : {
+#             "sdg_description": "Quality Education",
+#              "count" : 178 
+#             }
+# }
 
 # Required for Dashboard - Patent by country map
 mock_sdg_by_country_db ={
@@ -409,17 +410,90 @@ mock_sdg_by_id_with_technologies = {
 }
 }
 ########## DASHBOARD ##########
+# Funcs
+def find_sdg(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(elem, x)
+                # print(type(x), type(elem))
+                if x == elem:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_tech(x, y): 
+        y = y.split(';')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(elem, x)
+                # print(type(x), type(elem))
+                if x == elem:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+
+# Global variables
+sdg_label_name_mapping ={
+    '1' : 'sdg name for label 1',
+    '2' : 'sdg name for label 2',
+    '3' : 'sdg name for label 3',
+    '4' : 'sdg name for label 4',
+    '5' : 'sdg name for label 5',
+    '6' : 'sdg name for label 6',
+    '7' : 'sdg name for label 7',
+    '8' : 'sdg name for label 8',
+    '9' : 'sdg name for label 8',
+    '10' : 'sdg name for label 10',
+    '11' : 'sdg name for label 11',
+    '12' : 'sdg name for label 12'
+}
 
 # For SDG Patent Distribution - Dashboard
+fake_sdg_dg = None
 @app.get("/sdg-patents-distribution")
 async def get_all_sdg_patents_distribution():
+    global sdg_label_name_mapping, db_name, fake_sdg_dg
 
+    total_num_sdg = 12
+    fake_sdg_dg = {}
+    try:
+        with sqlite3.connect(db_name) as conn:
+
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
+
+            conn.create_function('find_smth', 2, find_sdg)
+
+            for sdg_num in range(1, total_num_sdg+1):
+              sql_cn_meta = f"""
+                  SELECT COUNT(*) FROM meta_data_embeddings
+                  WHERE find_smth('{str(int(sdg_num))}', sdg_labels)
+              """
+              cur = conn.cursor()
+              res = cur.execute(sql_cn_meta)
+              len_sdg = res.fetchall()[0][0]
+              print(f"{sdg_num} has {len_sdg} rows in meta table")
+              fake_sdg_dg.update({ int(sdg_num): {
+                                      "sdg_name": sdg_label_name_mapping[str(int(sdg_num))],
+                                      "count" : int(len_sdg) }})
+
+    except sqlite3.OperationalError as e:
+        print(e)
     return fake_sdg_dg
 
 # For SDG Patent Distribution by SDG Number - Dashboard
 @app.get("/sdg-patents-distribution/{sdg_id}")
 async def get_sdg_patent_distribution_by_id(sdg_id : int | None = None):
-
+    global fake_sdg_dg
     return fake_sdg_dg.get(sdg_id)
 
 # For SDG Distribution by country Map - Dashboard
