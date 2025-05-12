@@ -704,56 +704,60 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
             # Find the sdg_id related patent in the distance query
             np_q_query_distance = np.array(q_query_distance)
             np_meta_data_sdg = np.array(meta_data_sdg)
-            # print(np_meta_data_sdg)
-            # print(np.shape(np_meta_data_sdg))
-            np_meta_data_sdg_float = np_meta_data_sdg[:,0].astype(float)
 
-            indices = np.where(np.isin(np_q_query_distance[:,0], np_meta_data_sdg_float))[0]
-
-            limit_search = 5
-            # print(np.shape(np_q_query_distance))
-            q_dis_sdg = np_q_query_distance[indices[0:limit_search], :]
-            # print(q_dis_sdg,
-            #       np.shape(q_dis_sdg))
             res = {}
-            for idx, elem in enumerate(q_dis_sdg):
-                # print(f"from q_dis_sdg: {str(q_dis_sdg[idx,0])}")
-                # print(f"elem: {str(elem)}")
-                # print(f"elem first: {int(elem[0])}")
-                # print(f"elem second: {float(elem[1])}")
-                meta_query = f"""
-                    SELECT
-                            rowid,
-                            pub_num,
-                            sdg_labels,
-                            title,
-                            claims,
-                            tech_labels
-                    FROM meta_data_embeddings
-                    WHERE rowid == {int(elem[0])}
-                """
+            print(f"number of the patents matching the id and tech: {np_meta_data_sdg.size}")
+            if np_meta_data_sdg.size == 0:
+                  print(f"No result for combination of sdg_id: {sdg_id} and tech: {tech}")
+            else:
+                  np_meta_data_sdg_float = np_meta_data_sdg[:,0].astype(float)
 
-                meta_data_sdg_dis = cur.execute(meta_query).fetchall()
-                # print(meta_data_sdg_dis)
-                # print(f"\
-                #       rowid: {meta_data_sdg_dis[0][0]}\n\
-                #       pub_num: {meta_data_sdg_dis[0][1]}\n\
-                #       sdg: {meta_data_sdg_dis[0][2]}\n\
-                #       tech_labels: {meta_data_sdg_dis[0][5]}\n\
-                #       dist: {float(elem[1])}\n\
-                #       title: {meta_data_sdg_dis[0][3]}\n\
-                #       claim: {meta_data_sdg_dis[0][4]}\n\
-                #       ")
-                res.update({
-                     int(idx):{
-                          "pub_num": int(meta_data_sdg_dis[0][1]),
-                          "sdg_id": str(meta_data_sdg_dis[0][2]),
-                          "tech_labels": meta_data_sdg_dis[0][5],
-                          "dist": float(elem[1]),
-                          "title": meta_data_sdg_dis[0][3],
-                          "claim": meta_data_sdg_dis[0][4]
-                     }
-                })
+                  indices = np.where(np.isin(np_q_query_distance[:,0], np_meta_data_sdg_float))[0]
+
+                  limit_search = 5
+                  # print(np.shape(np_q_query_distance))
+                  q_dis_sdg = np_q_query_distance[indices[0:limit_search], :]
+                  # print(q_dis_sdg,
+                  #       np.shape(q_dis_sdg))
+                  
+                  for idx, elem in enumerate(q_dis_sdg):
+                      # print(f"from q_dis_sdg: {str(q_dis_sdg[idx,0])}")
+                      # print(f"elem: {str(elem)}")
+                      # print(f"elem first: {int(elem[0])}")
+                      # print(f"elem second: {float(elem[1])}")
+                      meta_query = f"""
+                          SELECT
+                                  rowid,
+                                  pub_num,
+                                  sdg_labels,
+                                  title,
+                                  claims,
+                                  tech_labels
+                          FROM meta_data_embeddings
+                          WHERE rowid == {int(elem[0])}
+                      """
+
+                      meta_data_sdg_dis = cur.execute(meta_query).fetchall()
+                      # print(meta_data_sdg_dis)
+                      # print(f"\
+                      #       rowid: {meta_data_sdg_dis[0][0]}\n\
+                      #       pub_num: {meta_data_sdg_dis[0][1]}\n\
+                      #       sdg: {meta_data_sdg_dis[0][2]}\n\
+                      #       tech_labels: {meta_data_sdg_dis[0][5]}\n\
+                      #       dist: {float(elem[1])}\n\
+                      #       title: {meta_data_sdg_dis[0][3]}\n\
+                      #       claim: {meta_data_sdg_dis[0][4]}\n\
+                      #       ")
+                      res.update({
+                          int(idx):{
+                                "pub_num": int(meta_data_sdg_dis[0][1]),
+                                "sdg_id": str(meta_data_sdg_dis[0][2]),
+                                "tech_labels": meta_data_sdg_dis[0][5],
+                                "dist": float(elem[1]),
+                                "title": meta_data_sdg_dis[0][3],
+                                "claim": meta_data_sdg_dis[0][4]
+                          }
+                      })
     except sqlite3.OperationalError as e:
         print(e)
 
