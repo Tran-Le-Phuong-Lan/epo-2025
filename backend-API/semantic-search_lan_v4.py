@@ -688,15 +688,25 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
             ).fetchall()
 
             # Get all patent related to the queried sdg_id and tech label
-            meta_query = f"""
-                SELECT
-                        rowid,
-                        pub_num,
-                        sdg_labels
-                FROM meta_data_embeddings
-                WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels)
-                      AND find_related_tech('{tech}', tech_labels);
-            """
+            if tech == None:
+              meta_query = f"""
+                  SELECT
+                          rowid,
+                          pub_num,
+                          sdg_labels
+                  FROM meta_data_embeddings
+                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels);
+              """
+            else:
+              meta_query = f"""
+                  SELECT
+                          rowid,
+                          pub_num,
+                          sdg_labels
+                  FROM meta_data_embeddings
+                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels)
+                        AND find_related_tech('{tech}', tech_labels);
+              """
             meta_data_sdg = cur.execute(meta_query).fetchall()
             # print(len(meta_data_sdg),
             #       meta_data_sdg[0:20])
@@ -706,9 +716,16 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
             np_meta_data_sdg = np.array(meta_data_sdg)
 
             res = {}
-            print(f"number of the patents matching the id and tech: {np_meta_data_sdg.size}")
+            if tech == None:
+                  print(f"number of the patents matching the id: {np_meta_data_sdg.size}")
+            else:
+                  print(f"number of the patents matching the id and tech: {np_meta_data_sdg.size}")
+
             if np_meta_data_sdg.size == 0:
-                  print(f"No result for combination of sdg_id: {sdg_id} and tech: {tech}")
+                  if tech != None:
+                      print(f"No result for combination of sdg_id: {sdg_id} and tech: {tech}")
+                  else:
+                      print(f"No result for sdg_id: {sdg_id}")
             else:
                   np_meta_data_sdg_float = np_meta_data_sdg[:,0].astype(float)
 
