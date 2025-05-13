@@ -33,7 +33,7 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 # Environemnt setup
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cacert.pem"
+os.environ["SSL_CERT_FILE"] = "/home/tlplan/miniconda3/envs/workspace_01/ssl/cert.pem"
 device = torch.device("cpu")
 
 #===
@@ -52,7 +52,7 @@ model = None
 tokenizer = None
 input_gen_ai = None
 
-db_name = 'C:/Users/20245580/Documents/Others/EPO2025/epo_data/embed_trial.db'
+db_name = '/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/shared_data/epo_data/embed_trial.db'
 
 client = None
 api_key = "T0sAC36z31CWIsTmUjU8dFN03XXf7OiI" # (Lan) free api key for free MISTRAL AI Model
@@ -69,7 +69,7 @@ def load_resources():
     #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
-    model_ckpt = "C:/Users/20245580/Documents/Others/EPO2025/EPO-CodeFest-2025/current_batch" 
+    model_ckpt = "/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/current_batch" 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
 
