@@ -15,6 +15,8 @@ import os
 
 import requests
 
+from fastapi.middleware.cors import CORSMiddleware
+
 #===
 # Supporting Functions
 #===
@@ -33,7 +35,7 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 # Environemnt setup
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cacert.pem"
+#os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cacert.pem"
 device = torch.device("cpu")
 
 #===
@@ -41,10 +43,20 @@ device = torch.device("cpu")
 #===
 app = FastAPI()
 
+# CORS Configuration for Next.js
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # 👈 Next.js dev server origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Define input model for search
 class SearchRequest(BaseModel):
     query: str
     top_k: int = 5
+
 
 
 # Global variables
@@ -52,7 +64,7 @@ model = None
 tokenizer = None
 input_gen_ai = None
 
-db_name = 'C:/Users/20245580/Documents/Others/EPO2025/epo_data/embed_trial.db'
+db_name = './database/embed_trial.db'
 
 client = None
 api_key = "T0sAC36z31CWIsTmUjU8dFN03XXf7OiI" # (Lan) free api key for free MISTRAL AI Model
@@ -69,7 +81,7 @@ def load_resources():
     #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
-    model_ckpt = "C:/Users/20245580/Documents/Others/EPO2025/EPO-CodeFest-2025/current_batch" 
+    model_ckpt = "./current_batch" 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
 
@@ -78,6 +90,8 @@ def load_resources():
     #===
     client = Mistral(api_key=api_key)
 
+# TODO - Implement bot chat commands here
+# Will search closest patents from embeddings
 @app.post("/search")
 async def search(request: SearchRequest):
     global input_gen_ai, db_name
@@ -191,8 +205,6 @@ async def answer(request: SearchRequest):
     return {"reply": reply_prompt}
 
 ##### New requests
-
-MISTRAL_API_KEY = "mockkey1234"
 
 # Required for Dashboard - SDG Patent Distribution
 # fake_sdg_dg = {
