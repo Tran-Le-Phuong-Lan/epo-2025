@@ -46,16 +46,20 @@ app = FastAPI()
 # CORS Configuration for Next.js
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # 👈 Next.js dev server origin
+    allow_origins=["http://localhost:3000", "*"],  # 👈 Next.js dev server origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+###### DATA MODELS ######
 # Define input model for search
 class SearchRequest(BaseModel):
     query: str
     top_k: int = 5
+
+class ClassifyRequest(BaseModel):
+     description : str
 
 
 
@@ -871,33 +875,41 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
 ##########    Chatbot    ##########
 @app.post("/send-message-bot/")
 async def send_message_bot(request : str):
-    
-    # Format payload for Mistral API
-    mistral_url = "https://api.mistral.ai/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {MISTRAL_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "mistral-tiny",  # Or mistral-small, mistral-medium
-        "messages": [
-            {"role": "user", "content": request.user_message}
-        ],
-        "temperature": 0.7,
-        "max_tokens": 200
-    }
+    return None
 
-    response = requests.post(mistral_url, headers=headers, json=payload)
+@app.post("/sdg_classification/")
+async def classify_sdg(request : ClassifyRequest):
+     
+     return {
+          "message" : "I'm classyfing your description",
+          "sdg_result" : "7",
+          "sdg_name" : "Affordable and Clean Energy",
+          "confidence" : "99"
+     }
 
-    if response.status_code == 200:
-        result = response.json()
-        return {"reply": result["choices"][0]["message"]["content"]}
-    else:
-        return {
-            "error": f"Mistral API failed",
-            "status_code": response.status_code,
-            "details": response.text
+# This should actually be "/search/"
+@app.post("/relevant_patents/")
+async def classify_sdg(request : str):
+     
+     return {
+          "message" : "Here are the top 5 patents closest to your description",
+          "relevant_docs": 
+        [
+        {
+            "TITLE": "Method and apparatus for flue-gas cleaning",
+            "DISTANCE": 6.496407508850098,
+            "CLAIMS": "water thus separated, whereby watersoluble substances in the fluegases are separated in said prior separation stage, which prior separation stage 1 is connected to a collecting means 12 for collecting the water fed to the prior",
+          "sdg_result" : "5",
+          "confidence" : "99"
+        },
+        {
+            "TITLE": "METHOD OF MEASURING WATER CONTENT",
+            "DISTANCE": 7.981537342071533,
+            "CLAIMS": "method of measurement of water content of a liquid, in which method the properties of the liquid are measured by a first measurement",
         }
+        ]
+     }
+    
 
 #####
 
