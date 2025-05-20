@@ -264,52 +264,7 @@ mock_sdg_by_country_db ={
 #   }
 # }
 
-mock_sdg_rag_insights_by_sdg_id_db = {
-    1: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
-      "sdgId": "1",
-      "icon": "Zap",
-    },
-  ],
-  6: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
-      "sdgId": "6",
-      "icon": "Zap",
-    },
-  ],
-  7: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
-      "sdgId": "7",
-      "icon": "Zap",
-    },
-  ],
-  13: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
-      "sdgId": "13",
-      "icon": "Zap",
-    },
-  ],
-}
+
 
 mock_sdg_by_id_with_technologies = {
     7: {
@@ -494,7 +449,7 @@ async def get_all_sdg_patents_distribution():
             cur = conn.cursor()
             for sdg_num in range(1, total_num_sdg+1):
               sql_cn_meta = f"""
-                  SELECT COUNT(*) FROM meta_data_embeddings
+                  SELECT COUNT(*) FROM main_table_wihout_split_claims
                   WHERE find_smth('{str(int(sdg_num))}', sdg_labels)
               """
               res = cur.execute(sql_cn_meta)
@@ -641,11 +596,129 @@ async def get_all_sdg_rag_insights():
 
 # For RAG Insights for specific SDG by ID - Dashboard
 # Setup function to pre-compute RAG once per day on a single SDG category
+# mock_sdg_rag_insights_by_sdg_id_db = {
+#     1: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
+#       "sdgId": "1",
+#       "icon": "Zap",
+#     },
+#   ],
+#   6: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
+#       "sdgId": "6",
+#       "icon": "Zap",
+#     },
+#   ],
+#   7: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
+#       "sdgId": "7",
+#       "icon": "Zap",
+#     },
+#   ],
+#   13: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
+#       "sdgId": "13",
+#       "icon": "Zap",
+#     },
+#   ],
+# }
 @app.get("/sdg-rag-insights-by-sdg-id/{sdg_id}")
 async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
-    
+    global db_name, sdg_label_name_mapping, client, mistral_model
 
-    return mock_sdg_rag_insights_by_sdg_id_db.get(sdg_id)
+    # Find the patents related to input sdg id
+    print(f"input sdg_id: {sdg_id}")
+    try:
+        with sqlite3.connect(db_name) as conn:
+
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
+
+            conn.create_function('find_related_sdg', 2, find_sdg)
+
+            cur = conn.cursor()
+
+            # Get total number of data (rows) in the database
+            meta_query = f"""
+                  SELECT
+                          title,
+                          sdg_labels
+                  FROM main_table_wihout_split_claims
+                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels);
+              """
+            res = cur.execute(meta_query)
+            result = res.fetchall()
+            # print(result)
+    except sqlite3.OperationalError as e:
+        print(e)
+    
+    
+    # ask the Gen ai for insights
+    statistic_context = ""
+    for title, _ in result:
+        # print(sdg_num, val)
+        temp = f"""
+          title: {title}
+          """
+        statistic_context = statistic_context + temp
+
+    # KEY INSIGHT
+    rag_prompt = f"""
+    There are {len(result)} patents in the database related to {sdg_label_name_mapping[str(int(sdg_id))]}. Their title are the following:
+    ---------------------
+    {statistic_context}
+    ---------------------
+    Given the context of all patents related to {sdg_label_name_mapping[str(int(sdg_id))]} in the database,
+    please, give the essential insight of how this {sdg_label_name_mapping[str(int(sdg_id))]} is reflected currently in the databse:
+    """
+
+    chat_response = client.chat.complete(
+    model= mistral_model,
+    messages = [
+            {
+                "role": "user",
+                "content": rag_prompt,
+            },
+        ]
+    )
+    key_insight = chat_response.choices[0].message.content
+
+    return [
+              {
+                "id": "1",
+                "type": "key",
+                "title": "Key Insight",
+                "content":
+                  key_insight,
+                "sdgId": str(int(sdg_id)),
+                "icon": "Zap",
+              },
+            ]
 
 
 ##########    SDG    ##########
