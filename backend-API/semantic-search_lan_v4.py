@@ -7,7 +7,7 @@ import sqlite3
 import sqlite_vec 
 from sqlite_vec import serialize_float32
 
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
 from mistralai import Mistral
 
 import torch
@@ -77,7 +77,7 @@ mistral_model = "open-codestral-mamba"
 @app.on_event("startup")
 def load_resources():
     # global model, index, data, claims
-    global device, model, tokenizer, api_key, mistral_model, client
+    global device, model, tokenizer, api_key, mistral_model, client, classify_model, classify_tokenizer
 
     device = "cpu"
     
@@ -93,6 +93,33 @@ def load_resources():
     # Load model for gen ai
     #===
     client = Mistral(api_key=api_key)
+
+    #===
+    # Load model for SDG classification
+    #===
+    classify_MODEL_DIR = "./sdg_Classification_v1/single_dense"
+    classify_tokenizer = AutoTokenizer.from_pretrained(classify_MODEL_DIR)
+    classify_model = AutoModelForSequenceClassification.from_pretrained(classify_MODEL_DIR)
+
+def classify_text(text, threshold=0.3, max_length=512):
+    inputs = classify_tokenizer(
+        text, return_tensors="pt", truncation=True, padding=True, max_length=max_length
+    )
+    with torch.no_grad():
+        logits = classify_model(**inputs).logits
+        probs = torch.sigmoid(logits).cpu().numpy()[0]
+    if hasattr(classify_model.config, "id2label") and classify_model.config.id2label:
+        id2label = {int(k): v for k, v in classify_model.config.id2label.items()}
+    else:
+        id2label = {i: f"sdg_{i}" for i in range(len(probs))}
+    results = [(id2label[i], float(prob)) for i, prob in enumerate(probs) if prob >= threshold]
+    # Remove before production
+    print("Unsorted results: ", results)
+    results.sort(key=lambda x: x[1], reverse=True)
+    # Remove before production
+    print("Sorted results: ", results)
+    return results
+
 
 # TODO - Implement bot chat commands here
 # Will search closest patents from embeddings
@@ -460,7 +487,8 @@ async def get_all_sdg_patents_distribution():
               len_sdg = res.fetchall()[0][0]
               print(f"{sdg_num} has {len_sdg} rows in meta table")
               fake_sdg_dg.update({ int(sdg_num): {
-                                      "sdg_name": sdg_label_name_mapping[str(int(sdg_num))],
+                                      "id" : str(sdg_num),
+                                      "name": sdg_label_name_mapping[str(int(sdg_num))],
                                       "count" : int(len_sdg) }})
 
     except sqlite3.OperationalError as e:
@@ -879,17 +907,15 @@ async def send_message_bot(request : str):
 
 @app.post("/sdg_classification/")
 async def classify_sdg(request : ClassifyRequest):
-     
+     results = classify_text(request.description)
      return {
-          "message" : "I'm classyfing your description",
-          "sdg_result" : "7",
-          "sdg_name" : "Affordable and Clean Energy",
-          "confidence" : "99"
+          "results" : str(results)
+          # "[('LABEL_2', 0.9185042977333069), ('LABEL_7', 0.6150209307670593)]"
      }
 
 # This should actually be "/search/"
 @app.post("/relevant_patents/")
-async def classify_sdg(request : str):
+async def get_relevant_patents(request : str):
      
      return {
           "message" : "Here are the top 5 patents closest to your description",
