@@ -1,0 +1,615 @@
+IPC Code,Description
+A01B,"SOIL WORKING IN AGRICULTURE OR FORESTRY; PARTS, DETAILS, OR ACCESSORIES OF AGRICULTURAL MACHINES OR IMPLEMENTS, IN GENERAL (making or covering furrows or holes for sowing, planting or manuring A01C 5/00 ; machines for harvesting root crops A01D ; mowers convertible to soil working apparatus or capable of soil working A01D 42/04 ; mowers combined with soil working implements A01D 43/12 ; soil working for engineering purposes E01 , E02 , E21 )"
+A01C,"PLANTING; SOWING; FERTILISING (parts, details or accessories of agricultural machines or implements, in general A01B 51/00 - A01B 75/00 )"
+A01D,HARVESTING; MOWING
+A01F,"THRESHING ( combines A01D 41/00 ) ; BALING OF STRAW, HAY OR THE LIKE; STATIONARY APPARATUS OR HAND TOOLS FOR FORMING OR BINDING STRAW, HAY OR THE LIKE INTO BUNDLES ; CUTTING OF STRAW, HAY OR THE LIKE; STORING AGRICULTURAL OR HORTICULTURAL PRODUCE ( arrangements for making or setting stacks in connection with harvesting A01D 85/00 )"
+A01G,"HORTICULTURE; CULTIVATION OF VEGETABLES, FLOWERS, RICE, FRUIT, VINES, HOPS OR SEAWEED; FORESTRY; WATERING (picking of fruits, vegetables, hops or the like A01D 46/00 ; propagating unicellular algae C12N 1/12 )"
+A01H,NEW PLANTS OR PROCESSES FOR OBTAINING THEM; PLANT REPRODUCTION BY TISSUE CULTURE TECHNIQUES [5]
+A01J,"MANUFACTURE OF DAIRY PRODUCTS (for chemical matters, see subclass A23C )"
+A01K,"ANIMAL HUSBANDRY; AVICULTURE; APICULTURE; PISCICULTURE; FISHING; REARING OR BREEDING ANIMALS, NOT OTHERWISE PROVIDED FOR; NEW BREEDS OF ANIMALS"
+A01L,SHOEING OF ANIMALS
+A01M,SHOEING OF ANIMALS
+A01N,"PRESERVATION OF BODIES OF HUMANS OR ANIMALS OR PLANTS OR PARTS THEREOF (preservation of food or foodstuff A23 ) ; BIOCIDES , e.g. AS DISINFECTANTS , AS PESTICIDES OR AS HERBICIDES ( preparations for medical, dental or toiletry purposes which kill or prevent the growth or proliferation of unwanted organisms A61K ) ; PEST REPELLANTS OR ATTRACTANTS; PLANT GROWTH REGULATORS"
+A01P,"BIOCIDAL, PEST REPELLANT, PEST ATTRACTANT OR PLANT GROWTH REGULATORY ACTIVITY OF CHEMICAL COMPOUNDS OR PREPARATIONS [2006.01]"
+A21B,BAKERS' OVENS; MACHINES OR EQUIPMENT FOR BAKING (domestic baking equipment A47J 37/00 )
+A21C,MACHINES OR EQUIPMENT FOR MAKING OR PROCESSING DOUGHS; HANDLING BAKED ARTICLES MADE FROM DOUGH
+A21D,"TREATMENT OF FLOUR OR DOUGH FOR BAKING, e.g. BY ADDITION OF MATERIALS ; BAKING; BAKERY PRODUCTS (preservation of flour or dough before baking A23B 40/00 ; preservation of bakery products A23B 45/00 ) [2006.01]"
+A22B,SLAUGHTERING
+A22C,"PROCESSING MEAT, POULTRY, OR FISH (preserving A23B ; obtaining protein compositions for foodstuffs A23J 1/00 ; fish, meat or poultry preparations A23L ; disintegrating, e.g. chopping meat, B02C 18/00 ; preparation of proteins C07K 1/00 )"
+A23B,"PRESERVATION OF FOODS, FOODSTUFFS OR NON-ALCOHOLIC BEVERAGES; CHEMICAL RIPENING OF FRUIT OR VEGETABLES"
+A23C,"DAIRY PRODUCTS , e.g. MILK, BUTTER OR CHEESE; MILK OR CHEESE SUBSTITUTES; MAKING OR TREATMENT THEREOF (preservation thereof A23B 11/00 )"
+A23D,"EDIBLE OILS OR FATS , e.g. MARGARINES, SHORTENINGS OR COOKING OILS (preservation thereof A23B 20/00 ; production, refinement or preservation of animal or vegetable fats or oils C11B , C11C )"
+A23F,"COFFEE ; TEA ; THEIR SUBSTITUTES; MANUFACTURE, PREPARATION , OR INFUSION THEREOF"
+A23G,"COCOA; COCOA PRODUCTS , e.g. CHOCOLATE; SUBSTITUTES FOR COCOA OR COCOA PRODUCTS ; CONFECTIONERY; CHEWING GUM; ICE-CREAM; PREPARATION THEREOF [2006.01]"
+A23J,PROTEIN COMPOSITIONS FOR FOODSTUFFS; WORKING-UP PROTEINS FOR FOODSTUFFS; PHOSPHATIDE COMPOSITIONS FOR FOODSTUFFS [4]
+A23K,FEEDING-STUFFS SPECIALLY ADAPTED FOR ANIMALS; METHODS SPECIALLY ADAPTED FOR PRODUCTION THEREOF
+A23L,"FOODS , FOODSTUFFS OR NON-ALCOHOLIC BEVERAGES, NOT OTHERWISE PROVIDED FOR; PREPARATION OR TREATMENT THEREOF (preservation thereof A23B ) [2006.01]"
+A23N,"MACHINES OR APPARATUS FOR TREATING HARVESTED FRUIT, VEGETABLES, OR FLOWER BULBS IN BULK, NOT OTHERWISE PROVIDED FOR; PEELING VEGETABLES OR FRUIT IN BULK; APPARATUS FOR PREPARING ANIMAL FEEDING-STUFFS (machines for cutting straw or fodder A01F 29/00 ; disintegrating, e.g. shredding, B02C ; severing, e.g. cutting, splitting, slicing, B26B , B26D )"
+A23P,"SHAPING OR WORKING OF FOODSTUFFS, NOT FULLY COVERED BY A SINGLE OTHER SUBCLASS"
+A24B,MANUFACTURE OR PREPARATION OF TOBACCO FOR SMOKING OR CHEWING; TOBACCO; SNUFF
+A24C,MANUFACTURE OR PREPARATION OF TOBACCO FOR SMOKING OR CHEWING; TOBACCO; SNUFF
+A24D,CIGARS; CIGARETTES ; TOBACCO SMOKE FILTERS; MOUTHPIECES FOR CIGARS OR CIGARETTES ; MANUFACTURE OF TOBACCO SMOKE FILTERS OR MOUTHPIECES
+A24F,"SMOKERS’ REQUISITES; MATCH BOXES; SIMULATED SMOKING DEVICES (inhaling appliances for medical purposes, shaped like cigars, cigarettes or pipes A61M 15/06 )"
+A41B,SHIRTS; UNDERWEAR; BABY LINEN; HANDKERCHIEFS
+A41C,SHIRTS; UNDERWEAR; BABY LINEN; HANDKERCHIEFS
+A41D,OUTERWEAR; PROTECTIVE GARMENTS; ACCESSORIES
+A41F,OUTERWEAR; PROTECTIVE GARMENTS; ACCESSORIES
+A41G,GARMENT FASTENINGS; SUSPENDERS
+A41H,ARTIFICIAL FLOWERS; WIGS; MASKS; FEATHERS
+A42B,HATS; HEAD COVERINGS (headbands A41D 20/00 ; head-scarves A41D 23/00 )
+A42C,"MANUFACTURING OR TRIMMING HEAD COVERINGS, e.g. HATS"
+A43B,CHARACTERISTIC FEATURES OF FOOTWEAR; PARTS OF FOOTWEAR
+A43C,FASTENINGS OR ATTACHMENTS FOR FOOTWEAR; LACES IN GENERAL
+A43D,"MACHINES, TOOLS, EQUIPMENT OR METHODS FOR MANUFACTURING OR REPAIRING FOOTWEAR (sewing D05B ) [6]"
+A44B,"BUTTONS , PINS , BUCKLES , SLIDE FASTENERS , OR THE LIKE (fastenings specially adapted for footwear A43C )"
+A44C,"PERSONAL ADORNMENTS, e.g. JEWELLERY; COINS"
+A45B,"WALKING STICKS (walking aids, e.g. sticks, for blind persons A61H 3/06 ) ; UMBRELLAS; LADIES' OR LIKE FANS (cane or umbrella stands or holders A47G 25/12 )"
+A45C,PURSES; LUGGAGE; HAND CARRIED BAGS
+A45D,"HAIRDRESSING OR SHAVING EQUIPMENT (wigs, toupees or the like A41G 3/00 , A41G 5/00 ; hairdressers' chairs A47C 1/04 ; hair cutting appliances, razors B26B ) ; EQUIPMENT FOR COSMETICS OR COSMETIC TREATMENTS , e.g. FOR MANICURING OR PEDICURING"
+A45F,TRAVELLING OR CAMP EQUIPMENT; SACKS OR PACKS CARRIED ON THE BODY [2006.01]
+A46B,BRUSHES (handles not integral with brushware B25G )
+A46D,MANUFACTURE OF BRUSHES
+A47B,TABLES; DESKS; OFFICE FURNITURE; CABINETS; DRAWERS; GENERAL DETAILS OF FURNITURE (jointing of furniture F16B 12/00 )
+A47C,CHAIRS; SOFAS; BEDS
+A47D,"FURNITURE SPECIALLY ADAPTED FOR CHILDREN (school benches or desks A47B 39/00 , A47B 41/00 )"
+A47F,"SPECIAL FURNITURE, FITTINGS, OR ACCESSORIES FOR SHOPS, STOREHOUSES, BARS, RESTAURANTS, OR THE LIKE; PAYING COUNTERS"
+A47G,HOUSEHOLD OR TABLE EQUIPMENT (book-ends A47B 65/00 ; knives B26B )
+A47H,"FURNISHINGS FOR WINDOWS OR DOORS (concerned with the functioning of the door or window E05 ; roller blinds E06B ; special arrangements or measures in connection with doors or windows, e.g. for ventilation or sealing, E06B 7/00 )"
+A47J,KITCHEN EQUIPMENT; COFFEE MILLS; SPICE MILLS; APPARATUS FOR MAKING BEVERAGES [6]
+A47K,"SANITARY EQUIPMENT NOT OTHERWISE PROVIDED FOR (connecting to water supply or waste pipe, sinks E03C ; water-closets E03D ) ; TOILET ACCESSORIES (cosmetic equipment A45D )"
+A47L,DOMESTIC WASHING OR CLEANING (brushes A46B ; cleaning quantities of bottles or of other hollow articles of one kind B08B 9/00 ; laundry D06F ) ; SUCTION CLEANERS IN GENERAL (cleaning in general B08 )
+A61B,DIAGNOSIS; SURGERY; IDENTIFICATION (usefulness limited to only animals A61D )
+A61C,"DENTISTRY; APPARATUS OR METHODS FOR ORAL OR DENTAL HYGIENE (non-driven toothbrushes A46B ; preparations for dentistry A61K 6/00 ; preparations for cleaning the teeth or mouth A61K 8/00 , A61Q 11/00 )"
+A61D,"VETERINARY INSTRUMENTS, IMPLEMENTS, TOOLS, OR METHODS"
+A61F,"FILTERS IMPLANTABLE INTO BLOOD VESSELS; PROSTHESES; DEVICES PROVIDING PATENCY TO, OR PREVENTING COLLAPSING OF, TUBULAR STRUCTURES OF THE BODY, e.g. STENTS ; ORTHOPAEDIC, NURSING OR CONTRACEPTIVE DEVICES; FOMENTATION; TREATMENT OR PROTECTION OF EYES OR EARS; BANDAGES, DRESSINGS OR ABSORBENT PADS; FIRST-AID KITS (dental prosthetics A61C ) [2006.01]"
+A61G,"TRANSPORT, PERSONAL CONVEYANCES , OR ACCOMMODATION SPECIALLY ADAPTED FOR PATIENTS OR DISABLED PERSONS (appliances for aiding patients or disabled persons to walk A61H 3/00 ) ; OPERATING TABLES OR CHAIRS; CHAIRS FOR DENTISTRY; FUNERAL DEVICES (embalming corpses A01N 1/00 )"
+A61H,"PHYSICAL THERAPY APPARATUS , e.g. DEVICES FOR LOCATING OR STIMULATING REFLEX POINTS IN THE BODY; ARTIFICIAL RESPIRATION; MASSAGE; BATHING DEVICES FOR SPECIAL THERAPEUTIC OR HYGIENIC PURPOSES OR SPECIFIC PARTS OF THE BODY (electrotherapy, magnetotherapy, radiation therapy , ultrasound therapy A61N )"
+A61J,CONTAINERS SPECIALLY ADAPTED FOR MEDICAL OR PHARMACEUTICAL PURPOSES; DEVICES OR METHODS SPECIALLY ADAPTED FOR BRINGING PHARMACEUTICAL PRODUCTS INTO PARTICULAR PHYSICAL OR ADMINISTERING FORMS; DEVICES FOR ADMINISTERING FOOD OR MEDICINES ORALLY; BABY COMFORTERS; DEVICES FOR RECEIVING SPITTLE
+A61K,"PREPARATIONS FOR MEDICAL, DENTAL OR TOILETRY PURPOSES (devices or methods specially adapted for bringing pharmaceutical products into particular physical or administering forms A61J 3/00 ; chemical aspects of, or use of materials for deodorisation of air, for disinfection or sterilisation, or for bandages, dressings, absorbent pads or surgical articles A61L ; soap compositions C11D )"
+A61L,"METHODS OR APPARATUS FOR STERILISING MATERIALS OR OBJECTS IN GENERAL; DISINFECTION, STERILISATION OR DEODORISATION OF AIR; CHEMICAL ASPECTS OF BANDAGES, DRESSINGS, ABSORBENT PADS OR SURGICAL ARTICLES; MATERIALS FOR BANDAGES, DRESSINGS, ABSORBENT PADS OR SURGICAL ARTICLES (preservation of bodies or disinfecting characterised by the agents employed A01N ; preserving, e.g. sterilising, food or foodstuffs A23 ; preparations for medical, dental or toiletry purposes A61K ) [4]"
+A61P,SPECIFIC THERAPEUTIC ACTIVITY OF CHEMICAL COMPOUNDS OR MEDICINAL PREPARATIONS [7]
+A61Q,SPECIFIC USE OF COSMETICS OR SIMILAR TOILETRY PREPARATIONS [2006.01]
+A61M,Subject matter not provided for in other groups of this subclass [2012.01]
+A62C,"FIRE-FIGHTING (fire-extinguishing compositions, use of chemical substances in extinguishing fires A62D 1/00 ; spraying, applying liquids or other fluent materials to surfaces in general B05 ; fire-fighting aircraft B64D 1/16 ; alarm arrangements G08B , e.g. fire alarms actuated by smoke or gases G08B 17/10 )"
+A62D,"CHEMICAL MEANS FOR EXTINGUISHING FIRES; PROCESSES FOR MAKING HARMFUL CHEMICAL SUBSTANCES HARMLESS, OR LESS HARMFUL, BY EFFECTING A CHEMICAL CHANGE; COMPOSITION OF MATERIALS FOR COVERINGS OR CLOTHING FOR PROTECTING AGAINST HARMFUL CHEMICAL AGENTS; COMPOSITION OF MATERIALS FOR TRANSPARENT PARTS OF GAS-MASKS, RESPIRATORS, BREATHING BAGS OR HELMETS; COMPOSITION OF CHEMICAL MATERIALS FOR USE IN BREATHING APPARATUS"
+A62B,Subject matter not provided for in other groups of this subclass [2009.01]
+A63B,"APPARATUS FOR PHYSICAL TRAINING, GYMNASTICS, SWIMMING, CLIMBING, OR FENCING; BALL GAMES; TRAINING EQUIPMENT ( apparatus for passive exercising, massage A61H )"
+A63C,"SKATES; SKIS; ROLLER SKATES; DESIGN OR LAYOUT OF COURTS, RINKS OR THE LIKE (water skis B63B 32/00 , B63B 34/00 ) [5]"
+A63D,"BOWLING GAMES, e.g. SKITTLES, BOCCE OR BOWLS; INSTALLATIONS THEREFOR; BAGATELLE OR SIMILAR GAMES; BILLIARDS (balls A63B 37/00 )"
+A63F,"CARD, BOARD OR ROULETTE GAMES; INDOOR GAMES USING SMALL MOVING PLAYING BODIES; VIDEO GAMES; GAMES NOT OTHERWISE PROVIDED FOR [5]"
+A63G,MERRY-GO-ROUNDS; SWINGS; ROCKING-HORSES (swings or rocking horses as nursery furniture A47D 13/10 ) ; CHUTES; SWITCHBACKS; SIMILAR DEVICES FOR PUBLIC AMUSEMENT
+A63H,"TOYS , e.g. TOPS, DOLLS, HOOPS OR BUILDING BLOCKS"
+A63J,"DEVICES FOR THEATRES, CIRCUSES, OR THE LIKE; CONJURING APPLIANCES OR THE LIKE"
+A63K,RACING; RIDING SPORTS; EQUIPMENT OR ACCESSORIES THEREFOR (stop watches G04F 7/06 ; timing G07C 1/22 ; indicating arrangements for variable information by selection or combination of individual elements G09F 9/00 )
+A99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+B01B,BOILING; BOILING APPARATUS
+B01F,"MIXING, e.g. DISSOLVING, EMULSIFYING OR DISPERSING (mixing paints B44D 3/06 )"
+B01J,"CHEMICAL OR PHYSICAL PROCESSES, e.g. CATALYSIS OR COLLOID CHEMISTRY; THEIR RELEVANT APPARATUS [2]"
+B01L,CHEMICAL OR PHYSICAL LABORATORY APPARATUS FOR GENERAL USE
+B02B,PREPARING GRAIN FOR MILLING; REFINING GRANULAR FRUIT TO COMMERCIAL PRODUCTS BY WORKING THE SURFACE (making dough from cereals directly A21C ; preservation or sterilisation of cereals A23B ; cleaning fruit A23N ; preparation of malt C12C )
+B02C,"CRUSHING, PULVERISING, OR DISINTEGRATING IN GENERAL; MILLING GRAIN (obtaining metallic powder by crushing, grinding or milling B22F 9/04 )"
+B03B,SEPARATING SOLID MATERIALS USING LIQUIDS OR USING PNEUMATIC TABLES OR JIGS
+B03C,"MAGNETIC OR ELECTROSTATIC SEPARATION OF SOLID MATERIALS FROM SOLID MATERIALS OR FLUIDS ; SEPARATION BY HIGH-VOLTAGE ELECTRIC FIELDS (separating isotopes B01D 59/00 ; combinations of magnetic or electrostatic separation with separation of solids by other means B03B , B07B ) [5]"
+B03D,FLOTATION ; DIFFERENTIAL SEDIMENTATION (in combination with other separation of solids B03B ; sink-float separation B03B 5/28 )
+B04B,CENTRIFUGES (high-speed drum mills B02C 19/11 )
+B04C,"APPARATUS USING FREE VORTEX FLOW, e.g. CYCLONES (exhaust or silencing apparatus for machines or engines having means for removing solid constituents of exhaust, using inertial or centrifugal separators F01N 3/037 ; cyclonic type combustion apparatus F23 )"
+B05B,SPRAYING APPARATUS ; ATOMISING APPARATUS ; NOZZLES (spray-mixers with nozzles B01F 25/72 ; processes for applying liquids or other fluent materials to surfaces by spraying B05D ) [2]
+B05C,"APPARATUS FOR APPLYING FLUENT MATERIALS TO SURFACES, IN GENERAL (spraying apparatus , atomising apparatus , nozzles B05B ; plant for applying liquids or other fluent materials to objects by electrostatic spraying B05B 5/08 ) [2]"
+B05D,"PROCESSES FOR APPLYING FLUENT MATERIALS TO SURFACES, IN GENERAL (conveying articles or workpieces through baths of liquid B65G , e.g. B65G 49/02 ) [2]"
+B07C,"POSTAL SORTING; SORTING INDIVIDUAL ARTICLES, OR BULK MATERIAL FIT TO BE SORTED PIECE-MEAL, e.g. BY PICKING (specially adapted for a specific purpose covered by another class, see the relevant place, e.g. A43D 33/06 , B23Q 7/12 )"
+B08B,CLEANING IN GENERAL; PREVENTION OF FOULING IN GENERAL
+B09B,DISPOSAL OF SOLID WASTE NOT OTHERWISE PROVIDED FOR [3]
+B09C,"RECLAMATION OF CONTAMINATED SOIL (gatherers for removing stones or the like from the soil A01B 43/00 ; sterilising soil by steam A01G 11/00 ; removing undesirable matter, e.g. rubbish, from the land E01H 15/00 ) [6]"
+B21B,"ROLLING OF METAL (auxiliary operations used in connection with metal-working operations covered in B21 , see B21C ; bending by rolling B21D ; manufacture of particular objects, e.g. screws, wheels, rings, barrels, balls, by rolling B21H ; pressure welding by means of a rolling mill B23K 20/04 )"
+B21C,"MANUFACTURE OF METAL SHEETS, WIRE, RODS, TUBES, PROFILES OR LIKE SEMI-MANUFACTURED PRODUCTS OTHERWISE THAN BY ROLLING; AUXILIARY OPERATIONS USED IN CONNECTION WITH METAL-WORKING WITHOUT ESSENTIALLY REMOVING MATERIAL"
+B21D,"WORKING OR PROCESSING OF SHEET METAL OR METAL TUBES, RODS OR PROFILES WITHOUT ESSENTIALLY REMOVING MATERIAL ; PUNCHING METAL (working or processing of wire B21F )"
+B21F,"WORKING OR PROCESSING OF METAL WIRE (rolling of metal B21B ; by drawing, auxiliary operations used in connection with metal-working without essentially removing material B21C ; bundling articles B65B 13/00 )"
+B21G,"MAKING NEEDLES, PINS OR NAILS OF METAL"
+B21H,"MAKING PARTICULAR METAL OBJECTS BY ROLLING, e.g. SCREWS, WHEELS, RINGS, BARRELS, BALLS (essentially from sheet metal B21D )"
+B21J,"FORGING; HAMMERING; PRESSING METAL; RIVETING; FORGE FURNACES (rolling of metal B21B ; making particular products by forging or pressing B21K ; cladding or plating B23K ; finishing surfaces by hammering B23P 9/04 ; compacting surfaces by blasting with particulate material B24C 1/10 ; general features of presses, presses for consolidating scrap B30B ; furnaces in general F27 )"
+B21K,"MAKING FORGED OR PRESSED METAL PRODUCTS , e.g. HORSE-SHOES, RIVETS, BOLTS OR WHEELS (making particular articles by working sheet metal without essentially removing material B21D ; processing wire B21F ; making pins, needles or nails B21G ; making particular articles by rolling B21H ; forging machines, pressing machines, hammering machines, in general B21J ; making chains B21L ; plating B23K )"
+B21L,MAKING METAL CHAINS (making chains or chain links by casting B22D 25/02 ; chains in general F16G )
+B22C,FOUNDRY MOULDING (moulding refractory materials in general B28B )
+B22D,"CASTING OF METALS; CASTING OF OTHER SUBSTANCES BY THE SAME PROCESSES OR DEVICES (shaping of plastics or substances in a plastic state B29C ; metallurgical processing, selection of substances to be added to metal C21 , C22 )"
+B22F,WORKING METALLIC POWDER; MANUFACTURE OF ARTICLES FROM METALLIC POWDER; MAKING METALLIC POWDER (making alloys by powder metallurgy C22C ) ; APPARATUS OR DEVICES SPECIALLY ADAPTED FOR METALLIC POWDER
+B23B,"TURNING; BORING (using an electrode which takes the place of a tool B23H , e.g. making holes B23H 9/14 ; working by laser beam B23K 26/00 ; arrangements for copying or controlling B23Q )"
+B23C,MILLING (broaching B23D ; broach-milling in making gears B23F ; arrangements for copying or controlling B23Q )
+B23D,"PLANING; SLOTTING; SHEARING; BROACHING; SAWING; FILING; SCRAPING; LIKE OPERATIONS FOR WORKING METAL BY REMOVING MATERIAL , NOT OTHERWISE PROVIDED FOR (making toothed gears or the like B23F ; cutting metal by applying heat locally B23K ; arrangements for copying or controlling B23Q )"
+B23F,"MAKING GEARS OR TOOTHED RACKS (by stamping B21D ; by rolling B21H ; by forging or pressing B21K ; by casting B22 ; arrangements for copying or controlling B23Q ; machines or devices for grinding or polishing, in general B24B )"
+B23G,"THREAD CUTTING; WORKING OF SCREWS, BOLT HEADS OR NUTS, IN CONJUNCTION THEREWITH (thread-forming by corrugating tubes B21D 15/04 ; by rolling B21H 3/02 ; by forging, pressing or hammering B21K 1/56 ; making helical grooves by turning B23B 5/48 ; by milling B23C 3/32 ; by grinding B24B 19/02 ; arrangements for copying or controlling B23Q )"
+B23H,"WORKING OF METAL BY THE ACTION OF A HIGH CONCENTRATION OF ELECTRIC CURRENT ON A WORKPIECE USING AN ELECTRODE WHICH TAKES THE PLACE OF A TOOL; SUCH WORKING COMBINED WITH OTHER FORMS OF WORKING OF METAL (processes for the electrolytic or electrophoretic production of coatings, electroforming, or apparatus therefor C25D ; processes for the electrolytic removal of material from objects C25F ; manufacturing printed circuits using precipitation techniques to apply the conductive material to form the desired conductive pattern H05K 3/18 ) [4]"
+B23P,METAL-WORKING NOT OTHERWISE PROVIDED FOR; COMBINED OPERATIONS; UNIVERSAL MACHINE TOOLS ( arrangements for copying or controlling B23Q )
+B23Q,"DETAILS, COMPONENTS, OR ACCESSORIES FOR MACHINE TOOLS, e.g. ARRANGEMENTS FOR COPYING OR CONTROLLING (tools of the kind used in lathes or boring machines B23B 27/00 ) ; MACHINE TOOLS IN GENERAL, CHARACTERISED BY THE CONSTRUCTION OF PARTICULAR DETAILS OR COMPONENTS; COMBINATIONS OR ASSOCIATIONS OF METAL-WORKING MACHINES, NOT DIRECTED TO A PARTICULAR RESULT"
+B24C,ABRASIVE OR RELATED BLASTING WITH PARTICULATE MATERIAL
+B24D,"TOOLS FOR GRINDING , BUFFING OR SHARPENING (abrading-bodies specially designed for tumbling apparatus , e.g. abrading-balls B24B 31/14 ; honing tools B24B 33/08 ; lapping tools B24B 37/11 )"
+B25B,"TOOLS OR BENCH DEVICES NOT OTHERWISE PROVIDED FOR, FOR FASTENING, CONNECTING, DISENGAGING, OR HOLDING"
+B25C,HAND-HELD NAILING OR STAPLING TOOLS; MANUALLY -OPERATED PORTABLE STAPLING TOOLS (manufacturing footwear A43D )
+B25D,PERCUSSIVE TOOLS [2]
+B25F,COMBINATION OR MULTI-PURPOSE TOOLS NOT OTHERWISE PROVIDED FOR; DETAILS OR COMPONENTS OF PORTABLE POWER-DRIVEN TOOLS NOT PARTICULARLY RELATED TO THE OPERATIONS PERFORMED AND NOT OTHERWISE PROVIDED FOR [4]
+B25G,HANDLES FOR HAND IMPLEMENTS (attaching the blades or the like to handles of hand tools for soil working A01B 1/22 ; handles of hand implements for harvesting A01D 1/14 ; handles integral with brushware A46B )
+B25H,"WORKSHOP EQUIPMENT, e.g. FOR MARKING-OUT WORK; STORAGE MEANS FOR WORKSHOPS"
+B26D,"CUTTING; DETAILS COMMON TO MACHINES FOR PERFORATING, PUNCHING, CUTTING-OUT, STAMPING-OUT OR SEVERING (disintegrating by knives or other cutting or tearing members which chop material into fragments B02C 18/00 ; cutting by abrasive fluid jets B24C 5/02 ; hand-held cutting tools B26B ) [5]"
+B27B,"SAWS FOR WOOD OR SIMILAR MATERIAL ; COMPONENTS OR ACCESSORIES THEREFOR (saws specially adapted for pruning or debranching A01G 3/08 ; sawing apparatus specially adapted for felling trees A01G 23/091 ; features not restricted to a particular type of wood saw B23D , e.g. attaching saw blades B23D 51/00 ; machine tool frames, beds, pillars or like members, in general B23Q 1/01 ) [5]"
+B27C,"PLANING, DRILLING, MILLING, TURNING OR UNIVERSAL MACHINES FOR WOOD OR SIMILAR MATERIAL (machine tools in general B23 ; working wood using abrasive, e.g. sanding, devices B24 ; tools for these purposes B27G )"
+B27D,"WORKING VENEER OR PLYWOOD (applying liquids or other fluent materials to surfaces in general B05 ; grinding, sanding, or polishing of wood B24 ; applying adhesives or glue to surfaces of wood B27G 11/00 ; manufacture of veneer B27L 5/00 )"
+B27F,"DOVETAILED WORK; TENONS; SLOTTING MACHINES FOR WOOD OR SIMILAR MATERIAL ; NAILING OR STAPLING MACHINES (hand-held nailing or stapling tools B25C ; manufacture of cases, trunks or boxes from wood B27M 3/34 ; connections for building structures in general, e.g. dowels for use in building constructions E04B 1/38 ; jointing elements in general, e.g. dowels in general, F16B )"
+B27G,"ACCESSORY MACHINES OR APPARATUS FOR WORKING WOOD OR SIMILAR MATERIALS ; TOOLS FOR WORKING WOOD OR SIMILAR MATERIALS (tools for grinding B24D ; sawing tools B27B 33/00 ; tools for slotting or mortising machines B27F 5/02 ; tools for the manufacture of wood shavings, chips, powder or the like B27L 11/00 ) ; SAFETY DEVICES FOR WOOD WORKING MACHINES OR TOOLS"
+B27H,BENDING WOOD OR SIMILAR MATERIAL ; COOPERAGE; MAKING WHEELS FROM WOOD OR SIMILAR MATERIAL
+B27J,"MECHANICAL WORKING OF CANE, CORK, OR SIMILAR MATERIALS"
+B27K,"PROCESSES, APPARATUS OR SELECTION OF SUBSTANCES FOR IMPREGNATING , STAINING , DYEING OR BLEACHING OF WOOD , OR FOR TREATING OF WOOD WITH PERMEANT LIQUIDS, NOT OTHERWISE PROVIDED FOR; CHEMICAL OR PHYSICAL TREATMENT OF CORK, CANE, REED, STRAW OR SIMILAR MATERIALS [2]"
+B27L,"REMOVING BARK OR VESTIGES OF BRANCHES (forestry A01G ) ; SPLITTING WOOD; MANUFACTURE OF VENEER, WOODEN STICKS, WOOD SHAVINGS, WOOD FIBRES OR WOOD POWDER"
+B27M,WORKING OF WOOD NOT PROVIDED FOR IN SUBCLASSES B27B - B27L ; MANUFACTURE OF SPECIFIC WOODEN ARTICLES
+B27N,"MANUFACTURE BY DRY PROCESSES OF ARTICLES, WITH OR WITHOUT ORGANIC BINDING AGENTS, MADE FROM PARTICLES OR FIBRES CONSISTING OF WOOD OR OTHER LIGNOCELLULOSIC OR LIKE ORGANIC MATERIAL (containing cementitious material B28B ; shaping of substances in a plastic state B29C ; fibreboards made from fibrous suspensions D21J ; drying F26B 17/00 ) [4]"
+B28B,"SHAPING CLAY OR OTHER CERAMIC COMPOSITIONS; SHAPING SLAG; SHAPING MIXTURES CONTAINING CEMENTITIOUS MATERIAL , e.g. PLASTER (foundry moulding B22C ; working stone or stone-like material B28D ; shaping of substances in a plastic state, in general B29C ; making layered products not composed wholly of these substances B32B )"
+B28D,"WORKING STONE OR STONE-LIKE MATERIALS (machinery for, or methods of, mining or quarrying E21C )"
+B28C,General arrangement or layout of plant [2006.01]
+B29B,PREPARATION OR PRETREATMENT OF THE MATERIAL TO BE SHAPED; MAKING GRANULES OR PREFORMS; RECOVERY OF PLASTICS OR OTHER CONSTITUENTS OF WASTE MATERIAL CONTAINING PLASTICS [4]
+B29D,PRODUCING PARTICULAR ARTICLES FROM PLASTICS OR FROM SUBSTANCES IN A PLASTIC STATE (making granules B29B 9/00 ; making preforms B29B 11/00 ) [4]
+B29K,"INDEXING SCHEME ASSOCIATED WITH SUBCLASSES B29B , B29C OR B29D , RELATING TO MOULDING MATERIALS OR TO MATERIALS FOR REINFORCEMENTS, FILLERS OR PREFORMED PARTS, e.g. INSERTS [4]"
+B29L,"INDEXING SCHEME ASSOCIATED WITH SUBCLASS B29C , RELATING TO PARTICULAR ARTICLES [4]"
+B30B,"PRESSES IN GENERAL; PRESSES NOT OTHERWISE PROVIDED FOR (producing ultra-high pressure or ultra-high pressure and high temperature to effect modifications of a substance, e.g. for making artificial diamonds B01J 3/00 ) [2]"
+B31B,"MAKING CONTAINERS OF PAPER, CARDBOARD OR MATERIAL WORKED IN A MANNER ANALOGOUS TO PAPER (making wound articles, e.g. wound tubes, B31C ; combined making and filling B65B )"
+B31C,"MAKING WOUND ARTICLES, e.g. WOUND TUBES, OF PAPER, CARDBOARD OR MATERIAL WORKED IN A MANNER ANALOGOUS TO PAPER"
+B31D,"MAKING ARTICLES OF PAPER, CARDBOARD OR MATERIAL WORKED IN A MANNER ANALOGOUS TO PAPER, NOT PROVIDED FOR IN SUBCLASSES B31B OR B31C (manufacture by dry processes of articles made from particles or fibres consisting of wood or other lignocellulosic or like organic material B27N ; making layered products not composed wholly of paper or cardboard B32B ; making articles from cellulosic fibrous suspensions, e.g. wood pulp, D21J )"
+B31F,"MECHANICAL WORKING OR DEFORMATION OF PAPER, CARDBOARD OR MATERIAL WORKED IN A MANNER ANALOGOUS TO PAPER (making layered products not composed wholly of paper or cardboard B32B )"
+B32B,"LAYERED PRODUCTS , i.e. PRODUCTS BUILT-UP OF STRATA OF FLAT OR NON-FLAT, e.g. CELLULAR OR HONEYCOMB, FORM"
+B33Y,"ADDITIVE MANUFACTURING, i.e. MANUFACTURING OF THREE-DIMENSIONAL [3D] OBJECTS BY ADDITIVE DEPOSITION, ADDITIVE AGGLOMERATION OR ADDITIVE LAYERING, e.g. BY 3D PRINTING , STEREOLITHOGRAPHY OR SELECTIVE LASER SINTERING [2015.01]"
+B41B,"MACHINES OR ACCESSORIES FOR MAKING, SETTING, OR DISTRIBUTING TYPE; TYPE; PHOTOGRAPHIC OR PHOTOELECTRONIC COMPOSING DEVICES (photographic devices in general G03 )"
+B41C,PROCESSES FOR THE MANUFACTURE OR REPRODUCTION OF PRINTING SURFACES (photomechanical processes for producing printing surfaces G03F ; photoelectrical processes for producing printing surfaces G03G )
+B41F,PRINTING MACHINES OR PRESSES (manifolding devices or office printing machines B41L ) [4]
+B41G,"APPARATUS FOR BRONZE PRINTING, LINE PRINTING, OR FOR BORDERING OR EDGING SHEETS OR LIKE ARTICLES; AUXILIARY APPARATUS FOR PERFORATING IN CONJUNCTION WITH PRINTING (perforating in general B26D ; production of decorations B44C ; perforating in conjunction with sheet or web delivery B65H 35/00 ; folding or unfolding thin material , e.g. sheets, webs, B65H 45/00 , B65H 47/00 )"
+B41J,"TYPEWRITERS; SELECTIVE PRINTING MECHANISMS, i.e. MECHANISMS PRINTING OTHERWISE THAN FROM A FORME; CORRECTION OF TYPOGRAPHICAL ERRORS"
+B41K,"STAMPS; STAMPING OR NUMBERING APPARATUS OR DEVICES (marking meat A22C 17/10 ; embossing combined with printing B41F 19/00 ; selective printing mechanisms B41J ; embossing decorations or marks B44B 5/00 ; marking or coding completed packages B65B 61/26 ; ticket printing and issuing, fare registering, non-printing aspects of franking apparatus G07B )"
+B41L,"APPARATUS OR DEVICES FOR MANIFOLDING, DUPLICATING OR PRINTING FOR OFFICE OR OTHER COMMERCIAL PURPOSES; ADDRESSING MACHINES OR LIKE SERIES-PRINTING MACHINES (printing presses or machines for industrial purposes B41F ; stamps, stamping or numbering devices B41K )"
+B41M,"PRINTING, DUPLICATING, MARKING, OR COPYING PROCESSES; COLOUR PRINTING (correction of typographical errors B41J ; processes for applying transfer pictures or the like B44C 1/16 ; fluid media for correction of typographical errors by coating C09D 10/00 ; printing textiles D06P )"
+B41N,"PRINTING PLATES OR FOILS (photosensitive materials G03 ) ; MATERIALS FOR SURFACES USED IN PRINTING MACHINES FOR PRINTING, INKING, DAMPING, OR THE LIKE; PREPARING SUCH SURFACES FOR USE OR CONSERVING THEM"
+B41D,Subject matter not provided for in other groups of this subclass [2006.01]
+B42B,"PERMANENTLY ATTACHING TOGETHER SHEETS, QUIRES, OR SIGNATURES, OR PERMANENTLY ATTACHING OBJECTS THERETO (nailing or stapling in general B25C , B27F ; machines for both collating or gathering and permanently attaching together sheets or signatures B42C 1/12 ; temporarily attaching sheets together B42F )"
+B42C,"BOOKBINDING (cutting or perforating machines, devices, or tools B26 ; folding sheets or webs B31F ; ornamenting books B44 )"
+B42D,BOOKS; BOOK COVERS; LOOSE LEAVES; PRINTED MATTER CHARACTERISED BY IDENTIFICATION OR SECURITY FEATURES ; PRINTED MATTER OF SPECIAL FORMAT OR STYLE NOT OTHERWISE PROVIDED FOR; DEVICES FOR USE THEREWITH AND NOT OTHERWISE PROVIDED FOR; MOVABLE-STRIP WRITING OR READING APPARATUS
+B42F,SHEETS TEMPORARILY ATTACHED TOGETHER; FILING APPLIANCES; FILE CARDS; INDEXING (reading desks A47B 19/00 ; book rests A47B 23/00 )
+B43K,"IMPLEMENTS FOR WRITING OR DRAWING (containers, casings or accessories for cosmetic substances, e.g. shaving soap, lipstick, make-up, A45D 34/00 , A45D 40/00 )"
+B43L,ARTICLES FOR WRITING OR DRAWING UPON; ACCESSORIES FOR WRITING OR DRAWING (workshop equipment for marking-out work B25H 7/00 ; teaching hand-writing or drawing G09B 11/00 )
+B43M,"BUREAU ACCESSORIES NOT OTHERWISE PROVIDED FOR (stapling devices B25C , B27F ; devices for temporarily attaching sheets together B42F ; adhesive tape dispensers B65H 35/07 )"
+B44B,"MACHINES, APPARATUS OR TOOLS FOR ARTISTIC WORK , e.g. FOR SCULPTURING, GUILLOCHING, CARVING, BRANDING OR INLAYING (ornamenting leather C14B )"
+B44C,"PRODUCING DECORATIVE EFFECTS (processes for applying liquids or other fluent materials to surfaces, in general B05D ; shaping of plastics or substances in a plastic state B29C ; printing processes to produce transfer pictures B41M 3/12 ; thermographic duplication or marking methods B41M 5/00 ) ; MOSAICS; TARSIA WORK (imitation of mosaic or tarsia-work patterns B44F 11/04 ) ; PAPERHANGING [2]"
+B44D,"PAINTING OR ARTISTIC DRAWING, NOT OTHERWISE PROVIDED FOR; PRESERVING PAINTINGS; SURFACE TREATMENT TO OBTAIN SPECIAL ARTISTIC SURFACE EFFECTS OR FINISHES (surface treatment in general, see the relevant places, e.g. applying liquids or other fluent materials B05 ) [2]"
+B44F,SPECIAL DESIGNS OR PICTURES
+B60B,"VEHICLE WHEELS (making wheels or wheel parts by rolling B21H 1/00 , by forging, hammering or pressing B21K 1/28 ) ; CASTORS; AXLES FOR WHEELS OR CASTORS; INCREASING WHEEL ADHESION"
+B60C,VEHICLE TYRES; TYRE INFLATION; TYRE CHANGING; CONNECTING VALVES TO INFLATABLE ELASTIC BODIES IN GENERAL; DEVICES OR ARRANGEMENTS RELATED TO TYRES [5]
+B60F,"VEHICLES FOR USE BOTH ON RAIL AND ON ROAD; VEHICLES CAPABLE OF TRAVELLING IN OR ON DIFFERENT MEDIA, e.g. AMPHIBIOUS VEHICLES (air-cushion vehicles B60V )"
+B60G,VEHICLE SUSPENSION ARRANGEMENTS (air-cushion vehicles B60V ; connections between vehicle bodies and vehicle frames B62D 24/00 ) [5]
+B60J,"WINDOWS, WINDSCREENS, NON-FIXED ROOFS, DOORS, OR SIMILAR DEVICES FOR VEHICLES; REMOVABLE EXTERNAL PROTECTIVE COVERINGS SPECIALLY ADAPTED FOR VEHICLES (fastening, suspending, closing, or opening of such devices E05 )"
+B60K,"ARRANGEMENT OR MOUNTING OF PROPULSION UNITS OR OF TRANSMISSIONS IN VEHICLES; ARRANGEMENT OR MOUNTING OF PLURAL DIVERSE PRIME-MOVERS IN VEHICLES; AUXILIARY DRIVES FOR VEHICLES; INSTRUMENTATION OR DASHBOARDS FOR VEHICLES; ARRANGEMENTS IN CONNECTION WITH COOLING, AIR INTAKE, GAS EXHAUST OR FUEL SUPPLY OF PROPULSION UNITS IN VEHICLES [2006.01]"
+B60M,"POWER SUPPLY LINES, OR DEVICES ALONG RAILS, FOR ELECTRICALLY-PROPELLED VEHICLES ( control of points or safety arrangements along railway lines B61L ; construction of rails or points in general E01B )"
+B60Q,"ARRANGEMENT OF SIGNALLING OR LIGHTING DEVICES, THE MOUNTING OR SUPPORTING THEREOF OR CIRCUITS THEREFOR, FOR VEHICLES IN GENERAL [4]"
+B60R,"VEHICLES , VEHICLE FITTINGS, OR VEHICLE PARTS, NOT OTHERWISE PROVIDED FOR (fire prevention, containment or extinguishing specially adapted for vehicles A62C 3/07 )"
+B60S,"SERVICING, CLEANING, REPAIRING, SUPPORTING, LIFTING, OR MANOEUVRING OF VEHICLES, NOT OTHERWISE PROVIDED FOR"
+B60V,AIR-CUSHION VEHICLES
+B60W,CONJOINT CONTROL OF VEHICLE SUB-UNITS OF DIFFERENT TYPE OR DIFFERENT FUNCTION; CONTROL SYSTEMS SPECIALLY ADAPTED FOR HYBRID VEHICLES ; ROAD VEHICLE DRIVE CONTROL SYSTEMS FOR PURPOSES NOT RELATED TO THE CONTROL OF A PARTICULAR SUB-UNIT [2006.01]
+B60D,Subject matter not provided for in other groups of this subclass [2009.01]
+B60H,Other air- treating devices [2006.01]
+B60N,Subject matter not provided for in other groups of this subclass [2006.01]
+B60P,Other vehicles predominantly for carrying loads [2006.01]
+B60T,Brake control systems or parts thereof
+B61B,"RAILWAY SYSTEMS; EQUIPMENT THEREFOR NOT OTHERWISE PROVIDED FOR (lifts or hoists, elevators, escalators, moving walkways B66B ) [4]"
+B61C,"LOCOMOTIVES; MOTOR RAILCARS (vehicles in general B60 ; frames or bogies B61F ; special railroad equipment for locomotives B61J , B61K )"
+B61D,BODY DETAILS OR KINDS OF RAILWAY VEHICLES (vehicles in general B60 ; adaptation of vehicles to special systems B61B ; underframes B61F )
+B61F,"RAIL VEHICLE SUSPENSIONS, e.g. UNDERFRAMES, BOGIES OR ARRANGEMENTS OF WHEEL AXLES; RAIL VEHICLES FOR USE ON TRACKS OF DIFFERENT WIDTH; PREVENTING DERAILING OF RAIL VEHICLES; WHEEL GUARDS, OBSTRUCTION REMOVERS OR THE LIKE FOR RAIL VEHICLES (for vehicles in general B60 ; axles or wheels B60B ; vehicle tyres B60C )"
+B61G,COUPLINGS SPECIALLY ADAPTED FOR RAILWAY VEHICLES; DRAUGHT OR BUFFING APPLIANCES SPECIALLY ADAPTED FOR RAILWAY VEHICLES
+B61H,"BRAKES OR OTHER RETARDING DEVICES SPECIALLY ADAPTED FOR RAIL VEHICLES; ARRANGEMENT OR DISPOSITION THEREOF IN RAIL VEHICLES (electrodynamic braking of vehicles B60L , in general H02K ; arrangements in rail vehicles for adjusting wheel-braking force to meet varying vehicular or permanent-way conditions B60T 8/00 ; transmitting braking action from initiating means to ultimate brake actuator with power assistance or drive, brake systems incorporating such transmitting means, e.g. air-pressure brake systems, B60T 13/00 ; construction, arrangement or operation of valves incorporated in power brake systems B60T 15/00 ; component parts, details or accessories of brake systems B60T 17/00 ; brakes in general F16D )"
+B61J,SHIFTING OR SHUNTING OF RAIL VEHICLES (shifting vehicles in general B60S ; marshalling systems B61B )
+B61K,"AUXILIARY EQUIPMENT SPECIALLY ADAPTED FOR RAILWAYS, NOT OTHERWISE PROVIDED FOR (energy-storing brakes B61H ; protection of permanent way against weather influences E01B ; rail cleaning, snow ploughs E01H )"
+B61L,"GUIDING RAILWAY TRAFFIC; ENSURING THE SAFETY OF RAILWAY TRAFFIC (brakes or auxiliary equipment B61H , B61K ; point or crossing construction E01B )"
+B62B,"HAND-PROPELLED VEHICLES, e.g. HAND CARTS OR PERAMBULATORS; SLEDGES (characterised by animal propulsion B62C ; propulsion of sledges by driver or engine B62M )"
+B62C,VEHICLES DRAWN BY ANIMALS
+B62J,"CYCLE SADDLES OR SEATS; AUXILIARY DEVICES OR ACCESSORIES SPECIALLY ADAPTED TO CYCLES AND NOT OTHERWISE PROVIDED FOR, e.g. ARTICLE CARRIERS OR CYCLE PROTECTORS"
+B62K,"CYCLES; CYCLE FRAMES; CYCLE STEERING DEVICES; RIDER-OPERATED TERMINAL CONTROLS SPECIALLY ADAPTED FOR CYCLES; CYCLE AXLE SUSPENSIONS; CYCLE SIDECARS, FORECARS, OR THE LIKE"
+B62L,BRAKES SPECIALLY ADAPTED FOR CYCLES
+B62M,RIDER PROPULSION OF WHEELED VEHICLES OR SLEDGES; POWERED PROPULSION OF SLEDGES OR CYCLES; TRANSMISSIONS SPECIALLY ADAPTED FOR SUCH VEHICLES (arrangements or mounting of transmissions in vehicles in general B60K ; transmission elements per se F16 )
+B62H,"Devices for learning to ride cycles, not otherwise provided for, e.g. assisting balance [2006.01]"
+B63B,"SHIPS OR OTHER WATERBORNE VESSELS; EQUIPMENT FOR SHIPPING ( arrangements of vessel ventilation, heating, cooling, or air-conditioning B63J 2/00 ; floating substructures as supports of dredgers or soil-shifting machines E02F 9/06 ) [2]"
+B63C,"LAUNCHING, HAULING-OUT, OR DRY-DOCKING OF VESSELS; LIFE-SAVING IN WATER; EQUIPMENT FOR DWELLING OR WORKING UNDER WATER; MEANS FOR SALVAGING OR SEARCHING FOR UNDERWATER OBJECTS (floating nets, floating slipways, or the like for recovering aircraft from the water B63B 35/52 )"
+B63G,"OFFENSIVE OR DEFENSIVE ARRANGEMENTS ON VESSELS; MINE-LAYING; MINE-SWEEPING; SUBMARINES; AIRCRAFT CARRIERS (means of attack or defence in general, e.g. turrets, F41H )"
+B63H,"MARINE PROPULSION OR STEERING (propulsion of air-cushion vehicles B60V 1/14 ; specially adapted for submarines, other than nuclear propulsion, B63G ; specially adapted for torpedoes F42B 19/00 )"
+B63J,AUXILIARIES ON VESSELS
+B64B,LIGHTER-THAN-AIR AIRCRAFT (ground installations for aircraft in general B64F )
+B64C,AEROPLANES; HELICOPTERS
+B64D,EQUIPMENT FOR FITTING IN OR TO AIRCRAFT; FLIGHT SUITS; PARACHUTES; ARRANGEMENT OR MOUNTING OF POWER PLANTS OR PROPULSION TRANSMISSIONS IN AIRCRAFT
+B64F,"GROUND OR AIRCRAFT-CARRIER-DECK INSTALLATIONS SPECIALLY ADAPTED FOR USE IN CONNECTION WITH AIRCRAFT; DESIGNING, MANUFACTURING, ASSEMBLING, CLEANING, MAINTAINING OR REPAIRING AIRCRAFT, NOT OTHERWISE PROVIDED FOR; HANDLING , TRANSPORTING, TESTING OR INSPECTING AIRCRAFT COMPONENTS, NOT OTHERWISE PROVIDED FOR"
+B64G,COSMONAUTICS; VEHICLES OR EQUIPMENT THEREFOR
+B64U,UNMANNED AERIAL VEHICLES [UAV]; EQUIPMENT THEREFOR [2023.01]
+B65D,"CONTAINERS FOR STORAGE OR TRANSPORT OF ARTICLES OR MATERIALS , e.g. BAGS, BARRELS, BOTTLES, BOXES, CANS, CARTONS, CRATES, DRUMS, JARS, TANKS, HOPPERS, FORWARDING CONTAINERS; ACCESSORIES , CLOSURES, OR FITTINGS THEREFOR; PACKAGING ELEMENTS ; PACKAGES"
+B65H,"HANDLING THIN OR FILAMENTARY MATERIAL , e.g. SHEETS, WEBS, CABLES"
+B65C,"LABELLING OR TAGGING MACHINES, APPARATUS , OR PROCESSES (nailing or stapling in general B25C , B27F ; processes for applying decalcomanias B44C 1/16 ; applying labels for packaging purposes B65B ; labels, name-plates G09F )"
+B66B,"ELEVATORS; ESCALATORS OR MOVING WALKWAYS (life-saving devices used as an alternative to normal egress means, e.g. stairs, during rescue to lower persons in cages, bags, or similar supports from buildings or other structures A62B 1/02 ; equipment for handling freight or for facilitating passenger embarkation or the like to aircraft B64D 9/00 ; braking or detent devices characterised by their application to lifting or hoisting gear B66D 5/00 ) [4]"
+B66C,"CRANES; LOAD-ENGAGING ELEMENTS OR DEVICES FOR CRANES, CAPSTANS, WINCHES, OR TACKLES (rope, cable, or chain winding mechanisms, braking or detent devices therefor B66D ; specially adapted for nuclear reactors G21 )"
+B66D,"CAPSTANS; WINCHES; TACKLES, e.g. PULLEY BLOCKS; HOISTS (winding or unwinding ropes or cables for feeding or storage purposes B65H ; rope or cable-winding or unwinding mechanisms for lifts B66B ; hoisting devices specially adapted for suspended scaffolds E04G 3/32 )"
+B66F,"HOISTING, LIFTING, HAULING, OR PUSHING, NOT OTHERWISE PROVIDED FOR, e.g. DEVICES WHICH APPLY A LIFTING OR PUSHING FORCE DIRECTLY TO THE SURFACE OF A LOAD (mounting artificial islands on piles or like supports E02B 17/00 ; scaffolds combined with lifting devices E04G 1/22 , E04G 3/28 ; lifting devices for sliding forms E04G 11/24 ; lifting of buildings E04G 23/06 ; shores or struts E04G 25/00 ; lifts or other hoisting devices on ladders E06C 7/12 ; props for mining E21D 15/00 )"
+B67B,"APPLYING CLOSURE MEMBERS TO BOTTLES, JARS, OR SIMILAR CONTAINERS; OPENING CLOSED CONTAINERS (opening or closing devices attached to, or incorporated in, containers or container closures B65D )"
+B67C,"FILLING WITH LIQUIDS OR SEMILIQUIDS, OR EMPTYING, OF BOTTLES, JARS, CANS, CASKS, BARRELS, OR SIMILAR CONTAINERS, NOT OTHERWISE PROVIDED FOR; FUNNELS"
+B67D,"DISPENSING, DELIVERING, OR TRANSFERRING LIQUIDS, NOT OTHERWISE PROVIDED FOR (cleaning pipes or tubes or systems of pipes or tubes B08B 9/02 ; emptying or filling of bottles, jars, cans, casks, barrels, or similar containers, not otherwise provided for B67C ; water supply E03 ; pipe systems F17D ; domestic hot-water supply systems F24D ; measuring volume, volume flow, mass flow or liquid level, metering by volume G01F ; coin-freed or like apparatus G07F ) [5]"
+B68B,HARNESS; DEVICES USED IN CONNECTION THEREWITH; WHIPS OR THE LIKE
+B68C,HARNESS; DEVICES USED IN CONNECTION THEREWITH; WHIPS OR THE LIKE
+B68F,SADDLES; STIRRUPS
+B68G,"METHODS, EQUIPMENT, OR MACHINES FOR USE IN UPHOLSTERING; UPHOLSTERY NOT OTHERWISE PROVIDED FOR"
+B81B,"MICROSTRUCTURAL DEVICES OR SYSTEMS, e.g. MICROMECHANICAL DEVICES (piezoelectric, electrostrictive or magnetostrictive elements per se H10N 30/00 , H10N 35/00 ) [7]"
+B81C,"PROCESSES OR APPARATUS SPECIALLY ADAPTED FOR THE MANUFACTURE OR TREATMENT OF MICROSTRUCTURAL DEVICES OR SYSTEMS (making microcapsules or microballoons B01J 13/02 ; processes or apparatus specially adapted for the manufacture or treatment of piezoelectric, electrostrictive or magnetostrictive elements per se H10N 30/01 ) [7]"
+B82B,"NANOSTRUCTURES FORMED BY MANIPULATION OF INDIVIDUAL ATOMS, MOLECULES, OR LIMITED COLLECTIONS OF ATOMS OR MOLECULES AS DISCRETE UNITS; MANUFACTURE OR TREATMENT THEREOF [7]"
+B82Y,SPECIFIC USES OR APPLICATIONS OF NANOSTRUCTURES; MEASUREMENT OR ANALYSIS OF NANOSTRUCTURES; MANUFACTURE  OR TREATMENT OF NANOSTRUCTURES [2011.01]
+B99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+C01B,NON-METALLIC ELEMENTS; COMPOUNDS THEREOF (fermentation or enzyme-using processes for the preparation of elements or inorganic compounds except carbon dioxide C12P 3/00 ; production of non-metallic elements or inorganic compounds by electrolysis or electrophoresis C25B )
+C01C,Cyanogen; Compounds thereof [2006.01]
+C01D,"Rubidium, caesium, or francium compounds [2006.01]"
+C01G,Subject matter not provided for in other groups of this subclass [2010.01]
+C03B,"MANUFACTURE OR SHAPING OF GLASS, OR OF MINERAL OR SLAG WOOL ; SUPPLEMENTARY PROCESSES IN THE MANUFACTURE OR SHAPING OF GLASS, OR OF MINERAL OR SLAG WOOL (surface treatment C03C )"
+C03C,"CHEMICAL COMPOSITION OF GLASSES, GLAZES OR VITREOUS ENAMELS ; SURFACE TREATMENT OF GLASS ; SURFACE TREATMENT OF FIBRES OR FILAMENTS MADE FROM GLASS , MINERALS OR SLAGS ; JOINING GLASS TO GLASS OR OTHER MATERIALS"
+C04B,"LIME; MAGNESIA; SLAG; CEMENTS ; COMPOSITIONS THEREOF, e.g. MORTARS, CONCRETE OR LIKE BUILDING MATERIALS ; ARTIFICIAL STONE; CERAMICS (devitrified glass- ceramics C03C 10/00 ) ; REFRACTORIES (alloys based on refractory metals C22C ) ; TREATMENT OF NATURAL STONE [4]"
+C05B,PHOSPHATIC FERTILISERS
+C05C,NITROGENOUS FERTILISERS
+C05D,NITROGENOUS FERTILISERS
+C05F,"ORGANIC FERTILISERS NOT COVERED BY SUBCLASSES C05B , C05C , e.g. FERTILISERS FROM WASTE OR REFUSE"
+C05G,"MIXTURES OF FERTILISERS COVERED INDIVIDUALLY BY DIFFERENT SUBCLASSES OF CLASS C05 ; MIXTURES OF ONE OR MORE FERTILISERS WITH ADDITIVES NOT HAVING A SPECIFIC FERTILISING ACTIVITY (organic fertilisers containing added bacterial cultures, mycelia or the like C05F 11/08 ; organic fertilisers containing plant vitamins or hormones C05F 11/10 ) ; FERTILISERS CHARACTERISED BY THEIR FORM [4]"
+C06B,EXPLOSIVE OR THERMIC COMPOSITIONS (blasting F42D ) ; MANUFACTURE THEREOF; USE OF SINGLE SUBSTANCES AS EXPLOSIVES [2]
+C06C,DETONATING OR PRIMING DEVICES; FUSES; CHEMICAL LIGHTERS; PYROPHORIC COMPOSITIONS [2]
+C06D,MEANS FOR GENERATING SMOKE OR MIST; GAS-ATTACK COMPOSITIONS; GENERATION OF GAS FOR BLASTING OR PROPULSION (CHEMICAL PART) [2]
+C06F,MATCHES; MANUFACTURE OF MATCHES
+C07B,"GENERAL METHODS OF ORGANIC CHEMISTRY; APPARATUS THEREFOR ( preparation of carboxylic acid esters by telomerisation C07C 67/47 ; processes for preparing macromolecular compounds, e.g. telomerisation C08F , C08G )"
+C07C,"ACYCLIC OR CARBOCYCLIC COMPOUNDS (macromolecular compounds C08 ; production of organic compounds by electrolysis or electrophoresis C25B 3/00 , C25B 7/00 )"
+C07D,HETEROCYCLIC COMPOUNDS (macromolecular compounds C08 ) [2]
+C07F,"ACYCLIC, CARBOCYCLIC, OR HETEROCYCLIC COMPOUNDS CONTAINING ELEMENTS OTHER THAN CARBON, HYDROGEN, HALOGEN, OXYGEN, NITROGEN, SULFUR, SELENIUM OR TELLURIUM (metal-containing porphyrins C07D 487/22 ; macromolecular compounds C08 )"
+C07G,"COMPOUNDS OF UNKNOWN CONSTITUTION (sulfonated fats, oils or waxes of undetermined constution C07C 309/62 )"
+C07J,STEROIDS ( seco-steroids C07C ) [2]
+C07H,Subject matter not provided for in other groups of this subclass [2006.01]
+C08B,POLYSACCHARIDES; DERIVATIVES THEREOF (polysaccharides containing less than six saccharide radicals attached to each other by glycosidic linkages C07H ; fermentation or enzyme-using processes C12P 19/00 ; production of cellulose D21 ) [4]
+C08C,TREATMENT OR CHEMICAL MODIFICATION OF RUBBERS
+C08F,"MACROMOLECULAR COMPOUNDS OBTAINED BY REACTIONS ONLY INVOLVING CARBON-TO-CARBON UNSATURATED BONDS (production of liquid hydrocarbon mixtures from lower carbon number hydrocarbons, e.g. by oligomerisation, C10G 50/00 ; fermentation or enzyme-using processes to synthesise a desired chemical compound or composition or to separate optical isomers from a racemic mixture C12P ; graft polymerisation of monomers containing carbon-to-carbon unsaturated bonds on to fibres, threads, yarns, fabrics or fibrous goods made from such materials D06M 14/00 ) [2]"
+C08G,MACROMOLECULAR COMPOUNDS OBTAINED OTHERWISE THAN BY REACTIONS ONLY INVOLVING CARBON-TO-CARBON UNSATURATED BONDS (fermentation or enzyme-using processes to synthesise a desired chemical compound or composition or to separate optical isomers from a racemic mixture C12P ) [2]
+C08H,"DERIVATIVES OF NATURAL MACROMOLECULAR COMPOUNDS (polysaccharides C08B ; natural rubber C08C ; natural resins or their derivatives C09F ; working up pitch, asphalt or bitumen C10C 3/00 )"
+C08J,"WORKING-UP ; GENERAL PROCESSES OF COMPOUNDING; AFTER- TREATMENT NOT COVERED BY SUBCLASSES C08B , C08C , C08F , C08G or C08H (working, e.g. shaping, of plastics B29 ) [2]"
+C08K,"USE OF INORGANIC OR NON-MACROMOLECULAR ORGANIC SUBSTANCES AS COMPOUNDING INGREDIENTS (paints, inks, varnishes, dyes, polishes, adhesives C09 ) [2]"
+C08L,"COMPOSITIONS OF MACROMOLECULAR COMPOUNDS (compositions based on polymerisable monomers C08F , C08G ; artificial filaments or fibres D01F ; textile treating compositions D06 ) [2]"
+C09B,ORGANIC DYES OR CLOSELY-RELATED COMPOUNDS FOR PRODUCING DYES ; MORDANTS ; LAKES (fermentation or enzyme-using processes to synthesise a desired chemical compound C12P )
+C09F,"NATURAL RESINS ; FRENCH POLISH; DRYING-OILS ; OIL DRYING AGENTS, i.e. SICCATIVES ; TURPENTINE"
+C09G,POLISHING COMPOSITIONS (French polish C09F 11/00 ) ; SKI WAXES
+C09H,PREPARATION OF GLUE OR GELATINE
+C09J,ADHESIVES; NON-MECHANICAL ASPECTS OF ADHESIVE PROCESSES IN GENERAL; ADHESIVE PROCESSES NOT PROVIDED FOR ELSEWHERE; USE OF MATERIALS AS ADHESIVES ( preparation of glue or gelatine C09H ) [5]
+C09K,MATERIALS FOR APPLICATIONS NOT OTHERWISE PROVIDED FOR; APPLICATIONS OF MATERIALS NOT OTHERWISE PROVIDED FOR
+C09C,"TREATMENT OF INORGANIC MATERIALS , OTHER THAN FIBROUS FILLERS, TO ENHANCE THEIR PIGMENTING OR FILLING PROPERTIES ( treatment of materials specially adapted to enhance their filling properties in mortars, concrete or artificial stone C04B 14/00 , C04B 18/00 , C04B 20/00 ) ; PREPARATION OF CARBON BLACK [4]"
+C09D,Coating compositions based on unspecified macromolecular compounds [2006.01]
+C10B,"DESTRUCTIVE DISTILLATION OF CARBONACEOUS MATERIALS FOR PRODUCTION OF GAS, COKE , TAR, OR SIMILAR MATERIALS (cracking oils C10G ; underground gasification of minerals E21B 43/295 ) [5]"
+C10C,"WORKING-UP TAR , PITCH , ASPHALT , BITUMEN ; PYROLIGNEOUS ACID"
+C10F,DRYING OR WORKING-UP OF PEAT [5]
+C10G,"CRACKING HYDROCARBON OILS; PRODUCTION OF LIQUID HYDROCARBON MIXTURES, e.g. BY DESTRUCTIVE HYDROGENATION, OLIGOMERISATION, POLYMERISATION ( cracking to hydrogen or synthesis gas C01B ; cracking or pyrolysis of hydrocarbon gases to individual hydrocarbons or mixtures thereof of definite or specified constitution C07C ; cracking to cokes C10B ) ; RECOVERY OF HYDROCARBON OILS FROM OIL-SHALE, OIL-SAND, OR GASES; REFINING MIXTURES MAINLY CONSISTING OF HYDROCARBONS; REFORMING OF NAPHTHA; MINERAL WAXES [6]"
+C10H,PRODUCTION OF ACETYLENE BY WET METHODS [5]
+C10J,PRODUCTION OF GASES CONTAINING CARBON MONOXIDE AND HYDROGEN FROM SOLID CARBONACEOUS MATERIALS BY PARTIAL OXIDATION PROCESSES INVOLVING OXYGEN OR STEAM (underground gasification of minerals E21B 43/295 ) ; CARBURETTING AIR OR OTHER GASES [5]
+C10K,PURIFYING OR MODIFYING THE CHEMICAL COMPOSITION OF COMBUSTIBLE GASES CONTAINING CARBON MONOXIDE
+C10L,FUELS NOT OTHERWISE PROVIDED FOR; NATURAL GAS; SYNTHETIC NATURAL GAS OBTAINED BY PROCESSES NOT COVERED BY SUBCLASSES C10G OR C10K ; LIQUEFIED PETROLEUM GAS; USE OF ADDITIVES TO FUELS OR FIRES; FIRE-LIGHTERS [5]
+C10N,INDEXING SCHEME ASSOCIATED WITH SUBCLASS C10M [4]
+C11B,"PRODUCING, e.g. BY PRESSING RAW MATERIALS OR BY EXTRACTION FROM WASTE MATERIALS , REFINING OR PRESERVING FATS, FATTY SUBSTANCES, e.g. LANOLIN, FATTY OILS OR WAXES; ESSENTIAL OILS ; PERFUMES (drying-oils C09F )"
+C11C,"FATTY ACIDS OBTAINED FROM FATS , OILS OR WAXES ; CANDLES; FATS , OILS OR FATTY ACIDS OBTAINED BY CHEMICAL MODIFICATION OF FATS , OILS OR FATTY ACIDS"
+C11D,DETERGENT COMPOSITIONS; USE OF SINGLE SUBSTANCES AS DETERGENTS ; SOAP OR SOAP -MAKING; RESIN SOAPS ; RECOVERY OF GLYCEROL
+C12F,RECOVERY OF BY- PRODUCTS OF FERMENTED SOLUTIONS (removal of yeast from wine or sparkling wine C12G 1/08 ) ; DENATURED ALCOHOL ; PREPARATION THEREOF [6]
+C12G,WINE ; PREPARATION THEREOF; ALCOHOLIC BEVERAGES (beer C12C ) ; PREPARATION OF ALCOHOLIC BEVERAGES NOT PROVIDED FOR IN SUBCLASSES C12C OR C12H
+C12H,"PASTEURISATION, STERILISATION, PRESERVATION, PURIFICATION, CLARIFICATION OR AGEING OF ALCOHOLIC BEVERAGES; METHODS FOR ALTERING THE ALCOHOL CONTENT OF FERMENTED SOLUTIONS OR ALCOHOLIC BEVERAGES (deacidification of wine C12G 1/10 ; preventing winestone precipitation C12G 1/12 ; simulation ageing by flavouring C12G 3/06 ) [6]"
+C12J,VINEGAR ; PREPARATION OR PURIFICATION THEREOF
+C12L,PITCHING OR DEPITCHING MACHINES; CELLAR TOOLS
+C12M,APPARATUS FOR ENZYMOLOGY OR MICROBIOLOGY (installations for fermenting manure A01C 3/02 ; preservation of living parts of humans or animals A01N 1/10 ; brewing apparatus C12C ; fermentation apparatus for wine C12G ; apparatus for preparing vinegar C12J 1/10 ) [3]
+C12N,"MICROORGANISMS OR ENZYMES ; COMPOSITIONS THEREOF; PROPAGATING, PRESERVING , OR MAINTAINING MICROORGANISMS ; MUTATION OR GENETIC ENGINEERING ; CULTURE MEDIA (microbiological testing media C12Q 1/00 ) [3]"
+C12P,FERMENTATION OR ENZYME-USING PROCESSES TO SYNTHESISE A DESIRED CHEMICAL COMPOUND OR COMPOSITION OR TO SEPARATE OPTICAL ISOMERS FROM A RACEMIC MIXTURE [3]
+C12Q,"MEASURING OR TESTING PROCESSES INVOLVING ENZYMES, NUCLEIC ACIDS OR MICROORGANISMS (immunoassay G01N 33/53 ) ; COMPOSITIONS OR TEST PAPERS THEREFOR; PROCESSES OF PREPARING SUCH COMPOSITIONS; CONDITION-RESPONSIVE CONTROL IN MICROBIOLOGICAL OR ENZYMOLOGICAL PROCESSES [3]"
+C12R,"INDEXING SCHEME ASSOCIATED WITH SUBCLASSES C12C - C12Q , RELATING TO MICROORGANISMS [3]"
+C13B,PRODUCTION OF SUCROSE ; APPARATUS SPECIALLY ADAPTED THEREFOR (chemically synthesised sugars or sugar derivatives C07H ; fermentation or enzyme-using processes for preparing compounds containing saccharide radicals C12P 19/00 ) [2011.01]
+C14B,"MECHANICAL TREATMENT OR PROCESSING OF SKINS, HIDES , OR LEATHER IN GENERAL; PELT -SHEARING MACHINES; INTESTINE-SPLITTING MACHINES (mechanical cleaning of hides or the like D06G )"
+C14C,"TREATING SKINS, HIDES OR LEATHER WITH CHEMICALS, ENZYMES OR MICROORGANISMS, e.g. TANNING , IMPREGNATING OR FINISHING; APPARATUS THEREFOR; COMPOSITIONS FOR TANNING (bleaching  of leather or furs D06L ; dyeing of leather or furs D06P )"
+C21B,MANUFACTURE OF IRON OR STEEL (preliminary treatment of ferrous ores or scrap C22B 1/00 )
+C21C,"PROCESSING OF PIG-IRON , e.g. REFINING, MANUFACTURE OF WROUGHT-IRON OR STEEL; TREATMENT IN MOLTEN STATE OF FERROUS ALLOYS"
+C22B,PRODUCTION OR REFINING OF METALS (making metallic powder or suspensions thereof B22F 9/00 ; production of metals by electrolysis or electrophoresis C25 ) ; PRETREATMENT OF RAW MATERIALS
+C22C,"ALLOYS ( treatment of alloys C21D , C22F )"
+C22F,CHANGING THE PHYSICAL STRUCTURE OF NON-FERROUS METALS OR NON-FERROUS ALLOYS (processes specific to heat treatment of ferrous alloys or steels and devices for heat treatment of metals or alloys C21D )
+C23D,"ENAMELLING OF, OR APPLYING A VITREOUS LAYER TO, METALS"
+C23G,CLEANING OR DEGREASING OF METALLIC MATERIAL BY CHEMICAL METHODS OTHER THAN ELECTROLYSIS
+C25B,ELECTROLYTIC OR ELECTROPHORETIC PROCESSES FOR THE PRODUCTION OF COMPOUNDS OR NON- METALS; APPARATUS THEREFOR (anodic or cathodic protection C23F 13/00 ; single-crystal growth C30B ) [2]
+C25C,"PROCESSES FOR THE ELECTROLYTIC PRODUCTION, RECOVERY OR REFINING OF METALS; APPARATUS THEREFOR (anodic or cathodic protection C23F 13/00 ; single-crystal growth C30B ) [2]"
+C25D,PROCESSES FOR THE ELECTROLYTIC OR ELECTROPHORETIC PRODUCTION OF COATINGS; ELECTROFORMING (manufacturing printed circuits by metal deposition H05K 3/18 ) ; JOINING WORKPIECES BY ELECTROLYSIS; APPARATUS THEREFOR (anodic or cathodic protection C23F 13/00 ; single-crystal growth C30B ) [6]
+C25F,"PROCESSES FOR THE ELECTROLYTIC REMOVAL OF MATERIALS FROM OBJECTS; APPARATUS THEREFOR ( treatment of water, waste water or sewage by electrochemical methods C02F 1/46 ; anodic or cathodic protection C23F 13/00 ) [2]"
+C40B,"COMBINATORIAL CHEMISTRY; LIBRARIES , e.g. CHEMICAL LIBRARIES ( in silico combinatorial libraries of nucleic acids, proteins or peptides G16B 35/00 ; in silico combinatorial chemistry G16C 20/60 ) [2006.01]"
+C99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+D01B,"MECHANICAL TREATMENT OF NATURAL FIBROUS OR FILAMENTARY MATERIAL TO OBTAIN FIBRES OR FILAMENTS, e.g. FOR SPINNING (crude extraction of asbestos fibres from ores B03B ; apparatus for retting D01C )"
+D01D,"MECHANICAL METHODS OR APPARATUS IN THE MANUFACTURE OF MAN-MADE FILAMENTS, THREADS, FIBRES, BRISTLES OR RIBBONS (working or processing of metal wire B21F ; fibres or filaments of softened glass, minerals or slag C03B 37/00 )"
+D01F,"CHEMICAL FEATURES IN THE MANUFACTURE OF MAN-MADE FILAMENTS, THREADS, FIBRES, BRISTLES OR RIBBONS; APPARATUS SPECIALLY ADAPTED FOR THE MANUFACTURE OF CARBON FILAMENTS [2]"
+D01G,"PRELIMINARY TREATMENT OF FIBRES, e.g. FOR SPINNING (winding or unwinding, conducting or guiding laps, webs, slivers, or rovings in general, sliver or roving cans, depositing in sliver or roving cans B65H ; preparation of fibres for paper-making D21 )"
+D01H,"SPINNING OR TWISTING (twisting oakum D01G 35/00 ; crimping or curling of fibres, filaments, or yarns D02G 1/00 )"
+D01C,CHEMICAL OR BIOLOGICAL TREATMENT OF NATURAL FILAMENTARY OR FIBROUS MATERIAL TO OBTAIN FILAMENTS OR FIBRES FOR SPINNING; CARBONISING RAGS TO RECOVER ANIMAL FIBRES
+D02H,"WARPING, BEAMING, OR LEASING"
+D02G,"CRIMPING OR CURLING FIBRES, FILAMENTS, YARNS, OR THREADS; YARNS OR THREADS"
+D03C,SHEDDING MECHANISMS; PATTERN CARDS OR CHAINS; PUNCHING OF CARDS; DESIGNING PATTERNS
+D03D,WOVEN FABRICS; METHODS OF WEAVING; LOOMS
+D03J,WOVEN FABRICS; METHODS OF WEAVING; LOOMS
+D04B,KNITTING
+D04C,KNITTING
+D04D,"TRIMMINGS; RIBBONS, TAPES, OR BANDS, NOT OTHERWISE PROVIDED FOR (fittings or trimmings for hats, e.g. hat bands, A42C 5/00 ; decorating art B44 ; yarns or threads D02G ; weaving D03 ; braid or lace D04C ; non-woven fabrics D04H )"
+D04G,MAKING NETS BY KNOTTING OF FILAMENTARY MATERIAL ; MAKING KNOTTED CARPETS OR TAPESTRIES; KNOTTING NOT OTHERWISE PROVIDED FOR (binding knotters for harvesters A01D 59/04 ; wire netting B21F ; tying articles by knotting B65B ; knotting in association with winding or unwinding B65H 69/00 ; knotting in weaving D03J )
+D04H,Needling machines [2012.01]
+D05B,SEWING (appliances for the tailoring trade A41H ; sewing tables A47B 29/00 ; sewing in bookbinding B42B 2/00 ; sewing machines modified for knitting D04B 39/08 )
+D05C,"EMBROIDERING (programme- controlled sewing machines with embroidering capability D05B 19/00 , D05B 21/00 ) ; TUFTING (making non-woven fabrics D04H ; sewing D05B )"
+D06B,"TREATING TEXTILE MATERIALS USING LIQUIDS, GASES OR VAPOURS (mechanical treatment of natural fibrous or filamentary material to obtain fibres or filaments D01B ) [2]"
+D06C,"FINISHING, DRESSING, TENTERING OR STRETCHING TEXTILE FABRICS [2]"
+D06F,"LAUNDERING, DRYING, IRONING, PRESSING OR FOLDING TEXTILE ARTICLES"
+D06G,"MECHANICAL OR PRESSURE CLEANING OF CARPETS, RUGS, SACKS, HIDES, OR OTHER SKIN OR TEXTILE ARTICLES OR FABRICS; TURNING INSIDE-OUT FLEXIBLE TUBULAR OR OTHER HOLLOW ARTICLES"
+D06H,"MARKING, INSPECTING, SEAMING OR SEVERING TEXTILE MATERIALS (seaming by sewing D05B )"
+D06J,"PLEATING, KILTING OR GOFFERING TEXTILE FABRICS OR WEARING APPAREL (by sewing D05B )"
+D06L,"DRY-CLEANING, WASHING OR BLEACHING FIBRES , FILAMENTS , THREADS , YARNS , FABRICS , FEATHERS OR MADE-UP FIBROUS GOODS; BLEACHING LEATHER OR FURS"
+D06M,"TREATMENT , NOT PROVIDED FOR ELSEWHERE IN CLASS D06 , OF FIBRES, THREADS, YARNS, FABRICS, FEATHERS OR FIBROUS GOODS MADE FROM SUCH MATERIALS"
+D06N,"WALL, FLOOR, OR LIKE COVERING MATERIALS , e.g. LINOLEUM, OILCLOTH, ARTIFICIAL LEATHER, ROOFING FELT, CONSISTING OF A FIBROUS WEB COATED WITH A LAYER OF MACROMOLECULAR MATERIAL ; FLEXIBLE SHEET MATERIAL NOT OTHERWISE PROVIDED FOR"
+D06P,"DYEING OR PRINTING TEXTILES; DYEING LEATHER, FURS OR SOLID MACROMOLECULAR SUBSTANCES IN ANY FORM"
+D06Q,"DECORATING TEXTILES (textile threads, filaments, yarns or tow, glued on macromolecular material D06N 7/00 ) [5]"
+D07B,Manufacture of ropes or cables
+D21B,FIBROUS RAW MATERIALS OR THEIR MECHANICAL TREATMENT
+D21C,PRODUCTION OF CELLULOSE BY REMOVING NON- CELLULOSE SUBSTANCES FROM CELLULOSE - CONTAINING MATERIALS ; REGENERATION OF PULPING LIQUORS; APPARATUS THEREFOR
+D21D,TREATMENT OF THE MATERIALS BEFORE PASSING TO THE PAPER-MAKING MACHINE [5]
+D21F,PAPER-MAKING MACHINES; METHODS OF PRODUCING PAPER THEREON
+D21G,PAPER-MAKING MACHINES; METHODS OF PRODUCING PAPER THEREON
+D21H,"PULP COMPOSITIONS; PREPARATION THEREOF NOT COVERED BY SUBCLASSES D21C , D21D ; IMPREGNATING OR COATING OF PAPER; TREATMENT OF FINISHED PAPER NOT COVERED BY CLASS B31 OR SUBCLASS D21G ; PAPER NOT OTHERWISE PROVIDED FOR [5]"
+D21J,FIBREBOARD; MANUFACTURE OF ARTICLES FROM CELLULOSIC FIBROUS SUSPENSIONS OR FROM PAPIER-MÂCHÉ (manufacture of articles by dry processes B27N )
+D99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+E01B,"PERMANENT WAY; PERMANENT-WAY TOOLS; MACHINES FOR MAKING RAILWAYS OF ALL KINDS (derailing or rerailing blocks on track, track brakes or retarders B61K ; removal of foreign matter from the permanent way, vegetation control , applying liquids E01H )"
+E01C,"CONSTRUCTION OF, OR SURFACES FOR, ROADS, SPORTS GROUNDS, OR THE LIKE; MACHINES OR AUXILIARY TOOLS FOR CONSTRUCTION OR REPAIR (forming road or like surfaces by compacting or grading snow or ice E01H )"
+E01D,BRIDGES (bridges extending between terminal buildings and aircraft for embarking or disembarking passengers B64F 1/305 )
+E01F,"ADDITIONAL WORK, SUCH AS EQUIPPING ROADS OR THE CONSTRUCTION OF PLATFORMS, HELICOPTER LANDING STAGES, SIGNS, SNOW FENCES, OR THE LIKE"
+E01H,"STREET CLEANING; CLEANING OF PERMANENT WAYS; CLEANING BEACHES; CLEANING LAND; DISPERSING FOG IN GENERAL (mowers convertible to apparatus for sweeping or cleaning lawns or other surfaces, e.g. to remove snow, or capable of sweeping or cleaning lawns or other surfaces A01D 42/06 ; cleaning in general B08B ) [4]"
+E02B,HYDRAULIC ENGINEERING (ship-lifting E02C ; dredging E02F )
+E02C,SHIP-LIFTING DEVICES OR MECHANISMS
+E02D,FOUNDATIONS; EXCAVATIONS; EMBANKMENTS (specially adapted for hydraulic engineering E02B ) ; UNDERGROUND OR UNDERWATER STRUCTURES [6]
+E02F,DREDGING; SOIL-SHIFTING (winning peat E21C 49/00 )
+E03B,"INSTALLATIONS OR METHODS FOR OBTAINING, COLLECTING, OR DISTRIBUTING WATER (drilling wells, obtaining fluids in general from wells E21B ; pipe-line systems in general F17D )"
+E03C,"DOMESTIC PLUMBING INSTALLATIONS FOR FRESH WATER OR WASTE WATER (not connected to either water-supply main or to waste pipe A47K ; devices of the kind used in the ground E03B , E03F ) ; SINKS"
+E03D,WATER-CLOSETS OR URINALS WITH FLUSHING DEVICES; FLUSHING VALVES THEREFOR
+E03F,SEWERS; CESSPOOLS
+E04B,"GENERAL BUILDING CONSTRUCTIONS; WALLS, e.g. PARTITIONS; ROOFS; FLOORS; CEILINGS; INSULATION OR OTHER PROTECTION OF BUILDINGS (border constructions of openings in walls, floors, or ceilings E06B 1/00 )"
+E04C,"STRUCTURAL ELEMENTS; BUILDING MATERIALS (for bridges E01D ; specially designed for insulation or other protection E04B ; elements used as building aids E04G ; for mining E21 ; for tunnels E21D ; structural elements with broader range of application than for building engineering F16 , particularly F16S )"
+E04D,ROOF COVERINGS; SKY-LIGHTS; GUTTERS; ROOF-WORKING TOOLS (coverings of outer walls by plaster or other porous material E04F 13/00 )
+E04F,"FINISHING WORK ON BUILDINGS, e.g. STAIRS, FLOORS (windows, doors E06B )"
+E04G,"SCAFFOLDING; FORMS; SHUTTERING; BUILDING IMPLEMENTS OR AIDS, OR THEIR USE ; HANDLING BUILDING MATERIALS ON THE SITE; REPAIRING, BREAKING-UP OR OTHER WORK ON EXISTING BUILDINGS"
+E04H,"BUILDINGS OR LIKE STRUCTURES FOR PARTICULAR PURPOSES; SWIMMING OR SPLASH BATHS OR POOLS; MASTS; FENCING; TENTS OR CANOPIES, IN GENERAL (foundations E02D ) [4]"
+E05B,LOCKS; ACCESSORIES THEREFOR; HANDCUFFS
+E05C,"BOLTS OR FASTENING DEVICES FOR WINGS, SPECIALLY FOR DOORS OR WINDOWS (latching means for sideboard or tailgate structures for vehicles B62D 33/037 ; fastening devices for constructional or engineering elements E04 , F16B ; locks, fastening devices structurally or operatively combined or having significant cooperation with locks E05B ; means for operating or controlling wing fasteners in conjunction with mechanisms for moving the wing E05F )"
+E05D,"HINGES OR SUSPENSION DEVICES FOR DOORS, WINDOWS OR WINGS (pivotal connections in general F16C 11/00 )"
+E05F,"DEVICES FOR MOVING WINGS INTO OPEN OR CLOSED POSITION; CHECKS FOR WINGS; WING FITTINGS NOT OTHERWISE PROVIDED FOR, CONCERNED WITH THE FUNCTIONING OF THE WING"
+E05G,SAFES OR STRONG-ROOMS FOR VALUABLES; BANK PROTECTION DEVICES; SAFETY TRANSACTION PARTITIONS (alarm arrangements per se G08B ) [2]
+E06B,"FIXED OR MOVABLE CLOSURES FOR OPENINGS IN BUILDINGS, VEHICLES, FENCES, OR LIKE ENCLOSURES, IN GENERAL, e.g. DOORS, WINDOWS, BLINDS, GATES (shades or blinds for greenhouses A01G 9/22 ; curtains A47H ; lids for car boots or bonnets B62D 25/10 ; sky-lights E04B 7/18 ; sunshades, awnings E04F 10/00 )"
+E06C,"LADDERS ( E04F 11/00 takes precedence; step-stools A47C 12/00 ; adaptation of ladders to use on ships B63B , to use on aircraft B64 ; scaffolding E04G ) [6]"
+E21B,"EARTH OR ROCK DRILLING; OBTAINING OIL, GAS, WATER, SOLUBLE OR MELTABLE MATERIALS OR A SLURRY OF MINERALS FROM WELLS [5]"
+E21C,MINING OR QUARRYING
+E21D,"SHAFTS; TUNNELS; GALLERIES; LARGE UNDERGROUND CHAMBERS (soil-conditioning or soil-stabilising materials C09K 17/00 ; cutting machines for mining or quarrying E21C ; safety devices, transport, rescue, ventilation or drainage E21F ) [6]"
+E21F,"SAFETY DEVICES, TRANSPORT, FILLING-UP, RESCUE, VENTILATION, OR DRAINAGE IN OR OF MINES OR TUNNELS [2]"
+E99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+F01C,"ROTARY-PISTON OR OSCILLATING-PISTON MACHINES OR ENGINES (combustion engines F02 ; internal-combustion aspects F02B 53/00 , F02B 55/00 ; machines for liquids F03 , F04 )"
+F01D,"NON-POSITIVE-DISPLACEMENT MACHINES OR ENGINES , e.g. STEAM TURBINES (combustion engines F02 ; machines or engines for liquids F03 , F04 ; non-positive-displacement pumps F04D )"
+F01L,CYCLICALLY OPERATING VALVES FOR MACHINES OR ENGINES
+F01M,LUBRICATING OF MACHINES OR ENGINES IN GENERAL; LUBRICATING INTERNAL-COMBUSTION ENGINES ; CRANKCASE VENTILATING [2]
+F01P,"COOLING OF MACHINES OR ENGINES IN GENERAL; COOLING OF INTERNAL-COMBUSTION ENGINES (arrangements in connection with cooling of propulsion units in vehicles B60K 11/00 ; heat-transfer, heat-exchange or heat-storage materials C09K 5/00 ; heat-exchange in general, radiators F28 )"
+F01N,Subject matter not provided for in other groups of this subclass [2010.01]
+F02B,INTERNAL-COMBUSTION PISTON ENGINES ; COMBUSTION ENGINES IN GENERAL (gas-turbine plants F02C ; hot-gas or combustion- product positive-displacement engine plants F02G )
+F02D,"CONTROLLING COMBUSTION ENGINES (vehicle fittings, acting on a single sub-unit only, for automatically controlling vehicle speed B60K 31/00 ; conjoint control of vehicle sub-units of different type or different function, road vehicle drive control systems for purposes other than the control of a single sub-unit B60W ) [2006.01]"
+F02F,"CYLINDERS, PISTONS, OR CASINGS FOR COMBUSTION ENGINES ; ARRANGEMENTS OF SEALINGS IN COMBUSTION ENGINES [2]"
+F02M,SUPPLYING COMBUSTION ENGINES IN GENERAL WITH COMBUSTIBLE MIXTURES OR CONSTITUENTS THEREOF
+F02N,"STARTING OF COMBUSTION ENGINES ; STARTING AIDS FOR SUCH ENGINES , NOT OTHERWISE PROVIDED FOR"
+F02K,Subject matter not provided for in other groups of this subclass [2009.01]
+F02P,Other ignition
+F03B,MACHINES OR ENGINES FOR LIQUIDS (machines or engines for liquids and elastic fluids F01 ; positive-displacement engines for liquids F03C ; positive-displacement machines for liquids F04 )
+F03C,POSITIVE-DISPLACEMENT ENGINES DRIVEN BY LIQUIDS (positive-displacement engines for liquids and elastic fluids F01 ; positive-displacement machines for liquids F04 ; fluid -pressure actuators F15B ; fluid gearing F16H )
+F03D,WIND MOTORS
+F03G,"SPRING, WEIGHT, INERTIA, OR LIKE MOTORS ; MECHANICAL-POWER-PRODUCING DEVICES OR MECHANISMS, NOT OTHERWISE PROVIDED FOR OR USING ENERGY SOURCES NOT OTHERWISE PROVIDED FOR (arrangements in connection with power supply in vehicles from force of nature B60K 16/00 ; electric propulsion with power supply in vehicles from force of nature B60L 8/00 )"
+F03H,"PRODUCING A REACTIVE PROPULSIVE THRUST, NOT OTHERWISE PROVIDED FOR (from combustion products F02K )"
+F04B,"POSITIVE-DISPLACEMENT MACHINES FOR LIQUIDS; PUMPS (machines for liquids, or pumps, of rotary-piston or oscillating-piston type F04C ; non-positive-displacement pumps F04D ; pumping of fluid by direct contact of another fluid or by using inertia of fluid to be pumped F04F )"
+F04C,"ROTARY-PISTON, OR OSCILLATING-PISTON, POSITIVE-DISPLACEMENT MACHINES FOR LIQUIDS ( engines driven by liquids F03C ) ; ROTARY-PISTON, OR OSCILLATING-PISTON, POSITIVE-DISPLACEMENT PUMPS ( engine fuel-injection pumps F02M )"
+F04D,NON-POSITIVE-DISPLACEMENT PUMPS ( engine fuel-injection pumps F02M ; ion pumps H01J 41/12 ; electrodynamic pumps H02K 44/02 )
+F04F,PUMPING OF FLUID BY DIRECT CONTACT OF ANOTHER FLUID OR BY USING INERTIA OF FLUID TO BE PUMPED (containers or packages with special means for dispensing liquid or semi-liquid contents by internal gaseous pressure B65D 83/14 ) ; SIPHONS [2]
+F15B,"SYSTEMS ACTING BY MEANS OF FLUIDS IN GENERAL; FLUID -PRESSURE ACTUATORS, e.g. SERVOMOTORS; DETAILS OF FLUID -PRESSURE SYSTEMS, NOT OTHERWISE PROVIDED FOR"
+F15C,"FLUID -CIRCUIT ELEMENTS PREDOMINANTLY USED FOR COMPUTING OR CONTROL PURPOSES (transducers F15B 5/00 ; fluid dynamics in general F15D ; computers comprising fluid elements G06D , G06G )"
+F15D,"FLUID DYNAMICS, i.e. METHODS OR MEANS FOR INFLUENCING THE FLOW OF GASES OR LIQUIDS"
+F16B,"DEVICES FOR FASTENING OR SECURING CONSTRUCTIONAL ELEMENTS OR MACHINE PARTS TOGETHER, e.g. NAILS, BOLTS, CIRCLIPS, CLAMPS, CLIPS OR WEDGES; JOINTS OR JOINTING (couplings for transmitting rotation F16D )"
+F16C,"SHAFTS ; FLEXIBLE SHAFTS ; MECHANICAL MEANS FOR TRANSMITTING MOVEMENT IN A FLEXIBLE SHEATHING; ELEMENTS OF CRANKSHAFT MECHANISMS; PIVOTS; PIVOTAL CONNECTIONS; ROTARY ENGINEERING ELEMENTS OTHER THAN GEARING , COUPLING, CLUTCH OR BRAKE ELEMENTS; BEARINGS [5]"
+F16F,SPRINGS; SHOCK-ABSORBERS; MEANS FOR DAMPING VIBRATION
+F16G,"BELTS, CABLES, OR ROPES, PREDOMINANTLY USED FOR DRIVING PURPOSES; CHAINS; FITTINGS PREDOMINANTLY USED THEREFOR"
+F16H,GEARING
+F16J,PISTONS; CYLINDERS; PRESSURE VESSELS IN GENERAL; SEALINGS
+F16K,VALVES; TAPS; COCKS; ACTUATING-FLOATS; DEVICES FOR VENTING OR AERATING
+F16L,"PIPES; JOINTS OR FITTINGS FOR PIPES; SUPPORTS FOR PIPES, CABLES OR PROTECTIVE TUBING; MEANS FOR THERMAL INSULATION IN GENERAL"
+F16M,"FRAMES, CASINGS OR BEDS OF ENGINES , MACHINES OR APPARATUS , NOT SPECIFIC TO ENGINES , MACHINES OR APPARATUS PROVIDED FOR ELSEWHERE; STANDS; SUPPORTS"
+F16N,LUBRICATING
+F16P,SAFETY DEVICES IN GENERAL
+F16S,"CONSTRUCTIONAL ELEMENTS IN GENERAL; STRUCTURES BUILT-UP FROM SUCH ELEMENTS, IN GENERAL"
+F16T,STEAM TRAPS OR LIKE APPARATUS FOR DRAINING-OFF LIQUIDS FROM ENCLOSURES PREDOMINANTLY CONTAINING GASES OR VAPOURS
+F17C,"VESSELS FOR CONTAINING OR STORING COMPRESSED, LIQUEFIED, OR SOLIDIFIED GASES; FIXED-CAPACITY GAS-HOLDERS; FILLING VESSELS WITH, OR DISCHARGING FROM VESSELS, COMPRESSED, LIQUEFIED, OR SOLIDIFIED GASES (storing fluids in natural or artificial cavities or chambers in the earth B65G 5/00 ; construction or assembling of bulk storage containers employing civil-engineering techniques E04H 7/00 ; variable -capacity gas-holders F17B ; liquefaction or refrigeration machines, plants , or systems F25 )"
+F17D,"PIPE-LINE SYSTEMS; PIPE-LINES (distributing water E03B ; pumps or compressors F04 ; fluid dynamics F15D ; valves or the like F16K ; pipes, laying pipes, supports, joints, branches, repairing, work on the entire line, accessories F16L ; steam traps or the like F16T ; fluid -pressure electric cables H01B 9/06 )"
+F21H,INCANDESCENT MANTLES ; OTHER INCANDESCENT BODIES HEATED BY COMBUSTION
+F21K,NON-ELECTRIC LIGHT SOURCES USING LUMINESCENCE; LIGHT SOURCES USING ELECTROCHEMILUMINESCENCE; LIGHT SOURCES USING CHARGES OF COMBUSTIBLE MATERIAL ; LIGHT SOURCES USING SEMICONDUCTOR DEVICES AS LIGHT-GENERATING ELEMENTS; LIGHT SOURCES NOT OTHERWISE PROVIDED FOR
+F21L,"LIGHTING DEVICES OR SYSTEMS THEREOF, BEING PORTABLE OR SPECIALLY ADAPTED FOR TRANSPORTATION [7]"
+F21S,NON-PORTABLE LIGHTING DEVICES; SYSTEMS THEREOF; VEHICLE LIGHTING DEVICES SPECIALLY ADAPTED FOR VEHICLE EXTERIORS [7]
+F21V,"FUNCTIONAL FEATURES OR DETAILS OF LIGHTING DEVICES OR SYSTEMS THEREOF; STRUCTURAL COMBINATIONS OF LIGHTING DEVICES WITH OTHER ARTICLES, NOT OTHERWISE PROVIDED FOR [7]"
+F21W,"INDEXING SCHEME ASSOCIATED WITH SUBCLASSES F21K , F21L , F21S and F21V , RELATING TO USES OR APPLICATIONS OF LIGHTING DEVICES OR SYSTEMS [7]"
+F21Y,"INDEXING SCHEME ASSOCIATED WITH SUBCLASSES F21K , F21L , F21S and F21V , RELATING TO THE FORM OR THE KIND OF THE LIGHT SOURCES OR OF THE COLOUR OF THE LIGHT EMITTED [7]"
+F22B,METHODS OF STEAM GENERATION; STEAM BOILERS
+F22D,METHODS OF STEAM GENERATION; STEAM BOILERS
+F22G,SUPERHEATING OF STEAM
+F23C,METHODS OR APPARATUS FOR COMBUSTION USING FLUID FUEL OR SOLID FUEL SUSPENDED IN AIR ( burners F23D )
+F23D,BURNERS
+F23G,CREMATION FURNACES; CONSUMING WASTE OR LOW GRADE FUELS BY COMBUSTION
+F23H,GRATES (inlets for fluidisation air for fluidised bed combustion apparatus F23C 10/20 ) ; CLEANING OR RAKING GRATES
+F23J,"REMOVAL OR TREATMENT OF COMBUSTION PRODUCTS OR COMBUSTION RESIDUES; FLUES (combustion apparatus for consuming smoke or fumes, e.g. exhaust gases, F23G 7/06 )"
+F23K,FEEDING FUEL TO COMBUSTION APPARATUS (fuel feeders specially adapted for fluidised bed combustion apparatus F23C 10/22 )
+F23M,"CASINGS, LININGS, WALLS OR DOORS SPECIALLY ADAPTED FOR COMBUSTION CHAMBERS , e.g. FIREBRIDGES ; DEVICES FOR DEFLECTING AIR , FLAMES OR COMBUSTION PRODUCTS IN COMBUSTION CHAMBERS ; SAFETY ARRANGEMENTS SPECIALLY ADAPTED FOR COMBUSTION APPARATUS ; DETAILS OF COMBUSTION CHAMBERS , NOT OTHERWISE PROVIDED FOR"
+F23N,REGULATING OR CONTROLLING COMBUSTION ( control devices specially adapted for combustion apparatus in which combustion takes place in a fluidised bed of fuel or other particles F23C 10/28 ; condition responsive controls for regulating combustion in domestic stoves with open fires for solid fuel F24B 1/187 )
+F23Q,IGNITION (devices for igniting matches A24F ; chemical igniters C06C 9/00 ) ; EXTINGUISHING DEVICES
+F23R,"GENERATING COMBUSTION PRODUCTS OF HIGH PRESSURE OR HIGH VELOCITY, e.g. GAS-TURBINE COMBUSTION CHAMBERS (fluidised bed combustion apparatus specially adapted for operation at superatmospheric pressures F23C 10/16 )"
+F23L,Subject matter not provided for in other groups of this subclass [2006.01]
+F24B,"DOMESTIC STOVES OR RANGES FOR SOLID FUELS (for solid fuels in combination with gaseous fuels, liquid fuels or other kinds of energy supply F24C 1/02 ) ; IMPLEMENTS FOR USE IN CONNECTION WITH STOVES OR RANGES [6]"
+F24C,"DOMESTIC STOVES OR RANGES (exclusively for solid fuels F24B ) ; DETAILS OF DOMESTIC STOVES OR RANGES, OF GENERAL APPLICATION"
+F24D,"DOMESTIC- OR SPACE-HEATING SYSTEMS, e.g. CENTRAL HEATING SYSTEMS; DOMESTIC HOT-WATER SUPPLY SYSTEMS; ELEMENTS OR COMPONENTS THEREFOR (using steam or condensate extracted or exhausted from steam engine plants for heating purposes F01K 17/02 )"
+F24F,"AIR-CONDITIONING ; AIR-HUMIDIFICATION; VENTILATION ; USE OF AIR CURRENTS FOR SCREENING (removing dirt or fumes from areas where they are produced B08B 15/00 ; vertical ducts for carrying away waste gases from buildings E04F 17/02 ; tops for chimneys or ventilating shafts, terminals for flues F23L 17/02 )"
+F24H,"FLUID HEATERS, e.g. WATER OR AIR HEATERS, HAVING HEAT-GENERATING MEANS, e.g. HEAT PUMPS, IN GENERAL (steam generation F22 )"
+F24S,SOLAR HEAT COLLECTORS; SOLAR HEAT SYSTEMS (for producing mechanical power from solar energy F03G 6/00 ) [2018.01]
+F24T,GEOTHERMAL COLLECTORS; GEOTHERMAL SYSTEMS [2018.01]
+F24V,"COLLECTION, PRODUCTION OR USE OF HEAT NOT OTHERWISE PROVIDED FOR [2018.01]"
+F25B,"REFRIGERATION MACHINES, PLANTS OR SYSTEMS; COMBINED HEATING AND REFRIGERATION SYSTEMS; HEAT PUMP SYSTEMS"
+F25C,"PRODUCING, WORKING OR HANDLING ICE [2]"
+F25J,"LIQUEFACTION, SOLIDIFICATION, OR SEPARATION OF GASES OR GASEOUS MIXTURES BY PRESSURE AND COLD TREATMENT (cryogenic pumps F04B 37/08 ; gas storage vessels, gas-holders F17 ; filling vessels with, or discharging from vessels, compressed, liquefied, or solidified gases F17C ; refrigeration machines, plants , or systems F25B )"
+F25D,Other cooling or freezing apparatus [2006.01]
+F26B,Details of general application
+F27B,"FURNACES, KILNS, OVENS OR RETORTS IN GENERAL; OPEN SINTERING OR LIKE APPARATUS"
+F27D,"DETAILS OR ACCESSORIES OF FURNACES, KILNS, OVENS OR RETORTS, IN SO FAR AS THEY ARE OF KINDS OCCURRING IN MORE THAN ONE KIND OF FURNACE"
+F28B,STEAM OR VAPOUR CONDENSERS (condensation of vapours B01D 5/00 ; condensation during pretreatment of gases prior to electrostatic precipitation of dispersed particles B03C 3/014 ; steam engine plants having condensers F01K ; liquefaction of gases F25J ; details of heat-exchange or heat-transfer arrangements of general application F28F )
+F28C,"HEAT-EXCHANGE APPARATUS , NOT PROVIDED FOR IN ANOTHER SUBCLASS, IN WHICH THE HEAT-EXCHANGE MEDIA COME INTO DIRECT CONTACT WITHOUT CHEMICAL INTERACTION (heat-transfer, heat-exchange or heat-storage materials C09K 5/00 ; fluid heaters having heat generating means F24H ; with an intermediate heat-transfer medium coming into direct contact with heat-exchange media F28D 15/00 - F28D 19/00 ; details of heat-exchange apparatus of general application F28F )"
+F28F,"DETAILS OF HEAT-EXCHANGE OR HEAT-TRANSFER APPARATUS , OF GENERAL APPLICATION (heat-transfer, heat-exchange or heat-storage materials C09K 5/00 ; water or air traps, air venting F16 )"
+F28G,"CLEANING OF INTERNAL OR EXTERNAL SURFACES OF HEAT-EXCHANGE OR HEAT-TRANSFER CONDUITS, e.g. WATER TUBES OF BOILERS (cleaning pipes or tubes in general B08B 9/02 ; devices or arrangements for removing water, minerals, or sludge from boilers while the boiler is in operation, or which remain in position while the boiler is in operation, or are specifically adapted to boilers without any other utility F22B 37/48 ; removal or treatment of combustion products or combustion residues F23J ; removing ice from heat-exchange apparatus F28F 17/00 )"
+F41A,"FUNCTIONAL FEATURES OR DETAILS COMMON TO BOTH SMALLARMS AND ORDNANCE, e.g. CANNONS; MOUNTINGS FOR SMALLARMS OR ORDNANCE [5]"
+F41B,"WEAPONS FOR PROJECTING MISSILES WITHOUT USE OF EXPLOSIVE OR COMBUSTIBLE PROPELLANT CHARGE; WEAPONS NOT OTHERWISE PROVIDED FOR (projectiles for fishing, e.g. fish-spears, A01K 81/00 ; sports implements for throwing A63B 65/00 , e.g. boomerangs A63B 65/08 ; stationary apparatus for projecting sports balls, e.g. tennis balls, A63B 69/40 ; throwing or slinging toys A63H 33/18 ; knives, axes B26B ; projectiles or missiles other than those incorporating springs as projecting means F42B 6/00 )"
+F41C,"SMALLARMS, e.g. PISTOLS OR RIFLES (projecting missiles without use of explosive or combustible propellant charge F41B ) ; ACCESSORIES THEREFOR [5]"
+F41F,"APPARATUS FOR LAUNCHING PROJECTILES OR MISSILES FROM BARRELS, e.g. CANNONS (smallarms F41C ) ; LAUNCHERS FOR ROCKETS OR TORPEDOES; HARPOON GUNS (functional features or details common to both smallarms and ordnance, mountings therefor F41A ; projecting missiles without use of explosive or combustible propellant charge F41B ) [5]"
+F41G,WEAPON SIGHTS; AIMING (optical aspects thereof G02B )
+F41H,"ARMOUR; ARMOURED TURRETS; ARMOURED OR ARMED VEHICLES; MEANS OF ATTACK OR DEFENCE, e.g. CAMOUFLAGE, IN GENERAL"
+F41J,TARGETS; TARGET RANGES; BULLET CATCHERS
+F42B,"EXPLOSIVE CHARGES, e.g. FOR BLASTING; FIREWORKS; AMMUNITION (explosive compositions C06B ; fuzes F42C ; blasting F42D ) [5]"
+F42C,AMMUNITION FUZES (blasting cartridge initiators F42B 3/10 ; chemical aspects C06C ) ; ARMING OR SAFETY MEANS THEREFOR (filling fuzes F42B 33/02 ; fitting or extracting primers in or from fuzes F42B 33/04 ; containers for fuzes F42B 39/30 ) [5]
+F42D,"BLASTING (fuses, e.g. fuse cords, C06C 5/00 ; blasting cartridges F42B 3/00 )"
+F99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+G01B,"MEASURING LENGTH, THICKNESS OR SIMILAR LINEAR DIMENSIONS; MEASURING ANGLES; MEASURING AREAS; MEASURING IRREGULARITIES OF SURFACES OR CONTOURS"
+G01C,"MEASURING DISTANCES, LEVELS OR BEARINGS; SURVEYING; NAVIGATION ; GYROSCOPIC INSTRUMENTS; PHOTOGRAMMETRY OR VIDEOGRAMMETRY ( measuring liquid level G01F ; radio navigation , determining distance or velocity by use of propagation effects , e.g. Doppler effect, propagation time, of radio waves, analogous arrangements using other waves G01S )"
+G01D,MEASURING NOT SPECIALLY ADAPTED FOR A SPECIFIC VARIABLE ; ARRANGEMENTS FOR MEASURING TWO OR MORE VARIABLES NOT COVERED BY A SINGLE OTHER SUBCLASS; TARIFF METERING APPARATUS ; TRANSFERRING OR TRANSDUCING ARRANGEMENTS NOT SPECIALLY ADAPTED FOR A SPECIFIC VARIABLE ; MEASURING OR TESTING NOT OTHERWISE PROVIDED FOR
+G01F,"MEASURING VOLUME, VOLUME FLOW, MASS FLOW, OR LIQUID LEVEL; METERING BY VOLUME [5]"
+G01G,WEIGHING
+G01H,"MEASUREMENT OF MECHANICAL VIBRATIONS OR ULTRASONIC, SONIC OR INFRASONIC WAVES [4]"
+G01J,"MEASUREMENT OF INTENSITY, VELOCITY, SPECTRAL CONTENT, POLARISATION, PHASE OR PULSE CHARACTERISTICS OF INFRARED, VISIBLE OR ULTRAVIOLET LIGHT; COLORIMETRY; RADIATION PYROMETRY [2]"
+G01K,MEASURING TEMPERATURE; MEASURING QUANTITY OF HEAT; THERMALLY-SENSITIVE ELEMENTS NOT OTHERWISE PROVIDED FOR (radiation pyrometry G01J 5/00 )
+G01L,"MEASURING FORCE, STRESS, TORQUE, WORK, MECHANICAL POWER, MECHANICAL EFFICIENCY, OR FLUID PRESSURE (weighing G01G ) [4]"
+G01M,"TESTING STATIC OR DYNAMIC BALANCE OF MACHINES OR STRUCTURES; TESTING OF STRUCTURES OR APPARATUS , NOT OTHERWISE PROVIDED FOR"
+G01N,"INVESTIGATING OR ANALYSING MATERIALS BY DETERMINING THEIR CHEMICAL OR PHYSICAL PROPERTIES ( measuring or testing apparatus or processes other than immunoassay, involving enzymes or microorganisms C12M , C12Q )"
+G01Q,"SCANNING-PROBE TECHNIQUES OR APPARATUS ; APPLICATIONS OF SCANNING-PROBE TECHNIQUES, e.g. SCANNING-PROBE MICROSCOPY [SPM] [2010.01]"
+G01R,MEASURING ELECTRIC VARIABLES ; MEASURING MAGNETIC VARIABLES (indicating correct tuning of resonant circuits H03J 3/12 )
+G01S,RADIO DIRECTION-FINDING; RADIO NAVIGATION ; DETERMINING DISTANCE OR VELOCITY BY USE OF RADIO WAVES ; LOCATING OR PRESENCE-DETECTING BY USE OF THE REFLECTION OR RERADIATION OF RADIO WAVES ; ANALOGOUS ARRANGEMENTS USING OTHER WAVES
+G01T,"MEASUREMENT OF NUCLEAR OR X-RADIATION (radiation analysis of materials , mass spectrometry G01N 23/00 ; tubes for determining the presence, intensity, density or energy of radiation or particles H01J 47/00 )"
+G01V,"GEOPHYSICS; GRAVITATIONAL MEASUREMENTS; DETECTING MASSES OR OBJECTS; TAGS (means for indicating the location of accidentally buried, e.g. snow-buried, persons A63B 29/02 ) [6]"
+G01W,"METEOROLOGY (radar, sonar, lidar or analogous systems, designed for meteorological use G01S 13/95 , G01S 15/88 , G01S 17/95 )"
+G02B,"OPTICAL ELEMENTS, SYSTEMS OR APPARATUS [7]"
+G02C,SPECTACLES; SUNGLASSES OR GOGGLES INSOFAR AS THEY HAVE THE SAME FEATURES AS SPECTACLES; CONTACT LENSES
+G02F,OPTICAL DEVICES OR ARRANGEMENTS FOR THE CONTROL OF LIGHT BY MODIFICATION OF THE OPTICAL PROPERTIES OF THE MEDIA OF THE ELEMENTS INVOLVED THEREIN; NON-LINEAR OPTICS ; FREQUENCY-CHANGING OF LIGHT ; OPTICAL LOGIC ELEMENTS; OPTICAL ANALOGUE/DIGITAL CONVERTERS [4]
+G03C,"PHOTOSENSITIVE MATERIALS FOR PHOTOGRAPHIC PURPOSES; PHOTOGRAPHIC PROCESSES, e.g. CINE, X-RAY, COLOUR OR STEREO-PHOTOGRAPHIC PROCESSES; AUXILIARY PROCESSES IN PHOTOGRAPHY (photographic processes characterised by the use or manipulation of apparatus classifiable per se in subclass G03B , see G03B )"
+G03D,APPARATUS FOR PROCESSING EXPOSED PHOTOGRAPHIC MATERIALS ; ACCESSORIES THEREFOR
+G03F,"PHOTOMECHANICAL PRODUCTION OF TEXTURED OR PATTERNED SURFACES, e.g. FOR PRINTING, FOR PROCESSING OF SEMICONDUCTOR DEVICES; MATERIALS THEREFOR; ORIGINALS THEREFOR; APPARATUS SPECIALLY ADAPTED THEREFOR (phototypographic composing devices B41B ; photosensitive materials or processes for photographic purposes G03C ; electrography, sensitive layers or processes G03G )"
+G03G,ELECTROGRAPHY; ELECTROPHOTOGRAPHY; MAGNETOGRAPHY (information storage based on relative movement between record carrier and transducer G11B ; static stores with means for writing-in or reading-out information G11C ; recording of television signals H04N 5/76 )
+G03H,"HOLOGRAPHIC PROCESSES OR APPARATUS (holograms, e.g. point holograms, used as ordinary optical elements G02B 5/32 ; analogue computers performing mathematical operations with the aid of optical elements G06E 3/00 ; holographic storage G11B 7/0065 , G11C 13/04 ) [2]"
+G04B,"MECHANICALLY-DRIVEN CLOCKS OR WATCHES; MECHANICAL PARTS OF CLOCKS OR WATCHES IN GENERAL; TIME-PIECES USING THE POSITION OF THE SUN, MOON, OR STARS (spring- or weight-driven mechanisms in general F03G ; electromechanical clocks or watches G04C ; electromechanical clocks with attached or built-in means operating any device at preselected times or after predetermined time intervals G04C 23/00 ; clocks or watches with stop devices G04F 7/08 ; structural details or housings specially adapted for electronic time-pieces with no moving parts G04G 17/00 )"
+G04C,"ELECTROMECHANICAL CLOCKS OR WATCHES (mechanical parts of clocks or watches in general G04B ; electronic time-pieces with no moving parts, electronic circuitry for producing timing pulses G04G )"
+G04D,APPARATUS OR TOOLS SPECIALLY DESIGNED FOR MAKING OR MAINTAINING CLOCKS OR WATCHES
+G04F,"TIME-INTERVAL MEASURING ( measuring pulse characteristics G01R , e.g. G01R 29/02 ; in radar or like systems G01S ) [2]"
+G04G,ELECTRONIC TIME-PIECES [3]
+G04R,RADIO- CONTROLLED TIME-PIECES [2013.01]
+G05D,SYSTEMS FOR CONTROLLING OR REGULATING NON-ELECTRIC VARIABLES
+G05F,SYSTEMS FOR REGULATING ELECTRIC OR MAGNETIC VARIABLES [5]
+G05G,"CONTROL DEVICES OR SYSTEMS INSOFAR AS CHARACTERISED BY MECHANICAL FEATURES ONLY (""Bowden"" or like mechanisms F16C 1/10 ; gearings or mechanisms not peculiar to this purpose F16H ; speed changing or reversing mechanisms for gearings conveying rotary motion F16H 59/00 - F16H 63/00 )"
+G05B,Subject matter not provided for in other groups of this subclass [2006.01]
+G06C,DIGITAL COMPUTERS IN WHICH ALL THE COMPUTATION IS EFFECTED MECHANICALLY (score computers for card games A63F 1/18 ) [4]
+G06E,OPTICAL COMPUTING DEVICES (digital storage using optical elements G11C 13/04 ) [5]
+G06F,ELECTRIC DIGITAL DATA PROCESSING (computer systems based on specific computational models G06N )
+G06G,ANALOGUE COMPUTERS (analogue optical computing devices G06E 3/00 ; computer systems based on specific computational models G06N )
+G06K,GRAPHICAL DATA READING (image or video recognition or understanding G06V ) ; PRESENTATION OF DATA ; RECORD CARRIERS ; HANDLING RECORD CARRIERS
+G06N,COMPUTING ARRANGEMENTS BASED ON SPECIFIC COMPUTATIONAL MODELS [7]
+G06Q,"INFORMATION AND COMMUNICATION TECHNOLOGY [ICT] SPECIALLY ADAPTED FOR ADMINISTRATIVE, COMMERCIAL, FINANCIAL, MANAGERIAL OR SUPERVISORY PURPOSES; SYSTEMS OR METHODS SPECIALLY ADAPTED FOR ADMINISTRATIVE, COMMERCIAL, FINANCIAL, MANAGERIAL OR SUPERVISORY PURPOSES, NOT OTHERWISE PROVIDED FOR [2006.01]"
+G06T,"IMAGE DATA PROCESSING OR GENERATION, IN GENERAL [2006.01]"
+G06V,IMAGE OR VIDEO RECOGNITION OR UNDERSTANDING [2022.01]
+G06D,Computing devices characterised by the combination of hydraulic or pneumatic functional elements with at least one other type of functional element [2006.01]
+G06J,Systems for conjoint operation of complete digital and complete analogue computers [2006.01]
+G06M,"Counting of objects, not otherwise provided for [2011.01]"
+G07B,"TICKET-ISSUING APPARATUS ; TAXIMETERS; ARRANGEMENTS OR APPARATUS FOR COLLECTING FARES, TOLLS OR ENTRANCE FEES AT ONE OR MORE CONTROL POINTS; FRANKING APPARATUS"
+G07C,"TIME OR ATTENDANCE REGISTERS; REGISTERING OR INDICATING THE WORKING OF MACHINES; GENERATING RANDOM NUMBERS; VOTING OR LOTTERY APPARATUS ; ARRANGEMENTS, SYSTEMS OR APPARATUS FOR CHECKING NOT PROVIDED FOR ELSEWHERE"
+G07D,"HANDLING OF COINS OR OF VALUABLE PAPERS, e.g. TESTING, SORTING BY DENOMINATIONS, COUNTING, DISPENSING, CHANGING OR DEPOSITING [2]"
+G07F,COIN - FREED OR LIKE APPARATUS ( coin sorting G07D 3/00 ; coin testing G07D 5/00 ) [7]
+G07G,"REGISTERING THE RECEIPT OF CASH, VALUABLES, OR TOKENS (digital computing in general G06C , G06F ) [4]"
+G08B,SIGNALLING OR CALLING SYSTEMS ; ORDER TELEGRAPHS; ALARM SYSTEMS
+G08G,Subject matter not provided for in other groups of this subclass [2006.01]
+G09B,"EDUCATIONAL OR DEMONSTRATION APPLIANCES; APPLIANCES FOR TEACHING, OR COMMUNICATING WITH, THE BLIND, DEAF OR MUTE; MODELS; PLANETARIA; GLOBES; MAPS; DIAGRAMS"
+G09C,CIPHERING OR DECIPHERING APPARATUS FOR CRYPTOGRAPHIC OR OTHER PURPOSES INVOLVING THE NEED FOR SECRECY
+G09D,RAILWAY OR LIKE TIME OR FARE TABLES; PERPETUAL CALENDARS
+G09F,DISPLAYING; ADVERTISING; SIGNS ; LABELS OR NAME-PLATES; SEALS
+G10B,"ORGANS , HARMONIUMS OR SIMILAR WIND MUSICAL INSTRUMENTS WITH ASSOCIATED BLOWING APPARATUS (accordions, concertinas or the like or keyboards therefor G10D 11/00 ; automatic wind instruments G10F 1/12 )"
+G10C,"PIANOS, HARPSICHORDS, SPINETS OR SIMILAR STRINGED MUSICAL INSTRUMENTS WITH ONE OR MORE KEYBOARDS (automatic musical instruments G10F )"
+G10D,"STRINGED MUSICAL INSTRUMENTS; WIND MUSICAL INSTRUMENTS ; ACCORDIONS OR CONCERTINAS; PERCUSSION MUSICAL INSTRUMENTS; AEOLIAN HARPS; SINGING-FLAME MUSICAL INSTRUMENTS; MUSICAL INSTRUMENTS NOT OTHERWISE PROVIDED FOR (organs, harmoniums or similar wind musical instruments with associated blowing apparatus G10B ; pianos, harpsichords, spinets or similar stringed musical instruments with one or more keyboards G10C ; automatic musical instruments G10F ; electrophonic musical instruments in which tones are generated by electromechanical means G10H )"
+G10F,AUTOMATIC MUSICAL INSTRUMENTS (non-musical aspects of musical toy instruments A63H 5/00 ; arrangements for the associated working of recording or reproducing apparatus with automatic musical instruments G11B 31/02 )
+G10G,"REPRESENTATION OF MUSIC; RECORDING MUSIC IN NOTATION FORM; ACCESSORIES FOR MUSIC OR MUSICAL INSTRUMENTS NOT OTHERWISE PROVIDED FOR, e.g. SUPPORTS (music stands A47B ; non-musical aspects of musical toy instruments A63H 5/00 ; metronomes G04F 5/02 ; teaching music G09B 15/00 )"
+G10H,"ELECTROPHONIC MUSICAL INSTRUMENTS; INSTRUMENTS IN WHICH THE TONES ARE GENERATED BY ELECTROMECHANICAL MEANS OR ELECTRONIC GENERATORS, OR IN WHICH THE TONES ARE SYNTHESISED FROM A DATA STORE"
+G10K,"SOUND-PRODUCING DEVICES; METHODS OR DEVICES FOR PROTECTING AGAINST, OR FOR DAMPING, NOISE OR OTHER ACOUSTIC WAVES IN GENERAL; ACOUSTICS NOT OTHERWISE PROVIDED FOR [6]"
+G10L,SPEECH ANALYSIS TECHNIQUES OR SPEECH SYNTHESIS; SPEECH RECOGNITION; SPEECH OR VOICE PROCESSING TECHNIQUES; SPEECH OR AUDIO CODING OR DECODING [4]
+G11C,STATIC STORES (semiconductor memory devices H10B )
+G11B,"Constructional parts, details or accessories not provided for in the other groups of this subclass [2006.01]"
+G12B,"CONSTRUCTIONAL DETAILS OF INSTRUMENTS, OR COMPARABLE DETAILS OF OTHER APPARATUS , NOT OTHERWISE PROVIDED FOR"
+G16B,"BIOINFORMATICS, i.e. INFORMATION AND COMMUNICATION TECHNOLOGY [ICT] SPECIALLY ADAPTED FOR GENETIC OR PROTEIN-RELATED DATA PROCESSING IN COMPUTATIONAL MOLECULAR BIOLOGY [2019.01]"
+G16C,COMPUTATIONAL CHEMISTRY; CHEMOINFORMATICS; COMPUTATIONAL MATERIALS SCIENCE [2019.01]
+G16H,"HEALTHCARE INFORMATICS, i.e. INFORMATION AND COMMUNICATION TECHNOLOGY [ICT] SPECIALLY ADAPTED FOR THE HANDLING OR PROCESSING OF MEDICAL OR HEALTHCARE DATA [2018.01]"
+G16Y,INFORMATION AND COMMUNICATION TECHNOLOGY SPECIALLY ADAPTED FOR THE INTERNET OF THINGS [IoT] [2020.01]
+G16Z,"INFORMATION AND COMMUNICATION TECHNOLOGY [ICT] SPECIALLY ADAPTED FOR SPECIFIC APPLICATION FIELDS, NOT OTHERWISE PROVIDED FOR [2019.01]"
+G21B,"FUSION REACTORS (uncontrolled fusion , applications thereof G21J )"
+G21C,"NUCLEAR REACTORS (fusion reactors, hybrid fission-fusion reactors G21B ; nuclear explosives G21J )"
+G21D,NUCLEAR POWER PLANT
+G21F,"PROTECTION AGAINST X-RADIATION, GAMMA RADIATION, CORPUSCULAR RADIATION OR PARTICLE BOMBARDMENT; TREATING RADIOACTIVELY CONTAMINATED MATERIAL ; DECONTAMINATION ARRANGEMENTS THEREFOR (radiation protection by pharmaceutical means A61K 8/00 , A61Q 17/04 ; in cosmonautic vehicles B64G 1/54 ; combined with a reactor G21C 11/00 ; combined with X-ray tubes H01J 35/16 ; combined with X-ray apparatus H05G 1/02 )"
+G21G,CONVERSION OF CHEMICAL ELEMENTS; RADIOACTIVE SOURCES [2]
+G21H,"OBTAINING ENERGY FROM RADIOACTIVE SOURCES; APPLICATIONS OF RADIATION FROM RADIOACTIVE SOURCES, NOT OTHERWISE PROVIDED FOR; UTILISING COSMIC RADIATION (measurement of nuclear or X-radiation G01T ; fusion reactors G21B ; nuclear reactors G21C ; lamps in which a gas filling is excited to luminescence by external corpuscular radiation or by radioactive material structurally associated with the lamp H01J 65/04 , H01J 65/06 )"
+G21K,TECHNIQUES FOR HANDLING PARTICLES OR IONISING RADIATION NOT OTHERWISE PROVIDED FOR; IRRADIATION DEVICES; GAMMA RAY OR X-RAY MICROSCOPES [2]
+G21J,NUCLEAR EXPLOSIVES; APPLICATIONS THEREOF
+G99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
+H01B,"CABLES; CONDUCTORS; INSULATORS; SELECTION OF MATERIALS FOR THEIR CONDUCTIVE, INSULATING OR DIELECTRIC PROPERTIES (selection for magnetic properties H01F 1/00 ; waveguides H01P )"
+H01C,RESISTORS
+H01F,MAGNETS; INDUCTANCES; TRANSFORMERS; SELECTION OF MATERIALS FOR THEIR MAGNETIC PROPERTIES [2]
+H01G,"CAPACITORS; CAPACITORS, RECTIFIERS, DETECTORS, SWITCHING DEVICES, LIGHT-SENSITIVE OR TEMPERATURE-SENSITIVE DEVICES OF THE ELECTROLYTIC TYPE (selection of specified materials as dielectric H01B 3/00 ; capacitors having potential barriers H10D 1/62 , H10K 10/10 )"
+H01H,ELECTRIC SWITCHES ; RELAYS ; SELECTORS ; EMERGENCY PROTECTIVE DEVICES ( contact cables H01B 7/10 ; electrolytic self-interrupters H01G 9/18 ; emergency protective circuit arrangements H02H ; switching by electronic means without contact -making H03K 17/00 )
+H01J,ELECTRIC DISCHARGE TUBES OR DISCHARGE LAMPS (spark-gaps H01T ; arc lamps with consumable electrodes H05B ; particle accelerators H05H )
+H01K,"ELECTRIC INCANDESCENT LAMPS (details, apparatus or processes for manufacture applicable to both discharge devices and incandescent lamps H01J ; light sources using a combination of incandescent and other types of light generation H01J 61/96 , H05B 35/00 )"
+H01M,"PROCESSES OR MEANS, e.g. BATTERIES , FOR THE DIRECT CONVERSION OF CHEMICAL ENERGY INTO ELECTRICAL ENERGY [2]"
+H01P,"WAVEGUIDES; RESONATORS, LINES OR OTHER DEVICES OF THE WAVEGUIDE TYPE (operating at optical frequencies G02B )"
+H01Q,"ANTENNAS, i.e. RADIO AERIALS (radiators or antennas for microwave heating H05B 6/72 )"
+H01R,ELECTRICALLY-CONDUCTIVE CONNECTIONS; STRUCTURAL ASSOCIATIONS OF A PLURALITY OF MUTUALLY-INSULATED ELECTRICAL CONNECTING ELEMENTS; COUPLING DEVICES; CURRENT COLLECTORS
+H01S,DEVICES USING THE PROCESS OF LIGHT AMPLIFICATION BY STIMULATED EMISSION OF RADIATION [ LASER ] TO AMPLIFY OR GENERATE LIGHT; DEVICES USING STIMULATED EMISSION OF ELECTROMAGNETIC RADIATION IN WAVE RANGES OTHER THAN OPTICAL
+H01T,SPARK GAPS ; OVERVOLTAGE ARRESTERS USING SPARK GAPS ; SPARKING PLUGS; CORONA DEVICES; GENERATING IONS TO BE INTRODUCED INTO NON-ENCLOSED GASES (overvoltage protection circuits H02H )
+H02B,"BOARDS, SUBSTATIONS OR SWITCHING ARRANGEMENTS FOR THE SUPPLY OR DISTRIBUTION OF ELECTRIC POWER"
+H02G,"INSTALLATION OF ELECTRIC CABLES OR LINES, OR OF COMBINED OPTICAL AND ELECTRIC CABLES OR LINES"
+H02H,"EMERGENCY PROTECTIVE CIRCUIT ARRANGEMENTS (indicating or signalling undesired working conditions G01R , e.g. G01R 31/00 , G08B ; locating faults along lines G01R 31/08 ; emergency protective devices H01H )"
+H02J,CIRCUIT ARRANGEMENTS OR SYSTEMS FOR SUPPLYING OR DISTRIBUTING ELECTRIC POWER; SYSTEMS FOR STORING ELECTRIC ENERGY
+H02K,DYNAMO-ELECTRIC MACHINES ( dynamo-electric relays H01H 53/00 ; conversion of DC or AC input power into surge output power H02M 9/00 )
+H02N,ELECTRIC MACHINES NOT OTHERWISE PROVIDED FOR
+H02P,"CONTROL OR REGULATION OF ELECTRIC MOTORS , ELECTRIC GENERATORS OR DYNAMO-ELECTRIC CONVERTERS; CONTROLLING TRANSFORMERS, REACTORS OR CHOKE COILS [4]"
+H02S,"GENERATION OF ELECTRIC POWER BY CONVERSION OF INFRARED RADIATION, VISIBLE LIGHT OR ULTRAVIOLET LIGHT, e.g. USING PHOTOVOLTAIC [PV] MODULES (obtaining electrical energy from radioactive sources G21H 1/12 ; light sensitive inorganic semiconductor devices H10F ; light sensitive organic semiconductor devices H10K 30/00 ; thermoelectric devices H10N 10/00 ; pyroelectric devices H10N 15/00 ) [2014.01]"
+H03B,"GENERATION OF OSCILLATIONS, DIRECTLY OR BY FREQUENCY-CHANGING, BY CIRCUITS EMPLOYING ACTIVE ELEMENTS WHICH OPERATE IN A NON-SWITCHING MANNER; GENERATION OF NOISE BY SUCH CIRCUITS (generators specially adapted for electrophonic musical instruments G10H ; masers or lasers H01S ; generation of oscillations in plasma H05H )"
+H03C,"MODULATION (masers or lasers H01S ; coding, decoding or code conversion H03M )"
+H03F,AMPLIFIERS
+H03G,CONTROL OF AMPLIFICATION
+H03H,"IMPEDANCE NETWORKS, e.g. RESONANT CIRCUITS; RESONATORS (waveguides, resonators, lines or other devices of the waveguide type H01P )"
+H03J,TUNING RESONANT CIRCUITS; SELECTING RESONANT CIRCUITS
+H03L,"AUTOMATIC CONTROL , STARTING, SYNCHRONISATION OR STABILISATION OF GENERATORS OF ELECTRONIC OSCILLATIONS OR PULSES (generation of oscillations H03B ) [3]"
+H03D,Subject matter not provided for in other groups of this subclass [2006.01]
+H03K,Subject matter not provided for in other groups of this subclass [2013.01]
+H03M,Subject matter not provided for in other groups of this subclass [2006.01]
+H04B,TRANSMISSION [4]
+H04H,BROADCAST COMMUNICATION (multiplex communication H04J ; pictorial communication aspects of broadcast systems H04N )
+H04J,MULTIPLEX COMMUNICATION (peculiar to transmission of digital information H04L 5/00 ; systems for the simultaneous or sequential transmission of more than one television signal H04N 7/08 ; in exchanges H04Q 11/00 )
+H04K,SECRET COMMUNICATION ; JAMMING OF COMMUNICATION
+H04L,"TRANSMISSION OF DIGITAL INFORMATION, e.g. TELEGRAPHIC COMMUNICATION (arrangements common to telegraphic and telephonic communication H04M ) [4]"
+H04M,TELEPHONIC COMMUNICATION (circuits for controlling other apparatus via a telephone cable and not involving telephone switching apparatus G08 )
+H04N,"PICTORIAL COMMUNICATION, e.g. TELEVISION [4]"
+H04Q,"SELECTING (switches, relays, selectors H01H ; wireless communication networks H04W ) [2009.01]"
+H04R,"LOUDSPEAKERS , MICROPHONES , GRAMOPHONE PICK-UPS OR LIKE ACOUSTIC ELECTROMECHANICAL TRANSDUCERS ; DEAF-AID SETS; PUBLIC ADDRESS SYSTEMS (producing sounds with frequency not determined by supply frequency G10K ) [6]"
+H04S,STEREOPHONIC SYSTEMS [3]
+H04W,"WIRELESS COMMUNICATION NETWORKS (broadcast communication H04H ; communication systems using wireless links for non-selective communication, e.g. wireless extensions H04M 1/72 ) [2009.01]"
+H05B,"ELECTRIC HEATING; ELECTRIC LIGHT SOURCES NOT OTHERWISE PROVIDED FOR; CIRCUIT ARRANGEMENTS FOR ELECTRIC LIGHT SOURCES, IN GENERAL"
+H05C,"ELECTRIC CIRCUITS OR APPARATUS SPECIALLY DESIGNED FOR USE IN EQUIPMENT FOR KILLING, STUNNING, ENCLOSING OR GUIDING LIVING BEINGS (stationary means for catching or killing insects by electric means A01M 1/22 ; apparatus for the destruction of noxious animals, other than insects, by electricity A01M 19/00 ; electric traps for animals A01M 23/38 ; slaughtering or stunning by electric current A22B 3/06 )"
+H05F,STATIC ELECTRICITY; NATURALLY-OCCURRING ELECTRICITY
+H05G,STATIC ELECTRICITY; NATURALLY-OCCURRING ELECTRICITY
+H05H,PLASMA TECHNIQUE ( apparatus or processes specially adapted for producing X-rays H05G 2/00 ) ; PRODUCTION OF ACCELERATED ELECTRICALLY-CHARGED PARTICLES OR OF NEUTRONS; PRODUCTION OR ACCELERATION OF NEUTRAL MOLECULAR OR ATOMIC BEAMS
+H05K,PRINTED CIRCUITS ; CASINGS OR CONSTRUCTIONAL DETAILS OF ELECTRIC APPARATUS ; MANUFACTURE OF ASSEMBLAGES OF ELECTRICAL COMPONENTS
+H10B,ELECTRONIC MEMORY DEVICES [2023.01]
+H10D,INORGANIC ELECTRIC SEMICONDUCTOR DEVICES [2025.01]
+H10F,"INORGANIC SEMICONDUCTOR DEVICES SENSITIVE TO INFRARED RADIATION, LIGHT, ELECTROMAGNETIC RADIATION OF SHORTER WAVELENGTH OR CORPUSCULAR RADIATION [2025.01]"
+H10H,INORGANIC LIGHT-EMITTING SEMICONDUCTOR DEVICES HAVING POTENTIAL BARRIERS [2025.01]
+H10K,ORGANIC ELECTRIC SOLID-STATE DEVICES [2023.01]
+H10N,ELECTRIC SOLID-STATE DEVICES NOT OTHERWISE PROVIDED FOR [2023.01]
+H99Z,SUBJECT MATTER NOT OTHERWISE PROVIDED FOR IN THIS SECTION [2006.01]
