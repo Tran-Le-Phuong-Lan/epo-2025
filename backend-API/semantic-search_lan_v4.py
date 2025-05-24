@@ -35,9 +35,7 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 # Environemnt setup
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-
-os.environ["SSL_CERT_FILE"] = "/home/tlplan/miniconda3/envs/workspace_01/ssl/cert.pem"
-
+#os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cacert.pem"
 device = torch.device("cpu")
 
 #===
@@ -60,6 +58,7 @@ class SearchRequest(BaseModel):
     query: str
     top_k: int = 5
 
+# Also used for answer generatio on the bot
 class ClassifyRequest(BaseModel):
      description : str
 
@@ -70,8 +69,7 @@ model = None
 tokenizer = None
 input_gen_ai = None
 
-
-db_name = '/home/tlplan/Downloads/embed_trial.db' #'/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/shared_data/epo_data/embed_trial.db'
+db_name = './database/embed_trial.db'
 
 client = None
 api_key = "T0sAC36z31CWIsTmUjU8dFN03XXf7OiI" # (Lan) free api key for free MISTRAL AI Model
@@ -88,9 +86,7 @@ def load_resources():
     #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
-
-    model_ckpt = "/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/current_batch" 
-
+    model_ckpt = "./current_batch" 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
 
@@ -102,9 +98,9 @@ def load_resources():
     #===
     # Load model for SDG classification
     #===
-    # classify_MODEL_DIR = "./sdg_Classification_v1/single_dense"
-    # classify_tokenizer = AutoTokenizer.from_pretrained(classify_MODEL_DIR)
-    # classify_model = AutoModelForSequenceClassification.from_pretrained(classify_MODEL_DIR)
+    classify_MODEL_DIR = "./sdg_Classification_v1/single_dense"
+    classify_tokenizer = AutoTokenizer.from_pretrained(classify_MODEL_DIR)
+    classify_model = AutoModelForSequenceClassification.from_pretrained(classify_MODEL_DIR)
 
 def classify_text(text, threshold=0.3, max_length=512):
     inputs = classify_tokenizer(
@@ -168,7 +164,7 @@ async def search(request: SearchRequest):
                 meta_query = f"""
                     SELECT
                         title,
-                        claims,
+                        claims
                         pub_num
                     FROM meta_data_embeddings
                     WHERE rowid={int(tuple[0])}
@@ -212,7 +208,7 @@ async def answer(request: SearchRequest):
         
 
     rag_prompt = f"""
-    Context information belonging to European Patent Office database is below.
+    Context information is below.
     ---------------------
     {context}
     ---------------------
@@ -231,7 +227,7 @@ async def answer(request: SearchRequest):
     )
 
     reply_prompt = f"""
-    Context information is below.
+    Context information belonging to European Patent Office database is below.
     ---------------------
     {context}
     ---------------------
@@ -1040,10 +1036,10 @@ async def get_trends(timeframe : str):
 
 ##########    New Chatbot Endpoint    ##########
 @app.post("/send-message-bot/")
-async def send_message_bot(request : str):
-    return None
+async def send_message_bot(request : ClassifyRequest):
+    return {"answer" : "Message from backend sent to bot successfully"}
 
-@app.post("/sdg_classification/")
+@app.post("/sdg-classification/")
 async def classify_sdg(request : ClassifyRequest):
      results = classify_text(request.description)
      return {
