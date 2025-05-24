@@ -812,6 +812,22 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
             [serialize_float32(query[0])],
             ).fetchall()
 
+            # try
+            query_list = [f"find_related_sdg ('{str(int(sdg_id))}', sdg_labels)", f"find_related_tech ('{tech}', tech_labels)"]
+            meta_query_try = f"""
+                              SELECT
+                                      rowid,
+                                      pub_num,
+                                      sdg_labels
+                              FROM meta_data_embeddings"""
+
+            for idx, value in enumerate(query_list):
+                if idx == 0:
+                    meta_query_try = meta_query_try + f"\nWHERE {value}"
+                else:
+                    meta_query_try = meta_query_try + f"\nOR {value}"
+            # try
+            
             # Get all patent related to the queried sdg_id and tech label
             if tech == None:
               meta_query = f"""
@@ -823,15 +839,7 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
                   WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels);
               """
             else:
-              meta_query = f"""
-                  SELECT
-                          rowid,
-                          pub_num,
-                          sdg_labels
-                  FROM meta_data_embeddings
-                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels)
-                        AND find_related_tech('{tech}', tech_labels);
-              """
+              meta_query = meta_query_try
             meta_data_sdg = cur.execute(meta_query).fetchall()
             # print(len(meta_data_sdg),
             #       meta_data_sdg[0:20])
