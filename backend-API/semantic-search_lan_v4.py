@@ -7,13 +7,15 @@ import sqlite3
 import sqlite_vec 
 from sqlite_vec import serialize_float32
 
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
 from mistralai import Mistral
 
 import torch
 import os
 
 import requests
+
+from fastapi.middleware.cors import CORSMiddleware
 
 #===
 # Supporting Functions
@@ -33,7 +35,9 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 # Environemnt setup
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
 os.environ["SSL_CERT_FILE"] = "/home/tlplan/miniconda3/envs/workspace_01/ssl/cert.pem"
+
 device = torch.device("cpu")
 
 #===
@@ -41,16 +45,31 @@ device = torch.device("cpu")
 #===
 app = FastAPI()
 
+# CORS Configuration for Next.js
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "*"],  # 👈 Next.js dev server origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+###### DATA MODELS ######
 # Define input model for search
 class SearchRequest(BaseModel):
     query: str
     top_k: int = 5
+
+class ClassifyRequest(BaseModel):
+     description : str
+
 
 
 # Global variables
 model = None
 tokenizer = None
 input_gen_ai = None
+
 
 db_name = '/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/shared_data/epo_data/embed_trial.db'
 
@@ -61,7 +80,7 @@ mistral_model = "open-codestral-mamba"
 @app.on_event("startup")
 def load_resources():
     # global model, index, data, claims
-    global device, model, tokenizer, api_key, mistral_model, client
+    global device, model, tokenizer, api_key, mistral_model, client, classify_model, classify_tokenizer
 
     device = "cpu"
     
@@ -69,7 +88,9 @@ def load_resources():
     #  Load model for embeddings
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
+
     model_ckpt = "/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/current_batch" 
+
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
 
@@ -78,6 +99,35 @@ def load_resources():
     #===
     client = Mistral(api_key=api_key)
 
+    #===
+    # Load model for SDG classification
+    #===
+    classify_MODEL_DIR = "./sdg_Classification_v1/single_dense"
+    classify_tokenizer = AutoTokenizer.from_pretrained(classify_MODEL_DIR)
+    classify_model = AutoModelForSequenceClassification.from_pretrained(classify_MODEL_DIR)
+
+def classify_text(text, threshold=0.3, max_length=512):
+    inputs = classify_tokenizer(
+        text, return_tensors="pt", truncation=True, padding=True, max_length=max_length
+    )
+    with torch.no_grad():
+        logits = classify_model(**inputs).logits
+        probs = torch.sigmoid(logits).cpu().numpy()[0]
+    if hasattr(classify_model.config, "id2label") and classify_model.config.id2label:
+        id2label = {int(k): v for k, v in classify_model.config.id2label.items()}
+    else:
+        id2label = {i: f"sdg_{i}" for i in range(len(probs))}
+    results = [(id2label[i], float(prob)) for i, prob in enumerate(probs) if prob >= threshold]
+    # Remove before production
+    print("Unsorted results: ", results)
+    results.sort(key=lambda x: x[1], reverse=True)
+    # Remove before production
+    print("Sorted results: ", results)
+    return results
+
+
+# TODO - Implement bot chat commands here
+# Will search closest patents from embeddings
 @app.post("/search")
 async def search(request: SearchRequest):
     global input_gen_ai, db_name
@@ -192,8 +242,6 @@ async def answer(request: SearchRequest):
 
 ##### New requests
 
-MISTRAL_API_KEY = "mockkey1234"
-
 # Required for Dashboard - SDG Patent Distribution
 # fake_sdg_dg = {
 #             1 : {
@@ -252,52 +300,7 @@ mock_sdg_by_country_db ={
 #   }
 # }
 
-mock_sdg_rag_insights_by_sdg_id_db = {
-    1: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
-      "sdgId": "1",
-      "icon": "Zap",
-    },
-  ],
-  6: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
-      "sdgId": "6",
-      "icon": "Zap",
-    },
-  ],
-  7: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
-      "sdgId": "7",
-      "icon": "Zap",
-    },
-  ],
-  13: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
-      "sdgId": "13",
-      "icon": "Zap",
-    },
-  ],
-}
+
 
 mock_sdg_by_id_with_technologies = {
     7: {
@@ -482,14 +485,15 @@ async def get_all_sdg_patents_distribution():
             cur = conn.cursor()
             for sdg_num in range(1, total_num_sdg+1):
               sql_cn_meta = f"""
-                  SELECT COUNT(*) FROM meta_data_embeddings
+                  SELECT COUNT(*) FROM main_table_wihout_split_claims
                   WHERE find_smth('{str(int(sdg_num))}', sdg_labels)
               """
               res = cur.execute(sql_cn_meta)
               len_sdg = res.fetchall()[0][0]
               print(f"{sdg_num} has {len_sdg} rows in meta table")
               fake_sdg_dg.update({ int(sdg_num): {
-                                      "sdg_name": sdg_label_name_mapping[str(int(sdg_num))],
+                                      "id" : str(sdg_num),
+                                      "name": sdg_label_name_mapping[str(int(sdg_num))],
                                       "count" : int(len_sdg) }})
 
     except sqlite3.OperationalError as e:
@@ -629,11 +633,129 @@ async def get_all_sdg_rag_insights():
 
 # For RAG Insights for specific SDG by ID - Dashboard
 # Setup function to pre-compute RAG once per day on a single SDG category
+# mock_sdg_rag_insights_by_sdg_id_db = {
+#     1: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
+#       "sdgId": "1",
+#       "icon": "Zap",
+#     },
+#   ],
+#   6: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
+#       "sdgId": "6",
+#       "icon": "Zap",
+#     },
+#   ],
+#   7: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
+#       "sdgId": "7",
+#       "icon": "Zap",
+#     },
+#   ],
+#   13: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
+#       "sdgId": "13",
+#       "icon": "Zap",
+#     },
+#   ],
+# }
 @app.get("/sdg-rag-insights-by-sdg-id/{sdg_id}")
 async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
-    
+    global db_name, sdg_label_name_mapping, client, mistral_model
 
-    return mock_sdg_rag_insights_by_sdg_id_db.get(sdg_id)
+    # Find the patents related to input sdg id
+    print(f"input sdg_id: {sdg_id}")
+    try:
+        with sqlite3.connect(db_name) as conn:
+
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
+
+            conn.create_function('find_related_sdg', 2, find_sdg)
+
+            cur = conn.cursor()
+
+            # Get total number of data (rows) in the database
+            meta_query = f"""
+                  SELECT
+                          title,
+                          sdg_labels
+                  FROM main_table_wihout_split_claims
+                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels);
+              """
+            res = cur.execute(meta_query)
+            result = res.fetchall()
+            # print(result)
+    except sqlite3.OperationalError as e:
+        print(e)
+    
+    
+    # ask the Gen ai for insights
+    statistic_context = ""
+    for title, _ in result:
+        # print(sdg_num, val)
+        temp = f"""
+          title: {title}
+          """
+        statistic_context = statistic_context + temp
+
+    # KEY INSIGHT
+    rag_prompt = f"""
+    There are {len(result)} patents in the database related to {sdg_label_name_mapping[str(int(sdg_id))]}. Their title are the following:
+    ---------------------
+    {statistic_context}
+    ---------------------
+    Given the context of all patents related to {sdg_label_name_mapping[str(int(sdg_id))]} in the database,
+    please, give the essential insight of how this {sdg_label_name_mapping[str(int(sdg_id))]} is reflected currently in the databse:
+    """
+
+    chat_response = client.chat.complete(
+    model= mistral_model,
+    messages = [
+            {
+                "role": "user",
+                "content": rag_prompt,
+            },
+        ]
+    )
+    key_insight = chat_response.choices[0].message.content
+
+    return [
+              {
+                "id": "1",
+                "type": "key",
+                "title": "Key Insight",
+                "content":
+                  key_insight,
+                "sdgId": str(int(sdg_id)),
+                "icon": "Zap",
+              },
+            ]
 
 
 ##########    SDG    ##########
@@ -786,33 +908,39 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
 ##########    Chatbot    ##########
 @app.post("/send-message-bot/")
 async def send_message_bot(request : str):
-    
-    # Format payload for Mistral API
-    mistral_url = "https://api.mistral.ai/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {MISTRAL_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "mistral-tiny",  # Or mistral-small, mistral-medium
-        "messages": [
-            {"role": "user", "content": request.user_message}
-        ],
-        "temperature": 0.7,
-        "max_tokens": 200
-    }
+    return None
 
-    response = requests.post(mistral_url, headers=headers, json=payload)
+@app.post("/sdg_classification/")
+async def classify_sdg(request : ClassifyRequest):
+     results = classify_text(request.description)
+     return {
+          "results" : str(results)
+          # "[('LABEL_2', 0.9185042977333069), ('LABEL_7', 0.6150209307670593)]"
+     }
 
-    if response.status_code == 200:
-        result = response.json()
-        return {"reply": result["choices"][0]["message"]["content"]}
-    else:
-        return {
-            "error": f"Mistral API failed",
-            "status_code": response.status_code,
-            "details": response.text
+# This should actually be "/search/"
+@app.post("/relevant_patents/")
+async def get_relevant_patents(request : str):
+     
+     return {
+          "message" : "Here are the top 5 patents closest to your description",
+          "relevant_docs": 
+        [
+        {
+            "TITLE": "Method and apparatus for flue-gas cleaning",
+            "DISTANCE": 6.496407508850098,
+            "CLAIMS": "water thus separated, whereby watersoluble substances in the fluegases are separated in said prior separation stage, which prior separation stage 1 is connected to a collecting means 12 for collecting the water fed to the prior",
+          "sdg_result" : "5",
+          "confidence" : "99"
+        },
+        {
+            "TITLE": "METHOD OF MEASURING WATER CONTENT",
+            "DISTANCE": 7.981537342071533,
+            "CLAIMS": "method of measurement of water content of a liquid, in which method the properties of the liquid are measured by a first measurement",
         }
+        ]
+     }
+    
 
 #####
 
