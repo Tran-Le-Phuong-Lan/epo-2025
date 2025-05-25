@@ -7,7 +7,7 @@ import sqlite3
 import sqlite_vec 
 from sqlite_vec import serialize_float32
 
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
 from mistralai import Mistral
 
 import torch
@@ -16,6 +16,8 @@ import os
 import requests
 
 from fastapi.middleware.cors import CORSMiddleware
+
+import json
 
 #===
 # Supporting Functions
@@ -35,7 +37,8 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 # Environemnt setup
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
-#os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cacert.pem"
+# os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cert.pem"
+
 device = torch.device("cpu")
 
 #===
@@ -52,10 +55,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+###### DATA MODELS ######
 # Define input model for search
 class SearchRequest(BaseModel):
     query: str
     top_k: int = 5
+
+# Also used for answer generatio on the bot
+class ClassifyRequest(BaseModel):
+     description : str
+
+# Also used for answer generatio on the bot
+class EmbeddingRequest(BaseModel):
+     query_to_embed : str
 
 
 
@@ -73,7 +85,7 @@ mistral_model = "open-codestral-mamba"
 @app.on_event("startup")
 def load_resources():
     # global model, index, data, claims
-    global device, model, tokenizer, api_key, mistral_model, client
+    global device, model, tokenizer, api_key, mistral_model, client, classify_model, classify_tokenizer
 
     device = "cpu"
     
@@ -90,7 +102,33 @@ def load_resources():
     #===
     client = Mistral(api_key=api_key)
 
-# TODO - Implement bot chat commands here
+    #===
+    # Load model for SDG classification
+    #===
+    classify_MODEL_DIR = "./sdg_Classification_v1/single_dense"
+    classify_tokenizer = AutoTokenizer.from_pretrained(classify_MODEL_DIR)
+    classify_model = AutoModelForSequenceClassification.from_pretrained(classify_MODEL_DIR)
+
+def classify_text(text, threshold=0.3, max_length=512):
+    inputs = classify_tokenizer(
+        text, return_tensors="pt", truncation=True, padding=True, max_length=max_length
+    )
+    with torch.no_grad():
+        logits = classify_model(**inputs).logits
+        probs = torch.sigmoid(logits).cpu().numpy()[0]
+    if hasattr(classify_model.config, "id2label") and classify_model.config.id2label:
+        id2label = {int(k): v for k, v in classify_model.config.id2label.items()}
+    else:
+        id2label = {i: f"sdg_{i}" for i in range(len(probs))}
+    results = [(id2label[i], float(prob)) for i, prob in enumerate(probs) if prob >= threshold]
+    # Remove before production
+    print("Unsorted results: ", results)
+    results.sort(key=lambda x: x[1], reverse=True)
+    # Remove before production
+    print("Sorted results: ", results)
+    return results
+
+
 # Will search closest patents from embeddings
 @app.post("/search")
 async def search(request: SearchRequest):
@@ -134,6 +172,7 @@ async def search(request: SearchRequest):
                     SELECT
                         title,
                         claims
+                        pub_num
                     FROM meta_data_embeddings
                     WHERE rowid={int(tuple[0])}
                     """
@@ -144,6 +183,7 @@ async def search(request: SearchRequest):
                         {
                             "TITLE": res[0][0],
                             "DISTANCE": float(tuple[1]),
+                            "PUBLICATION_NUMBER": res[0][2],
                             "CLAIMS": res[0][1]
                         }
                     )
@@ -168,6 +208,7 @@ async def answer(request: SearchRequest):
         print(idx)
         temp = f"""
         Title: {input_gen_ai["relevant_docs"][idx]["TITLE"]}
+        Publication number: {input_gen_ai["relevant_docs"][idx]["PUBLICATION_NUMBER"]}
         Context: {input_gen_ai["relevant_docs"][idx]["CLAIMS"]}
         """
         context = context + temp
@@ -193,7 +234,7 @@ async def answer(request: SearchRequest):
     )
 
     reply_prompt = f"""
-    Context information is below.
+    Context information belonging to European Patent Office database is below.
     ---------------------
     {context}
     ---------------------
@@ -264,52 +305,7 @@ mock_sdg_by_country_db ={
 #   }
 # }
 
-mock_sdg_rag_insights_by_sdg_id_db = {
-    1: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
-      "sdgId": "1",
-      "icon": "Zap",
-    },
-  ],
-  6: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
-      "sdgId": "6",
-      "icon": "Zap",
-    },
-  ],
-  7: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
-      "sdgId": "7",
-      "icon": "Zap",
-    },
-  ],
-  13: [
-    {
-      "id": "1",
-      "type": "key",
-      "title": "Key Insight",
-      "content":
-        "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
-      "sdgId": "13",
-      "icon": "Zap",
-    },
-  ],
-}
+
 
 mock_sdg_by_id_with_technologies = {
     7: {
@@ -494,14 +490,15 @@ async def get_all_sdg_patents_distribution():
             cur = conn.cursor()
             for sdg_num in range(1, total_num_sdg+1):
               sql_cn_meta = f"""
-                  SELECT COUNT(*) FROM meta_data_embeddings
+                  SELECT COUNT(*) FROM main_table_wihout_split_claims
                   WHERE find_smth('{str(int(sdg_num))}', sdg_labels)
               """
               res = cur.execute(sql_cn_meta)
               len_sdg = res.fetchall()[0][0]
               print(f"{sdg_num} has {len_sdg} rows in meta table")
               fake_sdg_dg.update({ int(sdg_num): {
-                                      "sdg_name": sdg_label_name_mapping[str(int(sdg_num))],
+                                      "id" : str(sdg_num),
+                                      "name": sdg_label_name_mapping[str(int(sdg_num))],
                                       "count" : int(len_sdg) }})
 
     except sqlite3.OperationalError as e:
@@ -514,11 +511,6 @@ async def get_sdg_patent_distribution_by_id(sdg_id : int | None = None):
     global fake_sdg_dg
     return fake_sdg_dg.get(sdg_id)
 
-# For SDG Distribution by country Map - Dashboard
-@app.get("/sdg-by-country/")
-async def get_patents_distribution_by_country():
-
-    return mock_sdg_by_country_db
 
 # For RAG Insights accross all SDGs - Dashboard
 # Here we can set up a function to run RAG insights on all Patents/SDGs once per day/week, since it's a compute heavy process
@@ -548,7 +540,7 @@ async def get_all_sdg_rag_insights():
 
     statistic_context = ""
     for sdg_num, val in fake_sdg_dg.items():
-        # print(sdg_num, val)
+        print(sdg_num, val)
         temp = f"""
           There are {val['count']} patents in the database related to Sustainable Development Goal: {val['sdg_name']}
           """
@@ -641,12 +633,144 @@ async def get_all_sdg_rag_insights():
 
 # For RAG Insights for specific SDG by ID - Dashboard
 # Setup function to pre-compute RAG once per day on a single SDG category
+# mock_sdg_rag_insights_by_sdg_id_db = {
+#     1: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Patents in poverty reduction focus primarily on agricultural technology and microfinance systems, with a 32% increase in filings over the past 5 years.",
+#       "sdgId": "1",
+#       "icon": "Zap",
+#     },
+#   ],
+#   6: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Water purification technologies dominate this SDG, with membrane filtration systems showing the highest growth rate at 28% annually.",
+#       "sdgId": "6",
+#       "icon": "Zap",
+#     },
+#   ],
+#   7: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Energy storage patents have overtaken generation technologies, indicating a market shift toward grid stabilization and renewable integration.",
+#       "sdgId": "7",
+#       "icon": "Zap",
+#     },
+#   ],
+#   13: [
+#     {
+#       "id": "1",
+#       "type": "key",
+#       "title": "Key Insight",
+#       "content":
+#         "Carbon capture technologies show the highest cross-sector integration, appearing in energy, manufacturing, and transportation patent portfolios.",
+#       "sdgId": "13",
+#       "icon": "Zap",
+#     },
+#   ],
+# }
 @app.get("/sdg-rag-insights-by-sdg-id/{sdg_id}")
 async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
+    global db_name, sdg_label_name_mapping, client, mistral_model
+
+    # Find the patents related to input sdg id
+    print(f"input sdg_id: {sdg_id}")
+    try:
+        with sqlite3.connect(db_name) as conn:
+
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
+
+            conn.create_function('find_related_sdg', 2, find_sdg)
+
+            cur = conn.cursor()
+
+            # Get total number of data (rows) in the database
+            meta_query = f"""
+                  SELECT
+                          title,
+                          sdg_labels
+                  FROM main_table_wihout_split_claims
+                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels);
+              """
+            res = cur.execute(meta_query)
+            result = res.fetchall()
+            # print(result)
+    except sqlite3.OperationalError as e:
+        print(e)
     
+    
+    # ask the Gen ai for insights
+    statistic_context = ""
+    for title, _ in result:
+        # print(sdg_num, val)
+        temp = f"""
+          title: {title}
+          """
+        statistic_context = statistic_context + temp
 
-    return mock_sdg_rag_insights_by_sdg_id_db.get(sdg_id)
+    # KEY INSIGHT
+    rag_prompt = f"""
+    There are {len(result)} patents in the database related to {sdg_label_name_mapping[str(int(sdg_id))]}. Their title are the following:
+    ---------------------
+    {statistic_context}
+    ---------------------
+    Given the context of all patents related to {sdg_label_name_mapping[str(int(sdg_id))]} in the database,
+    please, give the essential insight of how this {sdg_label_name_mapping[str(int(sdg_id))]} is reflected currently in the databse:
+    """
 
+    chat_response = client.chat.complete(
+    model= mistral_model,
+    messages = [
+            {
+                "role": "user",
+                "content": rag_prompt,
+            },
+        ]
+    )
+    key_insight = chat_response.choices[0].message.content
+
+    return [
+              {
+                "id": "1",
+                "type": "key",
+                "title": "Key Insight",
+                "content":
+                  key_insight,
+                "sdgId": str(int(sdg_id)),
+                "icon": "Zap",
+              },
+            ]
+
+##########    Embed enpoint for RAG bot    ##########
+
+@app.post("/embed-query/")
+def embed_and_return_query(payload: EmbeddingRequest):
+    question = payload.query_to_embed
+
+    # Step 1: Embed the query
+    question_embedding = get_embeddings([question], tokenizer, model).cpu().detach().numpy()
+
+    # Step 2: Convert to list
+
+    # Step 3: Return
+
+    return { "Query embedded": question_embedding.tolist() }
 
 ##########    SDG    ##########
 
@@ -699,6 +823,22 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
             [serialize_float32(query[0])],
             ).fetchall()
 
+            # try
+            query_list = [f"find_related_sdg ('{str(int(sdg_id))}', sdg_labels)", f"find_related_tech ('{tech}', tech_labels)"]
+            meta_query_try = f"""
+                              SELECT
+                                      rowid,
+                                      pub_num,
+                                      sdg_labels
+                              FROM meta_data_embeddings"""
+
+            for idx, value in enumerate(query_list):
+                if idx == 0:
+                    meta_query_try = meta_query_try + f"\nWHERE {value}"
+                else:
+                    meta_query_try = meta_query_try + f"\nOR {value}"
+            # try
+            
             # Get all patent related to the queried sdg_id and tech label
             if tech == None:
               meta_query = f"""
@@ -710,15 +850,7 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
                   WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels);
               """
             else:
-              meta_query = f"""
-                  SELECT
-                          rowid,
-                          pub_num,
-                          sdg_labels
-                  FROM meta_data_embeddings
-                  WHERE find_related_sdg('{str(int(sdg_id))}', sdg_labels)
-                        AND find_related_tech('{tech}', tech_labels);
-              """
+              meta_query = meta_query_try
             meta_data_sdg = cur.execute(meta_query).fetchall()
             # print(len(meta_data_sdg),
             #       meta_data_sdg[0:20])
@@ -792,41 +924,600 @@ async def get_sdg_related_tech_by_sdg_id(sdg_id : int, tech : str | None = None)
 
     return res
     
+##########    Trends    ##########
 
+mockTrendData = {
+    "5y": [
+        {"label": "2020", "value": 287, "color": "#38bdf8"},
+        {"label": "2021", "value": 356, "color": "#38bdf8"},
+        {"label": "2022", "value": 423, "color": "#38bdf8"},
+        {"label": "2023", "value": 512, "color": "#38bdf8"},
+        {"label": "2024", "value": 587, "color": "#38bdf8"},
+    ],
+    "10y": [
+        {"label": "2015", "value": 245, "color": "#38bdf8"},
+        {"label": "2016", "value": 267, "color": "#38bdf8"},
+        {"label": "2017", "value": 289, "color": "#38bdf8"},
+        {"label": "2018", "value": 312, "color": "#38bdf8"},
+        {"label": "2019", "value": 356, "color": "#38bdf8"},
+        {"label": "2020", "value": 423, "color": "#38bdf8"},
+        {"label": "2021", "value": 487, "color": "#38bdf8"},
+        {"label": "2022", "value": 542, "color": "#38bdf8"},
+        {"label": "2023", "value": 587, "color": "#38bdf8"},
+        {"label": "2024", "value": 623, "color": "#38bdf8"},
+    ],
+    "15y": [
+        {"label": "2010", "value": 156, "color": "#38bdf8"},
+        {"label": "2011", "value": 187, "color": "#38bdf8"},
+        {"label": "2012", "value": 201, "color": "#38bdf8"},
+        {"label": "2013", "value": 215, "color": "#38bdf8"},
+        {"label": "2014", "value": 232, "color": "#38bdf8"},
+        {"label": "2015", "value": 245, "color": "#38bdf8"},
+        {"label": "2016", "value": 267, "color": "#38bdf8"},
+        {"label": "2017", "value": 289, "color": "#38bdf8"},
+        {"label": "2018", "value": 312, "color": "#38bdf8"},
+        {"label": "2019", "value": 356, "color": "#38bdf8"},
+        {"label": "2020", "value": 423, "color": "#38bdf8"},
+        {"label": "2021", "value": 487, "color": "#38bdf8"},
+        {"label": "2022", "value": 542, "color": "#38bdf8"},
+        {"label": "2023", "value": 587, "color": "#38bdf8"},
+        {"label": "2024", "value": 623, "color": "#38bdf8"},
+    ]
+}
 
+@app.get("/trends/")
+async def get_trends(timeframe : str):
+    return mockTrendData[timeframe]
 
-##########    Chatbot    ##########
-@app.post("/send-message-bot/")
-async def send_message_bot(request : str):
-    
-    # Format payload for Mistral API
-    mistral_url = "https://api.mistral.ai/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {MISTRAL_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "mistral-tiny",  # Or mistral-small, mistral-medium
-        "messages": [
-            {"role": "user", "content": request.user_message}
-        ],
-        "temperature": 0.7,
-        "max_tokens": 200
-    }
+##########   Temporaty Missing Endpoints    ##########
 
-    response = requests.post(mistral_url, headers=headers, json=payload)
+# Get technologies by SDG ID. 
+# Using the new IPC classification system, this endpoint retrieves all technologies associated with a specific SDG ID from the database.
+# Needs to be precomputed from the final database
+# TODO : Implement this endpoint to retrieve technologies by SDG ID
 
-    if response.status_code == 200:
-        result = response.json()
-        return {"reply": result["choices"][0]["message"]["content"]}
-    else:
+import psycopg2
+from datetime import datetime
+# PostgreSQL connection config
+DB_CONFIG = {
+    'dbname': 'mauricio.rodriguez',
+    'user': 'mauricio.rodriguez',
+    'password': '',
+    'host': 'localhost',
+    'port': 5432,
+}
+# Get RAG Insights for all SDG. 
+# This endpoint retrieves the latest insights for all SDG from the database using Postgresql.
+@app.get("/sdg-insights/")
+async def get_top_applicants():
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Use DISTINCT ON to get the latest insight per type
+        cursor.execute("""
+            SELECT DISTINCT ON (insight_type)
+                   insight_type,
+                   details,
+                   generated_date
+            FROM sdg_insights
+            ORDER BY insight_type, generated_date DESC;
+        """)
+
+        rows = cursor.fetchall()
+        conn.close()
+
+        # Convert to a list of dictionaries
+        insights = []
+        for idx, (insight_type, details_dict, date) in enumerate(rows):
+            summary = details_dict.get("summary") if isinstance(details_dict, dict) else json.loads(details_dict).get("summary", "")
+            insights.append({
+                "id": str(idx + 1),
+                "type": insight_type,
+                "title": insight_type.replace("_", " ").title(),  # Format: key_insight → Key Insight
+                "content": summary,
+                "icon": (
+                    "Lightbulb" if insight_type == "key_insight" else
+                    "TrendingUp" if insight_type == "emerging_trend" else
+                    "AlertTriangle"
+                ),
+                "generated_date": date
+            })
+
         return {
-            "error": f"Mistral API failed",
-            "status_code": response.status_code,
-            "details": response.text
+            "message": "Insights retrieved successfully",
+            "insights": insights
         }
 
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+
+
+# Get RAG Insights by SDG id. 
+# This endpoint retrieves the latest insights for a single SDG from the database using Postgresql.
+@app.get("/sdg-insights/{sdg_id}")
+async def get_insights_by_sdg_id(sdg_id: int):
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT DISTINCT ON (insight_type)
+                   insight_type,
+                   details,
+                   generated_date
+            FROM sdg_insights_by_sdg_id
+            WHERE sdg_number = %s
+            ORDER BY insight_type, generated_date DESC;
+        """, (sdg_id,))
+
+        rows = cursor.fetchall()
+        conn.close()
+
+        insights = []
+        for idx, (insight_type, details_dict, date) in enumerate(rows):
+            details = details_dict if isinstance(details_dict, dict) else json.loads(details_dict)
+            summary = details.get("summary", "")
+            insights.append({
+                "id": str(idx + 1),
+                "type": insight_type,
+                "title": insight_type.replace("_", " ").title(),
+                "content": summary,
+                "icon": (
+                    "Lightbulb" if insight_type == "key_insight" else
+                    "TrendingUp" if insight_type == "emerging_trend" else
+                    "AlertTriangle"
+                ),
+                "generated_date": date
+            })
+
+        if not insights:
+            raise HTTPException(status_code=404, detail="No insights found for this SDG")
+
+        return {
+            "message": f"Insights retrieved for SDG {sdg_id}",
+            "insights": insights
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/sdg-technologies/{sdg_id}/top-technologies")
+def get_top_technologies(sdg_id: int):
+    if not (1 <= sdg_id <= 17):
+        raise HTTPException(status_code=400, detail="SDG ID must be between 1 and 17.")
+
+    conn = psycopg2.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT technology_id, technology_name, count, growth
+        FROM sdg_top_technologies
+        WHERE sdg_number = %s
+        ORDER BY count DESC, technology_name ASC
+        LIMIT 6;
+    """, (sdg_id,))
+
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return {
+        "sdg_id": sdg_id,
+        "technologies": [
+            {
+                "id": row[0],
+                "name": row[1],
+                "count": row[2],
+                "growth": row[3]
+            } for row in rows
+        ]
+    }
+
+# Get Patents by country
+# Retrieve statistics for patents by country. Mock data is used here coming from the sdg_by_country table
+# For SDG Distribution by country Map - Dashboard
+@app.get("/sdg-by-country/")
+async def get_patents_distribution_by_country():
+
+    return mock_sdg_by_country_db
+
+# Get Top Applicants
+# Retrieve statistics for top applicants. Mock data is used here coming from the sdg_top_applicants table
+@app.get("/top-applicants/")
+async def get_top_applicants():
+    return {"top_applicants": "tops applicants data"}
+
+
+
+##########    New Chatbot Endpoint    ##########
+### NEW RAG ENDPOINT MOCKUP
+@app.post("/send-message-bot/")
+async def send_message_bot(request : ClassifyRequest):
+    return {"answer" : "Message from backend sent to bot successfully"}
+
+# Dictionary for SDG labels - Classification
+SDG_LABELS = {
+    "LABEL_1": "No Poverty",
+    "LABEL_2": "Zero Hunger",
+    "LABEL_3": "Good Health and Well-being",
+    "LABEL_4": "Quality Education",
+    "LABEL_5": "Gender Equality",
+    "LABEL_6": "Clean Water and Sanitation",
+    "LABEL_7": "Affordable and Clean Energy",
+    "LABEL_8": "Decent Work and Economic Growth",
+    "LABEL_9": "Industry, Innovation and Infrastructure",
+    "LABEL_10": "Reduced Inequalities",
+    "LABEL_11": "Sustainable Cities and Communities",
+    "LABEL_12": "Responsible Consumption and Production",
+    "LABEL_13": "Climate Action",
+    "LABEL_14": "Life Below Water",
+    "LABEL_15": "Life on Land",
+    "LABEL_16": "Peace, Justice and Strong Institutions",
+    "LABEL_17": "Partnerships for the Goals",
+}
+
+@app.post("/sdg-classification/")
+async def classify_sdg(request : ClassifyRequest):
+    results = classify_text(request.description)  # [('LABEL_2', 0.91), ('LABEL_7', 0.61)]
+
+    readable_results = [
+        {
+            "label": label,
+            "name": SDG_LABELS.get(label, "Unknown"),
+            "confidence": round(score, 3)
+        }
+        for label, score in results
+    ]
+
+    return {
+        "query": request.description,
+        "sdgs": readable_results
+    }
+
+# This should actually be "/search/"
+@app.post("/relevant_patents/")
+async def get_relevant_patents(request : str):
+     
+     return {
+          "message" : "Here are the top 5 patents closest to your description",
+          "relevant_docs": 
+        [
+        {
+            "TITLE": "Method and apparatus for flue-gas cleaning",
+            "DISTANCE": 6.496407508850098,
+            "CLAIMS": "water thus separated, whereby watersoluble substances in the fluegases are separated in said prior separation stage, which prior separation stage 1 is connected to a collecting means 12 for collecting the water fed to the prior",
+          "sdg_result" : "5",
+          "confidence" : "99"
+        },
+        {
+            "TITLE": "METHOD OF MEASURING WATER CONTENT",
+            "DISTANCE": 7.981537342071533,
+            "CLAIMS": "method of measurement of water content of a liquid, in which method the properties of the liquid are measured by a first measurement",
+        }
+        ]
+     }
+    
+
 #####
+
+#### ==============
+## Tryout filter layer + automatic query search
+### ================
+# Will search closest patents from embeddings
+
+import json
+import re
+
+# Funcs
+def find_sdg_v2(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(elem, x)
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_tech_v2(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_author(x, y): 
+        y = y.split(';')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_ipc(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_country(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+@app.post("/search_v2")
+async def search_v2(request: SearchRequest):
+    global input_gen_ai, db_name, api_key, mistral_model, client
+
+    user_query_message = request.query
+
+    # =====
+    # Filter the information for query
+    # =====
+    chatGPTmess = f"""
+Extract the following information from the input text and return a JSON object. 
+If a value is not explicitly found or cannot be inferred with high confidence 
+(e.g., due to low semantic similarity), set its value to null.
+For key "sdg" below, the value must be only integer numbers such as 6, 9023, etc.
+For key "publication_number" below, the value must be only an integer number such as 6, 9023, etc.
+For key "country" below, The value must be only the name of a country (e.g., "France", "Brazil"), and not include abbreviations, country codes, regions, or additional text.
+For key "author" below, The value must be only the names of people or organizations (e.g., "David", "Fraunhofer"), and not include abbreviations or initilas of names or additional text.
+
+Keys to extract: 
+- "sdg"
+- "country"
+- "technology"
+- "author"
+- "publication_number"
+- "ipc"
+
+Input text:
+===
+{user_query_message}
+===
+
+Return the result as a JSON object with null for any missing or uncertain fields.
+"""
+    
+    chat_response = client.chat.complete(
+        model= mistral_model,
+        messages = [
+        {
+            "role": "user",
+            "content": chatGPTmess,
+        }
+        ],
+        temperature= 0.1,
+        max_tokens= 256000,
+        # random_seed= 123,
+        # response_format= { "type": "json_object" }
+    )
+
+    user_query_json = chat_response.choices[0].message.content
+
+    user_query_json = json.loads(user_query_json)
+
+    print(f"returned json object: {user_query_json}")
+
+    print(f"returned json object type: {type(user_query_json)}")
+
+    # ======
+    # Query
+    # ======
+    question_embedding = get_embeddings([user_query_message], tokenizer, model).cpu().detach().numpy()
+    try:
+        with sqlite3.connect(db_name) as conn:
+
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
+
+            conn.create_function('find_related_sdg', 2, find_sdg_v2)
+            conn.create_function('find_related_tech', 2, find_tech_v2)
+            conn.create_function('find_related_author', 2, find_author)
+            conn.create_function('find_related_ipc', 2, find_ipc)
+            conn.create_function('find_related_country', 2, find_country)
+
+            cur = conn.cursor()
+
+            # Get total number of data (rows) in the database
+            sql_cn_meta = f"""
+                SELECT COUNT(*) FROM meta_data_embeddings
+            """
+            res = cur.execute(sql_cn_meta)
+            len_embed_table = res.fetchall()[0][0]
+            
+            # Get all cosine distance of all embeddings compared to the user input
+            query = question_embedding.tolist()
+            q_query_distance = conn.execute(
+              f"""
+              SELECT rowid, vec_distance_cosine(embedding, ?) AS score
+              FROM vec_items
+              ORDER BY score ASC
+              LIMIT {str(len_embed_table)}
+              """,
+            [serialize_float32(query[0])],
+            ).fetchall()
+
+            # Prepare query_list
+            key_func_maps = {
+                "sdg": 'find_related_sdg',
+                "country": 'find_related_country',
+                "technology": 'find_related_tech',
+                "author": 'find_related_author',
+                "publication_number": 'pub_num == ',
+                "ipc": 'find_related_ipc'
+            }
+# meta_table column names:
+# pub_num
+# title
+# claims
+# sdg_labels
+# tech_labels
+# country
+# ipc
+# author
+            key_column_maps= {
+                "sdg": 'sdg_labels',
+                "country": 'country',
+                "technology": 'tech_labels',
+                "author": 'author',
+                "publication_number": 'pub_num',
+                "ipc": 'ipc'
+            }
+
+            
+            query_list_v2 = []
+            for key, value in user_query_json.items():
+                if value != None:
+                    if key != "publication_number":
+                      query_list_v2.append(key_func_maps[key] + f"('{str(value)}', {key_column_maps[key]})")
+                    else:
+                      query_list_v2.append(key_func_maps[key] + f"{str(value)}")
+            print(f"query_list_v2: {query_list_v2}")
+
+            
+            # sdg_id = 6
+            # tech = "Chemical"
+            # query_list = [f"find_related_sdg ('{str(int(sdg_id))}', sdg_labels)", f"find_related_tech ('{tech}', tech_labels)"]
+            # print(f"query_list: {query_list}")
+
+            # Query to meta table
+            meta_query_try = f"""
+                              SELECT
+                                      rowid,
+                                      pub_num,
+                                      sdg_labels
+                              FROM meta_data_embeddings"""
+
+            for idx, value in enumerate(query_list_v2):
+                if idx == 0:
+                    meta_query_try = meta_query_try + f"\nWHERE {value}"
+                else:
+                    meta_query_try = meta_query_try + f"\nOR {value}"
+            # try
+            
+            # Get all patent related to the user queried
+            meta_query = meta_query_try
+
+            meta_data_sdg = cur.execute(meta_query).fetchall()
+            # print(len(meta_data_sdg),
+            #       meta_data_sdg[0:20])
+            
+            # Find the sdg_id related patent in the distance query
+            np_q_query_distance = np.array(q_query_distance)
+            np_meta_data_sdg = np.array(meta_data_sdg)
+
+            res = {}
+            limit_search = 2 # by default
+            if np_meta_data_sdg.size == 0:
+                  print(f"no result for the query information")
+                  print(f"return most relevant docs")
+                  q_dis_sdg = np_q_query_distance[0:limit_search, :]
+
+
+            else:
+                  np_meta_data_sdg_float = np_meta_data_sdg[:,0].astype(float)
+
+                  indices = np.where(np.isin(np_q_query_distance[:,0], np_meta_data_sdg_float))[0]
+
+                  limit_search = np_meta_data_sdg.size
+                  # print(np.shape(np_q_query_distance))
+                  q_dis_sdg = np_q_query_distance[indices[0:limit_search], :]
+                  # print(q_dis_sdg,
+                  #       np.shape(q_dis_sdg))
+                  
+            for idx, elem in enumerate(q_dis_sdg):
+                      # print(f"from q_dis_sdg: {str(q_dis_sdg[idx,0])}")
+                      # print(f"elem: {str(elem)}")
+                      # print(f"elem first: {int(elem[0])}")
+                      # print(f"elem second: {float(elem[1])}")
+                      meta_query = f"""
+                          SELECT
+                                  rowid,
+                                  pub_num,
+                                  sdg_labels,
+                                  title,
+                                  claims,
+                                  tech_labels,
+                                  author,
+                                  country
+                          FROM meta_data_embeddings
+                          WHERE rowid == {int(elem[0])}
+                      """
+
+                      meta_data_sdg_dis = cur.execute(meta_query).fetchall()
+                      # print(meta_data_sdg_dis)
+                      # print(f"\
+                      #       rowid: {meta_data_sdg_dis[0][0]}\n\
+                      #       pub_num: {meta_data_sdg_dis[0][1]}\n\
+                      #       sdg: {meta_data_sdg_dis[0][2]}\n\
+                      #       tech_labels: {meta_data_sdg_dis[0][5]}\n\
+                      #       dist: {float(elem[1])}\n\
+                      #       title: {meta_data_sdg_dis[0][3]}\n\
+                      #       claim: {meta_data_sdg_dis[0][4]}\n\
+                      #       ")
+                      res.update({
+                          int(idx):{
+                                "pub_num": int(meta_data_sdg_dis[0][1]),
+                                "sdg_id": str(meta_data_sdg_dis[0][2]),
+                                "tech_labels": meta_data_sdg_dis[0][5],
+                                "author": meta_data_sdg_dis[0][6],
+                                "country": meta_data_sdg_dis[0][7],
+                                "dist": float(elem[1]),
+                                "title": meta_data_sdg_dis[0][3],
+                                "claim": meta_data_sdg_dis[0][4]
+                          }
+                      })
+    except sqlite3.OperationalError as e:
+        print(e)
+
+    input_gen_ai = {"query": request.query, "relevant_docs": res} 
+    # NOTE:
+    # JSON encoder for returned object: https://fastapi.tiangolo.com/advanced/response-directly/
+    # All of the returned objects MUST be converted to known python standard objects.
+    return input_gen_ai 
+
 
 if __name__ == "__main__":
     import uvicorn
