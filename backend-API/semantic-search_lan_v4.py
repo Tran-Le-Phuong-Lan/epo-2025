@@ -17,6 +17,8 @@ import requests
 
 from fastapi.middleware.cors import CORSMiddleware
 
+import json
+
 #===
 # Supporting Functions
 #===
@@ -504,11 +506,6 @@ async def get_sdg_patent_distribution_by_id(sdg_id : int | None = None):
     global fake_sdg_dg
     return fake_sdg_dg.get(sdg_id)
 
-# For SDG Distribution by country Map - Dashboard
-@app.get("/sdg-by-country/")
-async def get_patents_distribution_by_country():
-
-    return mock_sdg_by_country_db
 
 # For RAG Insights accross all SDGs - Dashboard
 # Here we can set up a function to run RAG insights on all Patents/SDGs once per day/week, since it's a compute heavy process
@@ -839,7 +836,8 @@ technology_data_by_sdg = {
 
 
 # For SDG by ID - General View
-# ✅ in SDG/SDG_ID 
+# TODO - test with postgresql and postman 
+# ⚠️ in SDG/SDG_ID 
 @app.get("/technologies-by-sdg-id/{sdg_id}")
 async def get_technologies_by_sdg_id(sdg_id: str):
     if sdg_id in technology_data_by_sdg:
@@ -1033,19 +1031,213 @@ mockTrendData = {
 async def get_trends(timeframe : str):
     return mockTrendData[timeframe]
 
+##########   Temporaty Missing Endpoints    ##########
+
+# Get technologies by SDG ID. 
+# Using the new IPC classification system, this endpoint retrieves all technologies associated with a specific SDG ID from the database.
+# Needs to be precomputed from the final database
+# TODO : Implement this endpoint to retrieve technologies by SDG ID
+
+import psycopg2
+from datetime import datetime
+# PostgreSQL connection config
+DB_CONFIG = {
+    'dbname': 'mauricio.rodriguez',
+    'user': 'mauricio.rodriguez',
+    'password': '',
+    'host': 'localhost',
+    'port': 5432,
+}
+# Get RAG Insights for all SDG. 
+# This endpoint retrieves the latest insights for all SDG from the database using Postgresql.
+@app.get("/sdg-insights/")
+async def get_top_applicants():
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        # Use DISTINCT ON to get the latest insight per type
+        cursor.execute("""
+            SELECT DISTINCT ON (insight_type)
+                   insight_type,
+                   details,
+                   generated_date
+            FROM sdg_insights
+            ORDER BY insight_type, generated_date DESC;
+        """)
+
+        rows = cursor.fetchall()
+        conn.close()
+
+        # Convert to a list of dictionaries
+        insights = []
+        for idx, (insight_type, details_dict, date) in enumerate(rows):
+            summary = details_dict.get("summary") if isinstance(details_dict, dict) else json.loads(details_dict).get("summary", "")
+            insights.append({
+                "id": str(idx + 1),
+                "type": insight_type,
+                "title": insight_type.replace("_", " ").title(),  # Format: key_insight → Key Insight
+                "content": summary,
+                "icon": (
+                    "Lightbulb" if insight_type == "key_insight" else
+                    "TrendingUp" if insight_type == "emerging_trend" else
+                    "AlertTriangle"
+                ),
+                "generated_date": date
+            })
+
+        return {
+            "message": "Insights retrieved successfully",
+            "insights": insights
+        }
+
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+
+
+# Get RAG Insights by SDG id. 
+# This endpoint retrieves the latest insights for a single SDG from the database using Postgresql.
+@app.get("/sdg-insights/{sdg_id}")
+async def get_insights_by_sdg_id(sdg_id: int):
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT DISTINCT ON (insight_type)
+                   insight_type,
+                   details,
+                   generated_date
+            FROM sdg_insights_by_sdg_id
+            WHERE sdg_number = %s
+            ORDER BY insight_type, generated_date DESC;
+        """, (sdg_id,))
+
+        rows = cursor.fetchall()
+        conn.close()
+
+        insights = []
+        for idx, (insight_type, details_dict, date) in enumerate(rows):
+            details = details_dict if isinstance(details_dict, dict) else json.loads(details_dict)
+            summary = details.get("summary", "")
+            insights.append({
+                "id": str(idx + 1),
+                "type": insight_type,
+                "title": insight_type.replace("_", " ").title(),
+                "content": summary,
+                "icon": (
+                    "Lightbulb" if insight_type == "key_insight" else
+                    "TrendingUp" if insight_type == "emerging_trend" else
+                    "AlertTriangle"
+                ),
+                "generated_date": date
+            })
+
+        if not insights:
+            raise HTTPException(status_code=404, detail="No insights found for this SDG")
+
+        return {
+            "message": f"Insights retrieved for SDG {sdg_id}",
+            "insights": insights
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/sdg-technologies/{sdg_id}/top-technologies")
+def get_top_technologies(sdg_id: int):
+    if not (1 <= sdg_id <= 17):
+        raise HTTPException(status_code=400, detail="SDG ID must be between 1 and 17.")
+
+    conn = psycopg2.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT technology_id, technology_name, count, growth
+        FROM sdg_top_technologies
+        WHERE sdg_number = %s
+        ORDER BY count DESC, technology_name ASC
+        LIMIT 6;
+    """, (sdg_id,))
+
+    rows = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
+    return {
+        "sdg_id": sdg_id,
+        "technologies": [
+            {
+                "id": row[0],
+                "name": row[1],
+                "count": row[2],
+                "growth": row[3]
+            } for row in rows
+        ]
+    }
+
+# Get Patents by country
+# Retrieve statistics for patents by country. Mock data is used here coming from the sdg_by_country table
+# For SDG Distribution by country Map - Dashboard
+@app.get("/sdg-by-country/")
+async def get_patents_distribution_by_country():
+
+    return mock_sdg_by_country_db
+
+# Get Top Applicants
+# Retrieve statistics for top applicants. Mock data is used here coming from the sdg_top_applicants table
+@app.get("/top-applicants/")
+async def get_top_applicants():
+    return {"top_applicants": "tops applicants data"}
+
+
 
 ##########    New Chatbot Endpoint    ##########
+### NEW RAG ENDPOINT MOCKUP
 @app.post("/send-message-bot/")
 async def send_message_bot(request : ClassifyRequest):
     return {"answer" : "Message from backend sent to bot successfully"}
 
+# Dictionary for SDG labels - Classification
+SDG_LABELS = {
+    "LABEL_1": "No Poverty",
+    "LABEL_2": "Zero Hunger",
+    "LABEL_3": "Good Health and Well-being",
+    "LABEL_4": "Quality Education",
+    "LABEL_5": "Gender Equality",
+    "LABEL_6": "Clean Water and Sanitation",
+    "LABEL_7": "Affordable and Clean Energy",
+    "LABEL_8": "Decent Work and Economic Growth",
+    "LABEL_9": "Industry, Innovation and Infrastructure",
+    "LABEL_10": "Reduced Inequalities",
+    "LABEL_11": "Sustainable Cities and Communities",
+    "LABEL_12": "Responsible Consumption and Production",
+    "LABEL_13": "Climate Action",
+    "LABEL_14": "Life Below Water",
+    "LABEL_15": "Life on Land",
+    "LABEL_16": "Peace, Justice and Strong Institutions",
+    "LABEL_17": "Partnerships for the Goals",
+}
+
 @app.post("/sdg-classification/")
 async def classify_sdg(request : ClassifyRequest):
-     results = classify_text(request.description)
-     return {
-          "results" : str(results)
-          # "[('LABEL_2', 0.9185042977333069), ('LABEL_7', 0.6150209307670593)]"
-     }
+    results = classify_text(request.description)  # [('LABEL_2', 0.91), ('LABEL_7', 0.61)]
+
+    readable_results = [
+        {
+            "label": label,
+            "name": SDG_LABELS.get(label, "Unknown"),
+            "confidence": round(score, 3)
+        }
+        for label, score in results
+    ]
+
+    return {
+        "query": request.description,
+        "sdgs": readable_results
+    }
 
 # This should actually be "/search/"
 @app.post("/relevant_patents/")
