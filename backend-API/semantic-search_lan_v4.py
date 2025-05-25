@@ -38,6 +38,7 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 # os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cert.pem"
+
 device = torch.device("cpu")
 
 #===
