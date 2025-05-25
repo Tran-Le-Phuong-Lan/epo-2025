@@ -36,7 +36,7 @@ def get_embeddings(text_list, imp_tokenizer, imp_model):
 #===
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
-os.environ["SSL_CERT_FILE"] = "/home/tlplan/miniconda3/envs/workspace_01/ssl/cert.pem"
+os.environ["SSL_CERT_FILE"] = "C:/Users/20245580/AppData/Local/anaconda3/envs/workspace_1/Library/ssl/cert.pem"
 
 device = torch.device("cpu")
 
@@ -71,7 +71,7 @@ tokenizer = None
 input_gen_ai = None
 
 
-db_name = '/home/tlplan/Downloads/embed_trial.db' #'/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/shared_data/epo_data/embed_trial.db'
+db_name = 'C:/Users/20245580/Documents/Others/EPO2025/epo_data/embed_final.db'
 
 client = None
 api_key = "T0sAC36z31CWIsTmUjU8dFN03XXf7OiI" # (Lan) free api key for free MISTRAL AI Model
@@ -89,7 +89,7 @@ def load_resources():
     #====
     token_ckpt = "sadickam/sdg-classification-bert"
 
-    model_ckpt = "/home/tlplan/workspace/EPO_2025/EPO-CodeFest-2025/current_batch" 
+    model_ckpt = "C:/Users/20245580/Documents/Others/EPO2025/EPO-CodeFest-2025/current_batch" 
 
     tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
     model = AutoModel.from_pretrained(model_ckpt)
@@ -1084,6 +1084,322 @@ async def get_relevant_patents(request : str):
     
 
 #####
+
+#### ==============
+## Tryout filter layer + automatic query search
+### ================
+# Will search closest patents from embeddings
+
+import json
+import re
+
+# Funcs
+def find_sdg_v2(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(elem, x)
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_tech_v2(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_author(x, y): 
+        y = y.split(';')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_ipc(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+def find_country(x, y): 
+        y = y.split(',')
+        # print(y)
+        for idx, elem in enumerate(y):
+                # print(f"y: {y}")
+                # print(f"elem {elem}, x {x}")
+                # print(type(x), type(elem))
+                matches = re.findall(r'\b' + x + r'\b', elem)
+                if len(matches) != 0:
+                        # print("find")
+                        return 1
+        # print("not find")
+        return 0
+
+@app.post("/search_v2")
+async def search_v2(request: SearchRequest):
+    global input_gen_ai, db_name, api_key, mistral_model, client
+
+    user_query_message = request.query
+
+    # =====
+    # Filter the information for query
+    # =====
+    chatGPTmess = f"""
+Extract the following information from the input text and return a JSON object. 
+If a value is not explicitly found or cannot be inferred with high confidence 
+(e.g., due to low semantic similarity), set its value to null.
+For key "sdg" below, the value must be only integer numbers such as 6, 9023, etc.
+For key "publication_number" below, the value must be only an integer number such as 6, 9023, etc.
+For key "country" below, The value must be only the name of a country (e.g., "France", "Brazil"), and not include abbreviations, country codes, regions, or additional text.
+For key "author" below, The value must be only the names of people or organizations (e.g., "David", "Fraunhofer"), and not include abbreviations or initilas of names or additional text.
+
+Keys to extract: 
+- "sdg"
+- "country"
+- "technology"
+- "author"
+- "publication_number"
+- "ipc"
+
+Input text:
+===
+{user_query_message}
+===
+
+Return the result as a JSON object with null for any missing or uncertain fields.
+"""
+    
+    chat_response = client.chat.complete(
+        model= mistral_model,
+        messages = [
+        {
+            "role": "user",
+            "content": chatGPTmess,
+        }
+        ],
+        temperature= 0.1,
+        max_tokens= 256000,
+        # random_seed= 123,
+        # response_format= { "type": "json_object" }
+    )
+
+    user_query_json = chat_response.choices[0].message.content
+
+    user_query_json = json.loads(user_query_json)
+
+    print(f"returned json object: {user_query_json}")
+
+    print(f"returned json object type: {type(user_query_json)}")
+
+    # ======
+    # Query
+    # ======
+    question_embedding = get_embeddings([user_query_message], tokenizer, model).cpu().detach().numpy()
+    try:
+        with sqlite3.connect(db_name) as conn:
+
+            # load the `sqlite-vec` extention into the connected db
+            ## NOTE:
+            ## must load the `sqlite-vec` extention everytime connect to the db, 
+            ## in order to use the vec table created using extension `sqlte-vec` and `sqlite-vec` functions
+            conn.enable_load_extension(True) # start loading extensions
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(True) # end loading extensions
+
+            conn.create_function('find_related_sdg', 2, find_sdg_v2)
+            conn.create_function('find_related_tech', 2, find_tech_v2)
+            conn.create_function('find_related_author', 2, find_author)
+            conn.create_function('find_related_ipc', 2, find_ipc)
+            conn.create_function('find_related_country', 2, find_country)
+
+            cur = conn.cursor()
+
+            # Get total number of data (rows) in the database
+            sql_cn_meta = f"""
+                SELECT COUNT(*) FROM meta_data_embeddings
+            """
+            res = cur.execute(sql_cn_meta)
+            len_embed_table = res.fetchall()[0][0]
+            
+            # Get all cosine distance of all embeddings compared to the user input
+            query = question_embedding.tolist()
+            q_query_distance = conn.execute(
+              f"""
+              SELECT rowid, vec_distance_cosine(embedding, ?) AS score
+              FROM vec_items
+              ORDER BY score ASC
+              LIMIT {str(len_embed_table)}
+              """,
+            [serialize_float32(query[0])],
+            ).fetchall()
+
+            # Prepare query_list
+            key_func_maps = {
+                "sdg": 'find_related_sdg',
+                "country": 'find_related_country',
+                "technology": 'find_related_tech',
+                "author": 'find_related_author',
+                "publication_number": 'pub_num == ',
+                "ipc": 'find_related_ipc'
+            }
+# meta_table column names:
+# pub_num
+# title
+# claims
+# sdg_labels
+# tech_labels
+# country
+# ipc
+# author
+            key_column_maps= {
+                "sdg": 'sdg_labels',
+                "country": 'country',
+                "technology": 'tech_labels',
+                "author": 'author',
+                "publication_number": 'pub_num',
+                "ipc": 'ipc'
+            }
+
+            
+            query_list_v2 = []
+            for key, value in user_query_json.items():
+                if value != None:
+                    if key != "publication_number":
+                      query_list_v2.append(key_func_maps[key] + f"('{str(value)}', {key_column_maps[key]})")
+                    else:
+                      query_list_v2.append(key_func_maps[key] + f"{str(value)}")
+            print(f"query_list_v2: {query_list_v2}")
+
+            
+            # sdg_id = 6
+            # tech = "Chemical"
+            # query_list = [f"find_related_sdg ('{str(int(sdg_id))}', sdg_labels)", f"find_related_tech ('{tech}', tech_labels)"]
+            # print(f"query_list: {query_list}")
+
+            # Query to meta table
+            meta_query_try = f"""
+                              SELECT
+                                      rowid,
+                                      pub_num,
+                                      sdg_labels
+                              FROM meta_data_embeddings"""
+
+            for idx, value in enumerate(query_list_v2):
+                if idx == 0:
+                    meta_query_try = meta_query_try + f"\nWHERE {value}"
+                else:
+                    meta_query_try = meta_query_try + f"\nOR {value}"
+            # try
+            
+            # Get all patent related to the user queried
+            meta_query = meta_query_try
+
+            meta_data_sdg = cur.execute(meta_query).fetchall()
+            # print(len(meta_data_sdg),
+            #       meta_data_sdg[0:20])
+            
+            # Find the sdg_id related patent in the distance query
+            np_q_query_distance = np.array(q_query_distance)
+            np_meta_data_sdg = np.array(meta_data_sdg)
+
+            res = {}
+            limit_search = 2 # by default
+            if np_meta_data_sdg.size == 0:
+                  print(f"no result for the query information")
+                  print(f"return most relevant docs")
+                  q_dis_sdg = np_q_query_distance[0:limit_search, :]
+
+
+            else:
+                  np_meta_data_sdg_float = np_meta_data_sdg[:,0].astype(float)
+
+                  indices = np.where(np.isin(np_q_query_distance[:,0], np_meta_data_sdg_float))[0]
+
+                  limit_search = np_meta_data_sdg.size
+                  # print(np.shape(np_q_query_distance))
+                  q_dis_sdg = np_q_query_distance[indices[0:limit_search], :]
+                  # print(q_dis_sdg,
+                  #       np.shape(q_dis_sdg))
+                  
+            for idx, elem in enumerate(q_dis_sdg):
+                      # print(f"from q_dis_sdg: {str(q_dis_sdg[idx,0])}")
+                      # print(f"elem: {str(elem)}")
+                      # print(f"elem first: {int(elem[0])}")
+                      # print(f"elem second: {float(elem[1])}")
+                      meta_query = f"""
+                          SELECT
+                                  rowid,
+                                  pub_num,
+                                  sdg_labels,
+                                  title,
+                                  claims,
+                                  tech_labels,
+                                  author,
+                                  country
+                          FROM meta_data_embeddings
+                          WHERE rowid == {int(elem[0])}
+                      """
+
+                      meta_data_sdg_dis = cur.execute(meta_query).fetchall()
+                      # print(meta_data_sdg_dis)
+                      # print(f"\
+                      #       rowid: {meta_data_sdg_dis[0][0]}\n\
+                      #       pub_num: {meta_data_sdg_dis[0][1]}\n\
+                      #       sdg: {meta_data_sdg_dis[0][2]}\n\
+                      #       tech_labels: {meta_data_sdg_dis[0][5]}\n\
+                      #       dist: {float(elem[1])}\n\
+                      #       title: {meta_data_sdg_dis[0][3]}\n\
+                      #       claim: {meta_data_sdg_dis[0][4]}\n\
+                      #       ")
+                      res.update({
+                          int(idx):{
+                                "pub_num": int(meta_data_sdg_dis[0][1]),
+                                "sdg_id": str(meta_data_sdg_dis[0][2]),
+                                "tech_labels": meta_data_sdg_dis[0][5],
+                                "author": meta_data_sdg_dis[0][6],
+                                "country": meta_data_sdg_dis[0][7],
+                                "dist": float(elem[1]),
+                                "title": meta_data_sdg_dis[0][3],
+                                "claim": meta_data_sdg_dis[0][4]
+                          }
+                      })
+    except sqlite3.OperationalError as e:
+        print(e)
+
+    input_gen_ai = {"query": request.query, "relevant_docs": res} 
+    # NOTE:
+    # JSON encoder for returned object: https://fastapi.tiangolo.com/advanced/response-directly/
+    # All of the returned objects MUST be converted to known python standard objects.
+    return input_gen_ai 
+
 
 if __name__ == "__main__":
     import uvicorn
