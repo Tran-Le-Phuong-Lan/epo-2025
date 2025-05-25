@@ -106,7 +106,9 @@ Before running, must modify the path variabls in `semantic-search_lan_v3.py`:
 
 ## SQLite database
 
-2. the `sqlite` database is [semi_final_epo_database_link](https://drive.google.com/file/d/14ZN8XBcyK8DaiwXS-fMcZeHdypEnmL7t/view?usp=drive_link)
+2.1 the `sqlite` database is [semi_final_epo_database_link (based on full_dataset.csv)](https://drive.google.com/file/d/14ZN8XBcyK8DaiwXS-fMcZeHdypEnmL7t/view?usp=drive_link)
+
+2.2 the `sqlite` database is [final_epo_database_link (based on full_dataset_v2.csv)](https://drive.google.com/file/d/17aWLIA9bTOXCxxLMiN-kWTQ0iVtrDXCb/view?usp=drive_link)
 
 ## Download models for local usage
 
