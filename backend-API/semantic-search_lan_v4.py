@@ -64,6 +64,10 @@ class SearchRequest(BaseModel):
 class ClassifyRequest(BaseModel):
      description : str
 
+# Also used for answer generatio on the bot
+class EmbeddingRequest(BaseModel):
+     query_to_embed : str
+
 
 
 # Global variables
@@ -752,97 +756,22 @@ async def get_sdg_rag_insight_by_id(sdg_id : int | None = None):
               },
             ]
 
+##########    Embed enpoint for RAG bot    ##########
+
+@app.post("/embed-query/")
+def embed_and_return_query(payload: EmbeddingRequest):
+    question = payload.query_to_embed
+
+    # Step 1: Embed the query
+    question_embedding = get_embeddings([question], tokenizer, model).cpu().detach().numpy()
+
+    # Step 2: Convert to list
+
+    # Step 3: Return
+
+    return { "Query embedded": question_embedding.tolist() }
 
 ##########    SDG    ##########
-
-# ⚠️ The following data must be pre-computed from the final database
-technology_data_by_sdg = {
-    "1": [
-        {"id": "Microfinance Platforms", "name": "BEMicrofinance Platforms", "count": 64, "growth": 12},
-        {"id": "Affordable Housing", "name": "BEAffordable Housing", "count": 83, "growth": 9},
-    ],
-    "2": [
-        {"id": "Precision Agriculture", "name": "BEPrecision Agriculture", "count": 148, "growth": 27},
-        {"id": "Crop Yield Optimization", "name": "BECrop Yield Optimization", "count": 132, "growth": 22},
-    ],
-    "3": [
-        {"id": "Medical Diagnostics", "name": "BEMedical Diagnostics", "count": 174, "growth": 35},
-        {"id": "Vaccine Technologies", "name": "BEVaccine Technologies", "count": 142, "growth": 28},
-    ],
-    "4": [
-        {"id": "Remote Learning Platforms", "name": "BERemote Learning Platforms", "count": 96, "growth": 21},
-        {"id": "EdTech Tools", "name": "BEEdTech Tools", "count": 110, "growth": 18},
-    ],
-    "5": [
-        {"id": "Women’s Health", "name": "BEWomen’s Health", "count": 89, "growth": 17},
-        {"id": "Gender Safety Tech", "name": "BEGender Safety Tech", "count": 64, "growth": 12},
-    ],
-    "6": [
-        {"id": "Water Filtration", "name": "BEWater Filtration", "count": 134, "growth": 19},
-        {"id": "Desalination", "name": "BEDesalination", "count": 112, "growth": 22},
-        {"id": "Water Monitoring", "name": "BEWater Monitoring", "count": 98, "growth": 17},
-        {"id": "Wastewater Treatment", "name": "BEWastewater Treatment", "count": 124, "growth": 15},
-    ],
-    "7": [
-        {"id": "Solar Photovoltaics", "name": "BESolar Photovoltaics", "count": 156, "growth": 24},
-        {"id": "Wind Energy", "name": "BEWind Energy", "count": 142, "growth": 18},
-        {"id": "Energy Storage", "name": "BEEnergy Storage", "count": 124, "growth": 32},
-        {"id": "Smart Grid", "name": "BESmart Grid", "count": 98, "growth": 15},
-        {"id": "Hydrogen Production", "name": "BEHydrogen Production", "count": 87, "growth": 28},
-    ],
-    "8": [
-        {"id": "Workplace Automation", "name": "BEWorkplace Automation", "count": 101, "growth": 19},
-        {"id": "Sustainable Business Models", "name": "BESustainable Business Models", "count": 84, "growth": 16},
-    ],
-    "9": [
-        {"id": "Smart Manufacturing", "name": "BESmart Manufacturing", "count": 128, "growth": 26},
-        {"id": "Industrial IoT", "name": "BEIndustrial IoT", "count": 147, "growth": 23},
-    ],
-    "10": [
-        {"id": "Accessibility Tech", "name": "BEAccessibility Tech", "count": 73, "growth": 14},
-        {"id": "Financial Inclusion", "name": "BEFinancial Inclusion", "count": 92, "growth": 19},
-    ],
-    "11": [
-        {"id": "Smart Cities", "name": "BESmart Cities", "count": 106, "growth": 21},
-        {"id": "Urban Mobility", "name": "BEUrban Mobility", "count": 89, "growth": 18},
-    ],
-    "12": [
-        {"id": "Recycling Technologies", "name": "BERecycling Technologies", "count": 112, "growth": 20},
-        {"id": "Circular Economy Solutions", "name": "BECircular Economy Solutions", "count": 97, "growth": 15},
-    ],
-    "13": [
-        {"id": "Carbon Capture", "name": "BECarbon Capture", "count": 118, "growth": 42},
-        {"id": "Climate Modeling", "name": "BEClimate Modeling", "count": 87, "growth": 23},
-        {"id": "Emissions Reduction", "name": "BEEmissions Reduction", "count": 132, "growth": 31},
-        {"id": "Climate Adaptation", "name": "BEClimate Adaptation", "count": 76, "growth": 19},
-    ],
-    "14": [
-        {"id": "Marine Monitoring", "name": "BEMarine Monitoring", "count": 83, "growth": 16},
-        {"id": "Sustainable Fishing", "name": "BESustainable Fishing", "count": 69, "growth": 14},
-    ],
-    "15": [
-        {"id": "Biodiversity Sensors", "name": "BEBiodiversity Sensors", "count": 94, "growth": 17},
-        {"id": "Reforestation Drones", "name": "BEReforestation Drones", "count": 77, "growth": 20},
-    ],
-    "16": [
-        {"id": "Blockchain for Governance", "name": "BEBlockchain for Governance", "count": 65, "growth": 13},
-        {"id": "Secure Voting Tech", "name": "BESecure Voting Tech", "count": 58, "growth": 11},
-    ],
-    "17": [
-        {"id": "Collaboration Platforms", "name": "BECollaboration Platforms", "count": 91, "growth": 15},
-        {"id": "Data Sharing Frameworks", "name": "BEData Sharing Frameworks", "count": 74, "growth": 12},
-    ],
-}
-
-
-# For SDG by ID - General View
-# TODO - test with postgresql and postman 
-# ⚠️ in SDG/SDG_ID 
-@app.get("/technologies-by-sdg-id/{sdg_id}")
-async def get_technologies_by_sdg_id(sdg_id: str):
-    if sdg_id in technology_data_by_sdg:
-        return technology_data_by_sdg[sdg_id]
-    raise HTTPException(status_code=404, detail="No data found for the given SDG ID")
 
 # For SDG by ID and technologies 
 # Get all technologies for a selected SDG
