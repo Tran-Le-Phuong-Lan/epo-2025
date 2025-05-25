@@ -89,13 +89,7 @@ def load_resources():
 
     device = "cpu"
     
-    #====
-    #  Load model for embeddings
-    #====
-    token_ckpt = "sadickam/sdg-classification-bert"
-    model_ckpt = "./current_batch" 
-    tokenizer = AutoTokenizer.from_pretrained(token_ckpt)
-    model = AutoModel.from_pretrained(model_ckpt)
+   
 
     #===
     # Load model for gen ai
@@ -108,6 +102,15 @@ def load_resources():
     classify_MODEL_DIR = "./sdg_Classification_v1/single_dense"
     classify_tokenizer = AutoTokenizer.from_pretrained(classify_MODEL_DIR)
     classify_model = AutoModelForSequenceClassification.from_pretrained(classify_MODEL_DIR)
+
+    #====
+    #  Load model for embeddings
+    #====    
+    global embed_token_ckpt, embed_model_ckpt, embed_classify_tokenizer, embed_classify_model   
+    embed_token_ckpt = "anferico/bert-for-patents"
+    embed_model_ckpt = "./sdg_Classification_v1/single_dense"
+    embed_classify_tokenizer = AutoTokenizer.from_pretrained(embed_token_ckpt)
+    embed_classify_model = AutoModel.from_pretrained(embed_model_ckpt)
 
 def classify_text(text, threshold=0.3, max_length=512):
     inputs = classify_tokenizer(
@@ -764,7 +767,7 @@ def embed_and_return_query(payload: EmbeddingRequest):
     question = payload.query_to_embed
 
     # Step 1: Embed the query
-    question_embedding = get_embeddings([question], tokenizer, model).cpu().detach().numpy()
+    question_embedding = get_embeddings([question], embed_classify_tokenizer, embed_classify_model).cpu().detach().numpy()
 
     # Step 2: Convert to list
 
