@@ -112,6 +112,13 @@ def load_resources():
     embed_classify_tokenizer = AutoTokenizer.from_pretrained(embed_token_ckpt)
     embed_classify_model = AutoModel.from_pretrained(embed_model_ckpt)
 
+    #====
+    #  Load transformer model for embeddings
+    #====    
+    global transformer_model
+    transformer_model = SentenceTransformer(embed_model_ckpt)
+
+
 def classify_text(text, threshold=0.3, max_length=512):
     inputs = classify_tokenizer(
         text, return_tensors="pt", truncation=True, padding=True, max_length=max_length
@@ -774,6 +781,21 @@ def embed_and_return_query(payload: EmbeddingRequest):
     # Step 3: Return
 
     return { "Query embedded": question_embedding.tolist() }
+
+from sentence_transformers import SentenceTransformer
+
+@app.post("/embed-query-w-sentence-transformers/")
+def embed_and_return_query(payload: EmbeddingRequest):
+    question = payload.query_to_embed
+
+    # Step 1: Embed the query
+    embedding = transformer_model.encode(question)
+
+    # Step 2: Convert to list
+
+    # Step 3: Return
+
+    return { "Query embedded": embedding.tolist() }
 
 ##########    SDG    ##########
 
