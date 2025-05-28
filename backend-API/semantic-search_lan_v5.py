@@ -184,7 +184,7 @@ def embed_and_return_query(payload: EmbeddingRequest):
 
     # Step 3: Return
 
-    return { "Query embedded": question_embedding.tolist() }
+    return { "query_embedded": question_embedding.tolist() }
 
 from sentence_transformers import SentenceTransformer
 
@@ -199,7 +199,7 @@ def embed_and_return_query(payload: EmbeddingRequest):
 
     # Step 3: Return
 
-    return { "Query embedded": embedding.tolist() }
+    return { "query_embedded": embedding.tolist() }
 
 
 
